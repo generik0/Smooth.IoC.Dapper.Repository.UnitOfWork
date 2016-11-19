@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
@@ -8,7 +9,8 @@ using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk> where TEntity : class
+    public abstract partial class Repository<TSession, TEntity, TPk>
+        where TEntity : class, ITEntity<TPk>
         where TSession : ISession
     {
         public IEnumerable<TEntity> GetAll(IUnitOfWork<TSession> unitOfWork = null)
@@ -18,19 +20,26 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork<TSession> unitOfWork = null)
         {
-            return await _GetAllAsync(unitOfWork);
-        }
-        
-        protected async Task<IEnumerable<TEntity>> _GetAllAsync(IDbConnection connection = null)
-        {
-            if (connection != null)
+            if (unitOfWork != null)
             {
-                return await connection.FindAsync<TEntity>();
+                return await unitOfWork.FindAsync<TEntity>();
             }
             using (var uow = Factory.Create<IUnitOfWork<ISession>>())
             {
                 return await uow.FindAsync<TEntity>();
             }
         }
+        protected async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection connection, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
+        {
+            if (connection != null)
+            {
+                return await connection.FindAsync(statement);
+            }
+            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
+            {
+                return await uow.FindAsync(statement);
+            }
+        }
+
     }
 }
