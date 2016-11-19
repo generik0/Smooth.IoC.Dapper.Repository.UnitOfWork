@@ -27,8 +27,10 @@
       "frameworkAssemblies": {
         "System.ComponentModel.DataAnnotations": "",
         "System.Data": ""
+
       },
       "dependencies": {
+        "System.Data.SQLite.Core": "1.0.103",
       }
     },
     "net461": {
@@ -40,6 +42,7 @@
         "System.Data": ""
       },
       "dependencies": {
+        "System.Data.SQLite.Core": "1.0.103",
       }
     },
     "netstandard1.6": {
@@ -47,7 +50,7 @@
         "define": [ "COREFX" ]
       },
       "dependencies": {
-        "System.ComponentModel.Annotations": "4.1.0",
+        "System.ComponentModel.Annotations": "4.1.0"
       }
     }
   },
@@ -66,5 +69,6 @@
     "System.ComponentModel.TypeConverter": "4.1.0",
     "Dapper": "1.50.2",
     "System.Data.Common": "4.3.0",
+    "MySql.Data": "7.0.6-IR31",
   }
 }

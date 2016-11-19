@@ -1,4 +1,5 @@
 ﻿using Dapper.FastCrud;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
@@ -9,7 +10,8 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 
     public class TestSession : Session, ITestSession
     {
-        public TestSession() : base(null, SqlDialect.SqLite,"")
+        public TestSession(IConfigurationContainer configurationExpert) : base(null, SqlDialect.SqLite,
+            configurationExpert.GetConnectionString("ConnectionSettings.json", "DefaultConnection"))
         {
         }
     }

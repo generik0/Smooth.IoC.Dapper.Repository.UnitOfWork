@@ -5,12 +5,12 @@ using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
 {
     [TestFixture]
-    public class ConfigurationExpertTests : AssertionHelper
+    public class ConfigurationContainerTests : AssertionHelper
     {
         [Test]
         public static void GetConnectionString_Returns_ConnectionStrings()
         {
-            var target = new ConfigurationExpert();
+            var target = new ConfigurationContainer();
             var path = $@"{TestContext.CurrentContext.TestDirectory}\ConnectionSettings.json";
             Assert.That(File.Exists(path), Is.True);
             var result=  target.GetConnectionString(path, "DefaultConnection");

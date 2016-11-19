@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using Dapper.FastCrud;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Connection
@@ -8,16 +12,18 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Connection
     {
         private readonly ISessionFactory _sessionFactory;
         private readonly SqlDialect _sqlDialect;
+        private readonly string _connectionString;
         private bool _disposed;
         public string _getIdentitySql { get; private set; }
 
-        public Session(ISessionFactory sessionFactory, SqlDialect sqlDialect, string connectionSettingsPath )
+        public Session(ISessionFactory sessionFactory, SqlDialect sqlDialect, string connectionString )
         {
             _sessionFactory = sessionFactory;
             _sqlDialect = sqlDialect;
+            _connectionString = connectionString;
         }
 
-        public IDbConnection Connection { get; }
+        public IDbConnection Connection { get; private set; }
 
         public ISession Connect()
         {
@@ -29,9 +35,12 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Connection
             {
                 case SqlDialect.MsSql:
                     _getIdentitySql = "SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]";
+                    Connection = new SqlConnection(_connectionString);
+                    Connection.Open();
                     break;
                 case SqlDialect.MySql:
                     _getIdentitySql = "SELECT LAST_INSERT_ID() AS id";
+
                     break;
                 case SqlDialect.SqLite:
                     _getIdentitySql = "SELECT LAST_INSERT_ROWID() AS id";
