@@ -49,7 +49,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
 
             try
             {
-                DisposeAndReleaseSession();
+                Session?.Dispose();
                 TryCommitCatchRollbackFinallyDisposeTransaction();
             }
             finally
@@ -79,12 +79,5 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
             }
         }
 
-        private void DisposeAndReleaseSession()
-        {
-            if (Session == null) return;
-            Session.Dispose();
-            _sessionFactory.Release(Session);
-            Session = null;
-        }
     }
 }

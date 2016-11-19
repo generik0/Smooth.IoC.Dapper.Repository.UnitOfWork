@@ -1,9 +1,23 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using Dapper.FastCrud;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection
 {
     public class Session : ISession
     {
+        private readonly ISessionFactory _sessionFactory;
+        private readonly SqlDialect _sqlDialect;
+        private bool _disposed;
+        public string _getIdentitySql { get; private set; }
+
+        public Session(ISessionFactory sessionFactory, SqlDialect sqlDialect, string connectionSettingsPath )
+        {
+            _sessionFactory = sessionFactory;
+            _sqlDialect = sqlDialect;
+        }
+
         public IDbConnection Connection { get; }
 
         public ISession Connect()
@@ -12,13 +26,65 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection
             {
                 return this;
             }
+            switch (_sqlDialect)
+            {
+                case SqlDialect.MsSql:
+                    _getIdentitySql = "SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]";
+                    break;
+                case SqlDialect.MySql:
+                    _getIdentitySql = "SELECT LAST_INSERT_ID() AS id";
+                    break;
+                case SqlDialect.SqLite:
+                    _getIdentitySql = "SELECT LAST_INSERT_ROWID() AS id";
+                    break;
+                case SqlDialect.PostgreSql:
+                    _getIdentitySql = "SELECT LASTVAL() AS id";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return this;
         }
+
+        public void GetConfiguration()
+        {
+            //var configurationBuilder =
+            //new ConfigurationBuilder();
+            //configurationBuilder
+            //    .AddInMemoryCollection(DefaultConfigurationStrings).
+            //    .AddJsonFile("Config.json",
+            //        true);
+        }
+
+        public IEnumerable<KeyValuePair<string, string>> DefaultConfigurationStrings { get; set; }
+
+
+        ~Session()
+        {
+            Dispose(false);
+        }
+
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
-        
+
+        private void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+            _disposed = true;
+            if (!disposing) return;
+
+            try
+            {
+                Connection?.Dispose();
+            }
+            finally
+            {
+                _sessionFactory.Release(this);
+            }
+        }
     }
 }
