@@ -8,7 +8,19 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
         protected ISession Session;
         protected IDbTransaction Transaction;
 
+        public void Commit()
+        {
+            Transaction?.Commit();
+        }
+
+        public void Rollback()
+        {
+            Transaction?.Rollback();
+        }
+
         public IDbConnection Connection => Session?.Connection;
+        public IsolationLevel IsolationLevel { get; }
+
         public IDbTransaction BeginTransaction()
         {
             return BeginTransaction(IsolationLevel.Serializable);
@@ -48,5 +60,6 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
         public int ConnectionTimeout => Session?.Connection?.ConnectionTimeout ?? 0;
         public string Database => Session?.Connection?.Database;
         public ConnectionState State => Session?.Connection?.State ?? ConnectionState.Closed;
+
     }
 }

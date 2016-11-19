@@ -4,9 +4,9 @@ using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
 {
-    public interface IUnitOfWork<TSession> : IDbConnection, IDisposable where TSession : ISession
+    public interface IUnitOfWork<TSession> : IDbConnection, IDbTransaction where TSession : ISession
     {
-        IDbConnection Connection { get; };
+        IDbConnection Connection { get; }
         IDbTransaction BeginTransaction();
         IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
     }
