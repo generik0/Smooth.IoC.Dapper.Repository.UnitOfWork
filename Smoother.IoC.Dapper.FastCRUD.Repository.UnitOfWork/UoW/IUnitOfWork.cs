@@ -1,9 +1,13 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork<TSession> : IDbConnection, IDisposable where TSession : ISession
     {
-        IDbConnection CreateSession<TSession>();
+        IDbConnection Connection { get; };
+        IDbTransaction BeginTransaction();
+        IDbTransaction BeginTransaction(IsolationLevel isolationLevel);
     }
 }
