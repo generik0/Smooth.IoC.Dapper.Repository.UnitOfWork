@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "title": "Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork",
   "authors": [ "Rik Svendsen Rose" ],
@@ -70,6 +70,7 @@
     "xmlDoc": true
   },
   "dependencies": {
+    "Dapper.Contrib": "1.50.0",
     "Dapper.FastCrud": "2.4.1",
     "System.ComponentModel.Annotations": "4.3.0",
     "System.ComponentModel.TypeConverter": "4.3.0"
