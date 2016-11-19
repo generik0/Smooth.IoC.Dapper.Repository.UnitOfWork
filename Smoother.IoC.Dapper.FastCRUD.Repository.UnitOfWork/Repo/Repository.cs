@@ -1,44 +1,44 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
+using Dapper.FastCrud.Configuration.StatementOptions.Builders;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Helpers;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk> 
+    public abstract partial class Repository<TSession, TEntity, TPk> : RepositoryBase<TSession>, IRepository<TSession, TEntity, TPk>
         where TEntity : class
         where TSession : ISession
     {
-        private readonly IUnitOfWorkFactory<TSession> _factory;
+        protected Repository(IUnitOfWorkFactory<TSession> factory) : base(factory){}
 
-        protected Repository(IUnitOfWorkFactory<TSession> factory)
+        protected async Task<TEntity> GetAsync(IDbConnection connection, TEntity keys, Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statement)
         {
-            _factory = factory;
-        }
-
-        public TEntity Get(TPk key, IUnitOfWork<TSession> unitOfWork=null)
-        {
-            return GetAsync(key, unitOfWork).Result;
-        }
-
-        public async Task<TEntity> GetAsync(TPk key, IUnitOfWork<TSession> unitOfWork = null)
-        {
-            if (unitOfWork != null)
+            if (connection != null)
             {
-                return await _GetAsync(key, unitOfWork);
+                return await connection.GetAsync(keys, statement);
             }
-            using (var uow = _factory.Create<IUnitOfWork<ISession>>())
+            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
             {
-                return await _GetAsync(key, uow);
+                return await uow.GetAsync(keys, statement);
             }
         }
 
-        protected async Task<TEntity> _GetAsync(TPk key, IDbConnection connection)
+        protected async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection connection, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
         {
-            return await connection.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
+            if (connection != null)
+            {
+                return await connection.FindAsync(statement);
+            }
+            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
+            {
+                return await uow.FindAsync(statement);
+            }
         }
-
     }
+
+    
 }
