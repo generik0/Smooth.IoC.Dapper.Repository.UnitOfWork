@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
 
@@ -29,7 +28,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
             }
             _getIdentitySql = "SELECT LAST_INSERT_ROWID() AS id";
             Connection = new SQLiteConnection(_connectionString);
-            Connection.Open();
+            Connection?.Open();
             return this;
         }
 
