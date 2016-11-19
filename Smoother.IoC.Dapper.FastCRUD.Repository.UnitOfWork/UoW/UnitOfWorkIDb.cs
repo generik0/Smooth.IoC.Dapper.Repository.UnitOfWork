@@ -18,7 +18,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
             Transaction?.Rollback();
         }
 
-        public IDbConnection Connection => Session?.Connection;
+        public IDbConnection Connection => Session?.Connection ?? Transaction?.Connection;
         public IsolationLevel IsolationLevel { get; }
 
         public IDbTransaction BeginTransaction()

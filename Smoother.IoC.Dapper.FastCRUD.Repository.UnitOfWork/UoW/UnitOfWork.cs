@@ -6,11 +6,16 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
 {
     public class UnitOfWork<TSession>  : UnitOfWorkIDb, IUnitOfWork<TSession> where TSession : ISession
     {
+        private readonly ISessionFactory _sessionFactory;
+        private readonly IUnitOfWorkFactory<TSession> _unitOfWorkFactory;
         protected bool Disposed;
 
-        public UnitOfWork(ISessionFactory factory)
+        public UnitOfWork(ISessionFactory sessionFactory, IUnitOfWorkFactory<TSession> unitOfWorkFactory)
         {
-            Session = Session ?? factory.Create<TSession>();
+            _sessionFactory = sessionFactory;
+            _unitOfWorkFactory = unitOfWorkFactory;
+            _sessionFactory = sessionFactory;
+            Session = Session ?? sessionFactory.Create<TSession>();
             Session.Connect();
         }
 
@@ -37,12 +42,26 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
 
         private void Dispose(bool disposing)
         {
+
             if (Disposed) return;
             Disposed = true;
             if (!disposing) return;
+
+            try
+            {
+                DisposeAndReleaseSession();
+                TryCommitCatchRollbackFinallyDisposeTransaction();
+            }
+            finally
+            {
+                _unitOfWorkFactory.Release(this);
+            }
             
-            Session?.Dispose();
-            
+
+        }
+
+        private void TryCommitCatchRollbackFinallyDisposeTransaction()
+        {
             if (Transaction == null) return;
             try
             {
@@ -58,6 +77,14 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
                 Transaction.Dispose();
                 Transaction = null;
             }
+        }
+
+        private void DisposeAndReleaseSession()
+        {
+            if (Session == null) return;
+            Session.Dispose();
+            _sessionFactory.Release(Session);
+            Session = null;
         }
     }
 }
