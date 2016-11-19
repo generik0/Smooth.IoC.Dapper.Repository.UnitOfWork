@@ -1,0 +1,6 @@
+﻿{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=:memory:;New=True;"
+  }
+
+}

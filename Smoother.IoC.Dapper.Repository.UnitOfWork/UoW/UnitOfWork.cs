@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
 
-namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW
+namespace Smoother.IoC.Dapper.Repository.UnitOfWork.UoW
 {
     public class UnitOfWork<TSession>  : UnitOfWorkIDb, IUnitOfWork<TSession> where TSession : ISession
     {

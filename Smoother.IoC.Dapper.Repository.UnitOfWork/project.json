@@ -25,11 +25,10 @@
   "frameworks": {
     "net452": {
       "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "",
         "System.Data": ""
       },
       "dependencies": {
-        "StringInterpolationBridge": "0.9.1",
-        "Dapper": "1.50.2"
       }
     },
     "net461": {
@@ -37,11 +36,10 @@
         "define": [ "NET_46_OR_GREATER" ]
       },
       "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "",
         "System.Data": ""
       },
       "dependencies": {
-        "Dapper": "1.50.2",
-        "System.Data.Common": "4.3.0"
       }
     },
     "netstandard1.6": {
@@ -49,8 +47,7 @@
         "define": [ "COREFX" ]
       },
       "dependencies": {
-        "Dapper": "1.50.2",
-        "System.Data.Common": "4.3.0"
+        "System.ComponentModel.Annotations": "4.1.0",
       }
     }
   },
@@ -66,5 +63,8 @@
     "Dapper.Contrib": "1.50.0",
     "Dapper.FastCrud": "2.4.1",
     "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "System.ComponentModel.TypeConverter": "4.1.0",
+    "Dapper": "1.50.2",
+    "System.Data.Common": "4.3.0",
   }
 }

@@ -3,11 +3,11 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Configuration.StatementOptions.Builders;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW;
-using static Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Helpers.CreateInstanceHelper;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Helpers;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
-namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
+namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk>
         where TEntity : class, ITEntity<TPk>
@@ -22,11 +22,11 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
         {
             if (unitOfWork != null)
             {
-                return await unitOfWork.GetAsync(Resolve<TEntity>(key));
+                return await unitOfWork.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
             }
             using (var uow = Factory.Create<IUnitOfWork<ISession>>())
             {
-                return await uow.GetAsync(Resolve<TEntity>(key));
+                return await uow.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
             }
         }
         protected async Task<TEntity> GetAsync(IDbConnection connection, TEntity keys, Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statement)

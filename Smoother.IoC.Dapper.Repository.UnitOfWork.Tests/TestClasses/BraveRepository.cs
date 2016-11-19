@@ -1,5 +1,4 @@
-﻿using System;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo;
+﻿using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses

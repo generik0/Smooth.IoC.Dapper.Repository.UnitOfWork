@@ -1,4 +1,4 @@
-﻿namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection
+﻿namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Connection
 {
     public interface ISessionFactory
     {

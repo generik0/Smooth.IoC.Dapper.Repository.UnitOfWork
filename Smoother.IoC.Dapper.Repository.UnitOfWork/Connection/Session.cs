@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using Dapper.FastCrud;
 
-namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection
+namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Connection
 {
     public class Session : ISession
     {
@@ -46,19 +45,6 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection
 
             return this;
         }
-
-        public void GetConfiguration()
-        {
-            //var configurationBuilder =
-            //new ConfigurationBuilder();
-            //configurationBuilder
-            //    .AddInMemoryCollection(DefaultConfigurationStrings).
-            //    .AddJsonFile("Config.json",
-            //        true);
-        }
-
-        public IEnumerable<KeyValuePair<string, string>> DefaultConfigurationStrings { get; set; }
-
 
         ~Session()
         {

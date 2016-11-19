@@ -1,4 +1,5 @@
-﻿using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
+﻿using Dapper.FastCrud;
+using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 {
@@ -8,7 +9,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 
     public class TestSession : Session, ITestSession
     {
-        public TestSession()
+        public TestSession() : base(null, SqlDialect.SqLite,"")
         {
         }
     }
