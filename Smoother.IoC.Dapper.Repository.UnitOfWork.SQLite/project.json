@@ -1,13 +1,13 @@
-{
+﻿{
   "version": "1.0.0-*",
-  "title": "Smoother.IoC.Dapper.Repository.UnitOfWork",
+  "title": "Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite",
   "authors": [ "Rik Svendsen Rose" ],
   "packOptions": {
     "owners": [ "Rik Svendsen Rose" ],
     "licenseUrl": "http://www.opensource.org/licenses/MIT",
     "iconUrl": "https://raw.githubusercontent.com/Generik0/Smoother.IoC.Dapper.Repository.UnitOfWork/master/logo.png",
     "requireLicenseAcceptance": false,
-    "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory"
+    "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory. Using Ms Sql"
   },
   "configurations": {
     "Debug": {
@@ -27,10 +27,9 @@
       "frameworkAssemblies": {
         "System.ComponentModel.DataAnnotations": "",
         "System.Data": ""
-
       },
       "dependencies": {
-        "System.Data.SQLite.Core": "1.0.103",
+        "System.Data.SQLite.Core": "1.0.103"
       }
     },
     "net461": {
@@ -42,7 +41,7 @@
         "System.Data": ""
       },
       "dependencies": {
-        "System.Data.SQLite.Core": "1.0.103",
+        "System.Data.SQLite.Core": "1.0.103"
       }
     },
     "netstandard1.6": {
@@ -50,7 +49,6 @@
         "define": [ "COREFX" ]
       },
       "dependencies": {
-        "System.ComponentModel.Annotations": "4.1.0"
       }
     }
   },
@@ -58,16 +56,11 @@
     "postcompile": [
     ] /* not working properly on myget: "dotnet pack --no-build --output ..\\Releases" */
   },
-  "description": "The smoothest IoC Dapper Repository and UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
+  "description": "The smoothest IoC Dapper Repository and UnitOfWork factory using Ms Sql. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
     "xmlDoc": true
   },
   "dependencies": {
-    "Dapper.Contrib": "1.50.0",
-    "Dapper.FastCrud": "2.4.1",
-    "Microsoft.Extensions.Configuration.Json": "1.1.0",
-    "System.ComponentModel.TypeConverter": "4.1.0",
-    "Dapper": "1.50.2",
-    "System.Data.Common": "4.3.0",
+    "Smoother.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*"
   }
 }
