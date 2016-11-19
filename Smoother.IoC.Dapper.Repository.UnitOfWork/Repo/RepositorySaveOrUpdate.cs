@@ -9,6 +9,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
     public abstract partial class Repository<TSession, TEntity, TPk> 
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
+        where TPk : class
     {
         public TPk SaveOrUpdate(TEntity entity, IUnitOfWork<TSession> unitOfWork = null)
         {
@@ -20,11 +21,14 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
             if (entity.Id.Equals(default(TPk)))
             {
                 var id = await unitOfWork.InsertAsync(entity, unitOfWork);
-                if (id is TPk) return id as TPk ?? default(TPk);
-
-                return entity.Id = 
+                return  id as TPk;
             }
-            if (await unitOfWork.UpdateAsync(entity, unitOfWork)) return entity.Id;
+            var result = await unitOfWork.UpdateAsync(entity, unitOfWork);
+            if (result)
+            {
+                return entity.Id;
+            }
+            return default(TPk);
         }
     }
 }

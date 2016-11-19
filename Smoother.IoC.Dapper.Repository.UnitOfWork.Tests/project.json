@@ -1,0 +1,15 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "FakeItEasy": "2.3.1",
+    "NUnit": "3.5.0",
+    "Smoother.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*"
+  },
+
+  "testRunner": "nunit",
+
+  "frameworks": {
+    "net452": { }
+  }
+}

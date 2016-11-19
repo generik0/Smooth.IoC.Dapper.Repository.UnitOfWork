@@ -8,6 +8,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Repo
     public interface IRepository<TSession, TEntity, TPk>
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
+        where TPk : class
     {
         TEntity Get(TPk key, IUnitOfWork<TSession> unitOfWork = null);
         Task<TEntity> GetAsync(TPk key, IUnitOfWork<TSession> unitOfWork = null);
