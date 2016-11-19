@@ -5,15 +5,15 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration
 {
     public class ConfigurationExpert
     {
-        public IConfigurationRoot Get(string path )
+        public string GetConnectionString(string path, string name)
         {
 
-            var configurationStrings = new List<KeyValuePair<string, string>>();
             var configurationBuilder = new ConfigurationBuilder();
             configurationBuilder
-                .AddInMemoryCollection(configurationStrings)
                 .AddJsonFile(path, true);
-            return configurationBuilder.Build();
+            var configuration = configurationBuilder.Build();
+
+            return configuration.GetConnectionString(name);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
+﻿using Smoother.IoC.Dapper.Repository.UnitOfWork;
+
+namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 {
     public class World : ITEntity<int>
     {

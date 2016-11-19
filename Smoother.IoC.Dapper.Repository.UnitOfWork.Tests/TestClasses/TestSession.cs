@@ -1,5 +1,5 @@
 ﻿using Dapper.FastCrud;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Connection;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 {
