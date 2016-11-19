@@ -23,38 +23,31 @@
     }
   },
   "frameworks": {
-    "net45": {
+    "net452": {
       "frameworkAssemblies": {
-        "System.Data": "",
-        "System.Runtime.Caching": "",
-        "System.ComponentModel.DataAnnotations": ""
+        "System.Data": ""
       },
       "dependencies": {
         "StringInterpolationBridge": "0.9.1",
-        "Dapper": "1.50.2",
-        "System.Reflection.Extensions": "4.3.0"
+        "Dapper": "1.50.2"
       }
     },
-    "net46": {
+    "net461": {
       "buildOptions": {
         "define": [ "NET_46_OR_GREATER" ]
       },
       "frameworkAssemblies": {
-        "System.Data": "",
-        "System.Runtime.Caching": "",
-        "System.ComponentModel.DataAnnotations": ""
+        "System.Data": ""
       },
       "dependencies": {
         "Dapper": "1.50.2",
-        "System.Data.Common": "4.3.0",
-        "System.Reflection.Extensions": "4.3.0"
+        "System.Data.Common": "4.3.0"
       }
     },
     "netstandard1.6": {
       "buildOptions": {
         "define": [ "COREFX" ]
       },
-      //"imports": "dnxcore50",
       "dependencies": {
         "Dapper": "1.50.2",
         "System.Data.Common": "4.3.0"
@@ -72,7 +65,6 @@
   "dependencies": {
     "Dapper.Contrib": "1.50.0",
     "Dapper.FastCrud": "2.4.1",
-    "System.ComponentModel.Annotations": "4.3.0",
-    "System.ComponentModel.TypeConverter": "4.3.0"
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
   }
 }
