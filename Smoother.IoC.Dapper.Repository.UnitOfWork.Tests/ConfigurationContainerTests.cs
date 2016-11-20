@@ -14,7 +14,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
             var path = $@"{TestContext.CurrentContext.TestDirectory}\ConnectionSettings.json";
             Assert.That(File.Exists(path), Is.True);
             var result=  target.GetConnectionString(path, "DefaultConnection");
-            Assert.That(result, Is.EqualTo("Data Source=:memory:;New=True;")) ;
+            Assert.That(result, Is.EqualTo("Data Source=:memory:;Version=3;New=True;")) ;
 
         }
     }
