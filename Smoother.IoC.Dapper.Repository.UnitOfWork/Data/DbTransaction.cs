@@ -42,7 +42,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
             Disposed = true;
             if (!disposing) return;
 
-            if (Transaction == null) return;
+            if (Transaction == null || Transaction.Connection==null) return;
             try
             {
                 Transaction.Commit();

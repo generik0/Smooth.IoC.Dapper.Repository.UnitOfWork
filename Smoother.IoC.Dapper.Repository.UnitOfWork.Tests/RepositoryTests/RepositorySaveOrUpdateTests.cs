@@ -23,8 +23,6 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTes
                 Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, transaction));
                 transaction.Rollback();
             }
-
-            
             Assert.That(result, Is.EqualTo(4));
 
         }

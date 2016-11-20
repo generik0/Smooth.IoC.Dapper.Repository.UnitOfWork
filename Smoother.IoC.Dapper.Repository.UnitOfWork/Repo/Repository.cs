@@ -11,8 +11,6 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         protected Repository(IDbFactory factory)
         {
             Factory = factory;
-            
         }
-        
     }
 }

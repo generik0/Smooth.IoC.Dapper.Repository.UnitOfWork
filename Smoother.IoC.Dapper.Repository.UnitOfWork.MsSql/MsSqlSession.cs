@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System.Data.SqlClient;
+using System.Data.SQLite;
 using Dapper.FastCrud;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
@@ -6,7 +7,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
 {
     public class SqliteSession : Session, ISession
     {
-        public SqliteSession(IDbFactory factory,string connectionString ) : base(factory, SqlDialect.SqLite )
+        public SqliteSession(IDbFactory factory,string connectionString ) : base(factory, SqlDialect.MsSql )
         {
             if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
             {
@@ -20,7 +21,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
             {
                 return;
             }
-            Connection = new SQLiteConnection(connectionString);
+            Connection = new SqlConnection(connectionString);
             Connection?.Open();
         }
     }

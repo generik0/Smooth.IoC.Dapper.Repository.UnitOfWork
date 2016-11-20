@@ -10,12 +10,12 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 
         public UnitOfWork(IDbFactory factory, IDbConnection session) : base(factory)
         {
-            Transaction = session?.BeginTransaction();
+            Transaction = session.BeginTransaction();
         }
 
         public UnitOfWork(IDbFactory factory, IDbConnection session, IsolationLevel isolationLevel) : base(factory)
         {
-            Transaction = session?.BeginTransaction(isolationLevel);
+            Transaction = session.BeginTransaction(isolationLevel);
         }
     }
 }

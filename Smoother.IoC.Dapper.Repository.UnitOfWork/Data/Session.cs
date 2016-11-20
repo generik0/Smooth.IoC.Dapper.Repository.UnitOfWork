@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Dapper.FastCrud;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
@@ -7,9 +8,10 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
     {
         private readonly IDbFactory _factory;
 
-        protected Session(IDbFactory factory) : base(factory)
+        protected Session(IDbFactory factory, SqlDialect sqlDialect) : base(factory)
         {
             _factory = factory;
+            SqlDialect = sqlDialect;
         }
 
         public IUnitOfWork UnitOfWork()
@@ -21,5 +23,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
         {
             return _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this, isolationLevel);
         }
+
+        public SqlDialect SqlDialect { get; }
     }
 }
