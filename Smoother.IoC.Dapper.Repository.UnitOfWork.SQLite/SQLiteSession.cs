@@ -15,8 +15,6 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
             }
         }
 
-        public IDbConnection Connection { get; private set; }
-
         private void Connect(string connectionString)
         {
             if (Connection != null)

@@ -1,5 +1,4 @@
-﻿using Dapper.FastCrud;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
+﻿using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -12,6 +11,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         protected Repository(IDbFactory factory)
         {
             Factory = factory;
+            
         }
         
     }

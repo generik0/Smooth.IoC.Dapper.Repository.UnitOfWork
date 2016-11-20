@@ -13,12 +13,12 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, IEntity<TPk>
         where TSession : ISession
     {
-        public IEnumerable<TEntity> GetAll(IDbConnection session = null)
+        public IEnumerable<TEntity> GetAll(ISession session = null)
         {
             return GetAllAsync(session).Result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection session = null)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session = null)
         {
             if (session != null)
             {
@@ -29,7 +29,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
                 return await uow.FindAsync<TEntity>();
             }
         }
-        protected async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection session, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
+        protected async Task<IEnumerable<TEntity>> GetAllAsync(ISession session, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
         {
             if (session != null)
             {

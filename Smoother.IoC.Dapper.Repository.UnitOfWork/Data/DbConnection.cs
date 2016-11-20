@@ -7,6 +7,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
     {
         private readonly IDbFactory _factory;
         public IDbConnection Connection { get; protected set; }
+
         public IsolationLevel IsolationLevel { get; }
         protected bool Disposed;
 

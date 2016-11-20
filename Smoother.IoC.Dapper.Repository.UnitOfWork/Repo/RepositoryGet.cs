@@ -12,12 +12,12 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, IEntity<TPk>
         where TSession : ISession
     {
-        public TEntity Get(TPk key, IDbConnection session = null)
+        public TEntity Get(TPk key, ISession session = null)
         {
             return GetAsync(key, session).Result;
         }
 
-        public async Task<TEntity> GetAsync(TPk key, IDbConnection session = null)
+        public async Task<TEntity> GetAsync(TPk key, ISession session = null)
         {
             if (session != null)
             {
