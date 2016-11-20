@@ -6,10 +6,10 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Wrappers
 {
     public class OrmConfigurationWrapper
     {
-        public EntityMapping<TEntity> GetEntityMappingSessionDialect<TEntity, TSession>(TSession session, SqlDialect dialect)
+        public EntityMapping<TEntity> GetEntityMappingSessionDialect<TEntity, TSession>(TSession session)
             where TSession : ISession
         {
-            return OrmConfiguration.GetDefaultEntityMapping<TEntity>().SetDialect(dialect);
+            return OrmConfiguration.GetDefaultEntityMapping<TEntity>().SetDialect(session.SqlDialect);
         }
     }
 }

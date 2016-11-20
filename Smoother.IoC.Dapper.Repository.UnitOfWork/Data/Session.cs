@@ -7,6 +7,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
     public abstract class Session : DbConnection , ISession
     {
         private readonly IDbFactory _factory;
+        public SqlDialect SqlDialect { get; }
 
         protected Session(IDbFactory factory, SqlDialect sqlDialect) : base(factory)
         {
@@ -28,6 +29,6 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
             return uow;
         }
 
-        public SqlDialect SqlDialect { get; }
+        
     }
 }
