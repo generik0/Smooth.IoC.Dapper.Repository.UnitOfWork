@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
-using NUnit.Engine;
 using NUnit.Framework;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
@@ -9,7 +8,7 @@ using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
 {
     [TestFixture]
-    public class RepositoryGetTests : CommonSetup
+    public class RepositoryGetAllTests : CommonSetup
     {
         [Test, Category("Integration")]
         public static void GetAll_Returns_CorrectAmountWithoutJoins()
