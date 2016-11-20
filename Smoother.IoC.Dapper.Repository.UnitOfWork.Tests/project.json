@@ -7,7 +7,6 @@
     "NUnit": "3.5.0",
     "dotnet-test-nunit": "3.4.0-beta-2",
     "Smoother.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*",
-    "Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite": "1.0.0-*",
     "Smoother.IoC.Dapper.Repository.UnitOfWork.Castle": "1.0.0-*",
     "Simple.Migrations": "0.9.6",
     "System.Data.SQLite.Core": "1.0.103"

@@ -6,15 +6,14 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public class UnitOfWork : DbTransaction, IUnitOfWork
     {
-        private readonly IDbFactory _factory;
         public SqlDialect SqlDialect { get; set; }
 
-        public UnitOfWork(IDbFactory factory, IDbConnection session) : base(factory)
+        public UnitOfWork(IDbFactory factory, ISession session) : base(factory)
         {
             Transaction = session.BeginTransaction();
         }
 
-        public UnitOfWork(IDbFactory factory, IDbConnection session, IsolationLevel isolationLevel) : base(factory)
+        public UnitOfWork(IDbFactory factory, ISession session, IsolationLevel isolationLevel) : base(factory)
         {
             Transaction = session.BeginTransaction(isolationLevel);
         }

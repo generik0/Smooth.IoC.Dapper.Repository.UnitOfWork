@@ -1,10 +1,12 @@
 ﻿using System.Data;
 using Dapper.FastCrud;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Helpers;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 {
-    public abstract class Session : DbConnection , ISession
+    public abstract class Session<TConnection> : DbConnection , ISession
+        where TConnection : System.Data.Common.DbConnection
     {
         private readonly IDbFactory _factory;
         public SqlDialect SqlDialect { get; }
@@ -13,6 +15,16 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
         {
             _factory = factory;
             SqlDialect = sqlDialect;
+        }
+
+        protected void Connect(string connectionString)
+        {
+            if (Connection != null)
+            {
+                return;
+            }
+            Connection = CreateInstanceHelper.Resolve<TConnection>(connectionString);
+            Connection?.Open();
         }
 
         public IUnitOfWork UnitOfWork()

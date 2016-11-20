@@ -5,7 +5,6 @@ using Castle.Windsor;
 using NUnit.Framework;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
-using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Migrations;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Castle;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;

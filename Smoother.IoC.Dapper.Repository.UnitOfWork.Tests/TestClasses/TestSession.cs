@@ -1,6 +1,7 @@
-﻿using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
+﻿using System.Data.SQLite;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite;
+
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 {
@@ -8,7 +9,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
     {
     }
 
-    public class TestSession : SqliteSession, ITestSession
+    public class TestSession : SqliteSession<SQLiteConnection>, ITestSession
     {
         public TestSession(IConfigurationContainer configurationExpert, IDbFactory session)
             : base(session, configurationExpert.GetConnectionString("ConnectionSettings.json", "DefaultConnection"))
