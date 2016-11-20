@@ -26,10 +26,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
                     return entity.Id;
                 });
             }
-            var result = await transaction.Connection.UpdateAsync(entity, statement =>
-            {
-                
-            });
+            var result = await transaction.Connection.UpdateAsync(entity);
             return result ? entity.Id : default(TPk);
         }
 
