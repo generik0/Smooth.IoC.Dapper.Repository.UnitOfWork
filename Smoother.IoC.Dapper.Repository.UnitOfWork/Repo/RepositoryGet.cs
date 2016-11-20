@@ -19,13 +19,15 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 
         public async Task<TEntity> GetAsync(TPk key, ISession session = null)
         {
+            var entity = CreateInstanceHelper.Resolve<TEntity>();
+            entity.Id = key;
             if (session != null)
             {
-                return await session.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
+                return await session.GetAsync(entity);
             }
             using (var uow = Factory.CreateSession<TSession>())
             {
-                return await uow.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
+                return await uow.GetAsync(entity);
             }
         }
         protected async Task<TEntity> GetAsync(IDbConnection connection, TEntity keys, Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statement)
