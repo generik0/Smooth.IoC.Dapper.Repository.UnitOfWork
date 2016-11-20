@@ -33,7 +33,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.M
         }
     }
 
-    public class TestSession : SqliteSession<SQLiteConnection>
+    internal class TestSession : SqliteSession<SQLiteConnection>
     {
         public TestSession(IDbFactory factory, string connectionString) : base(factory, connectionString)
         {
