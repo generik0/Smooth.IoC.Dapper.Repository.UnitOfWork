@@ -12,12 +12,12 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.M
             var migrationsAssembly = Assembly.GetExecutingAssembly();
 
             var versionProvider = new SqliteVersionProvider();
-            using (var connection = new SqlConnection("Data Source=:memory:;New=True;"))
-            {
-                var migrator = new SimpleMigrator(migrationsAssembly, connection, versionProvider);
-                migrator.Load();
-                migrator.MigrateToLatest();
-            }
+            Connection = new SqlConnection("Data Source=:memory:;New=True;");
+            var migrator = new SimpleMigrator(migrationsAssembly, Connection, versionProvider);
+            migrator.Load();
+            migrator.MigrateToLatest();
         }
+
+        public SqlConnection Connection { get;  }
     }
 }

@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NUnit.Framework;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
+using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Migrations;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Castle;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
@@ -66,16 +67,5 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
             Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());
             Assert.That(repo, Is.Not.Null);
         }
-
-        [Test, Category("Integration")]
-        public static void Install_3_xx_xx()
-        {
-            IBraveRepository repo = _container.Resolve<IBraveRepository>();
-
-            repo.Get(1);
-
-        }
-
-
     }
 }
