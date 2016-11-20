@@ -7,8 +7,6 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
 {
     public class SqliteSession : Session, ISession
     {
-        public string _getIdentitySql { get; private set; }
-
         public SqliteSession(IDbFactory factory,string connectionString ) : base(factory)
         {
             if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
@@ -25,7 +23,6 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
             {
                 return;
             }
-            _getIdentitySql = "SELECT LAST_INSERT_ROWID() AS id";
             Connection = new SQLiteConnection(connectionString);
             Connection?.Open();
         }

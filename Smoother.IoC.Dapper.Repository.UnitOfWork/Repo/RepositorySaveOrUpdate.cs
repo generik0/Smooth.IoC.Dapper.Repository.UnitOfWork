@@ -7,7 +7,7 @@ using Dapper.FastCrud;
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk> 
-        where TEntity : class, ITEntity<TPk>
+        where TEntity : class, IEntity<TPk>
         where TSession : ISession
     {
         public TPk SaveOrUpdate(TEntity entity, IDbTransaction transaction)
@@ -25,8 +25,13 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
                     return entity.Id;
                 });
             }
-            var result = await transaction.Connection.UpdateAsync(entity);
+            var result = await transaction.Connection.UpdateAsync(entity, statement =>
+            {
+                
+            });
             return result ? entity.Id : default(TPk);
         }
+
+        
     }
 }

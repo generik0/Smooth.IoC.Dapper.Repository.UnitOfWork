@@ -3,7 +3,7 @@ using Dapper.FastCrud;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork
 {
-    public interface ITEntity<TPk>
+    public interface IEntity<TPk>
     {
         [Key]
         [DatabaseGeneratedDefaultValue]

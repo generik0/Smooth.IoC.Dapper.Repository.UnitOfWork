@@ -10,7 +10,7 @@ using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk>
-        where TEntity : class, ITEntity<TPk>
+        where TEntity : class, IEntity<TPk>
         where TSession : ISession
     {
         public IEnumerable<TEntity> GetAll(IDbConnection session = null)

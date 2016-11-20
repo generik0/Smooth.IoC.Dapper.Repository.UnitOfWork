@@ -10,6 +10,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
         T CreateUnitOwWork<T>(IDbFactory factory, IDbConnection conection) where T : IUnitOfWork;
         T CreateUnitOwWork<T>(IDbFactory factory, IDbConnection conection, IsolationLevel isolationLevel) where T : IUnitOfWork;
         void Release(IDisposable instance);
+
         
     }
 }
