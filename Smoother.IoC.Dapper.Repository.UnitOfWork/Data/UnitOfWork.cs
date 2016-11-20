@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Data;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public class UnitOfWork<TSession>  : UnitOfWorkIDb, IUnitOfWork<TSession> where TSession : ISession
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly IDbFactory _sessionFactory;
         private readonly IUnitOfWorkFactory<TSession> _unitOfWorkFactory;
         protected bool Disposed;
 
-        public UnitOfWork(ISessionFactory sessionFactory, IUnitOfWorkFactory<TSession> unitOfWorkFactory)
+        public UnitOfWork(IDbFactory sessionFactory, IUnitOfWorkFactory<TSession> unitOfWorkFactory)
         {
             _sessionFactory = sessionFactory;
             _unitOfWorkFactory = unitOfWorkFactory;
             _sessionFactory = sessionFactory;
             Session = Session ?? sessionFactory.Create<TSession>();
-            Session.Connect();
+
         }
 
         public UnitOfWork(IDbConnection session)

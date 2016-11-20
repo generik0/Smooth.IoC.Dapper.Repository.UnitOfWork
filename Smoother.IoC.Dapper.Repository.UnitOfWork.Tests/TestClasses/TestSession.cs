@@ -10,7 +10,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 
     public class TestSession : Session, ITestSession
     {
-        public TestSession(IConfigurationContainer configurationExpert, ISessionFactory session) : base(session, configurationExpert.GetConnectionString("ConnectionSettings.json", "DefaultConnection"))
+        public TestSession(IConfigurationContainer configurationExpert, IDbFactory session) : base(session, configurationExpert.GetConnectionString("ConnectionSettings.json", "DefaultConnection"))
         {
         }
     }

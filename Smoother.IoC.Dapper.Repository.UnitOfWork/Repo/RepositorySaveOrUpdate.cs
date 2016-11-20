@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {

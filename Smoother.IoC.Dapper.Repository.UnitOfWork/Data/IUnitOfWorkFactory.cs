@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 {
