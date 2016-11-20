@@ -3,7 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 using static Smoother.IoC.Dapper.Repository.UnitOfWork.Castle.FacilityHelper;
 

@@ -4,7 +4,7 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Configuration.StatementOptions.Builders;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo

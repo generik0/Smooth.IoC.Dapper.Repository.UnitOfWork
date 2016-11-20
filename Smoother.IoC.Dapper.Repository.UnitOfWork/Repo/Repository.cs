@@ -1,4 +1,4 @@
-﻿using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
+﻿using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo

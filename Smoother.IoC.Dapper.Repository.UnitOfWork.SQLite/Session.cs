@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.Connection;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
 {
