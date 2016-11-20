@@ -11,7 +11,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         Task<TEntity> GetAsync(TPk key, IDbConnection session = null);
         IEnumerable<TEntity>  GetAll(IDbConnection session = null);
         Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection session = null);
-        int SaveOrUpdate(TEntity entity, IDbTransaction transaction);
-        Task<int> SaveOrUpdateAsync(TEntity entity, IDbTransaction transaction);
+        TPk SaveOrUpdate(TEntity entity, IDbTransaction transaction);
+        Task<TPk> SaveOrUpdateAsync(TEntity entity, IDbTransaction transaction);
     }
 }
