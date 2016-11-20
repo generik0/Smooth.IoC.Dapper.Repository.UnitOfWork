@@ -11,7 +11,10 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
 
         public Session(IDbFactory factory,string connectionString ) : base(factory)
         {
-            Connect(connectionString);
+            if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
+            {
+                Connect(connectionString);
+            }
         }
 
         public IDbConnection Connection { get; private set; }

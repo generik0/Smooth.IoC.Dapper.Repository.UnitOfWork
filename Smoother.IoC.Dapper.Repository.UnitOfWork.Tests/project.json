@@ -10,6 +10,7 @@
     "Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite": "1.0.0-*",
     "Smoother.IoC.Dapper.Repository.UnitOfWork.Castle": "1.0.0-*",
     "Simple.Migrations": "0.9.6",
+    "System.Data.SQLite.Core": "1.0.103"
   },
 
   "testRunner": "nunit",
@@ -23,7 +24,9 @@
   },
   "buildOptions": {
     "xmlDoc": false,
-    "copyToOutput": [ "ConnectionSettings.json" ]
+    "copyToOutput": {
+      "include": [ "ConnectionSettings.json", "x86\\SQLite.Interop.dll", "x64\\SQLite.Interop.dll" ]
+    }
   }
   
 }

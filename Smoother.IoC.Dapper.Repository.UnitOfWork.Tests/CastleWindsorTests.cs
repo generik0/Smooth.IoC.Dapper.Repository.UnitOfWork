@@ -23,13 +23,24 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
                 Assert.DoesNotThrow(() =>
                 {
                     _container.Install(new SmootherIoCDapperRepositoryUnitOfWorkInstaller());
-                    _container.Register(Types.FromThisAssembly()
+                    _container.Register(Classes.FromThisAssembly()
                         .Where(t => t.GetInterfaces().Length > 0 && t.GetInterfaces().Any(x => x != typeof(IDisposable)))
+                        .Unless(t => t.IsAbstract)
                         .LifestyleTransient()
                         .WithServiceAllInterfaces());
                 });
             }
         }
+
+        [Test, Category("Integration")]
+        public static void Install_1_Resolves_ISession()
+        {
+            var dbFactory = _container.Resolve<IDbFactory>();
+            ITestSession session = null;
+            Assert.DoesNotThrow(() => session = dbFactory.Create<ITestSession>());
+            Assert.That(session, Is.Not.Null);
+        }
+
 
         [Test, Category("Integration")]
         public static void Install_1_Resolves_IBravoRepository()
@@ -39,18 +50,6 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
             Assert.That(repo, Is.Not.Null);
         }
 
-        [Test, Category("Integration")]
-        public static void Install_2_Resolves_IBravoRepository()
-        {
-            var repo = _container.Resolve<IBraveRepository>();
-            IUnitOfWorkFactory uowFactory = null;
-            Assert.DoesNotThrow(() => uowFactory = _container.Resolve<IUnitOfWorkFactory>());
-            Assert.That(uowFactory, Is.Not.Null);
-            var uow1 = uowFactory.Create<IUnitOfWork<ISession>>();
-
-            IUnitOfWork uow = null;
-            //Assert.DoesNotThrow(() => uow = uowFactory.Create<UnitOfWork<ISession>>());
-            Assert.That(uow, Is.Not.Null);
-        }
+        
     }
 }
