@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -10,18 +11,18 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
     {
-        public int SaveOrUpdate(TEntity entity, IUnitOfWork<TSession> unitOfWork = null)
+        public int SaveOrUpdate(TEntity entity, IDbTransaction transaction)
         {
-            return SaveOrUpdateAsync(entity, unitOfWork).Result;
+            return SaveOrUpdateAsync(entity, transaction).Result;
         }
 
-        public async Task<int> SaveOrUpdateAsync(TEntity entity, IUnitOfWork<TSession> unitOfWork = null)
+        public async Task<int> SaveOrUpdateAsync(TEntity entity, IDbTransaction transaction)
         {
             if (entity.Id.Equals(default(TPk)))
             {
-                return await unitOfWork.InsertAsync(entity, unitOfWork);
+                return await transaction.Connection.InsertAsync(entity);
             }
-            var result = await unitOfWork.UpdateAsync(entity, unitOfWork);
+            var result = await transaction.Connection.UpdateAsync(entity);
             if (result)
             {
                 return Convert.ToInt32(entity.Id);

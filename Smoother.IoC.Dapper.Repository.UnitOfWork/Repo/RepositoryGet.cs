@@ -13,18 +13,18 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
     {
-        public TEntity Get(TPk key, IUnitOfWork<TSession> unitOfWork=null)
+        public TEntity Get(TPk key, IDbConnection session = null)
         {
-            return GetAsync(key, unitOfWork).Result;
+            return GetAsync(key, session).Result;
         }
 
-        public async Task<TEntity> GetAsync(TPk key, IUnitOfWork<TSession> unitOfWork = null)
+        public async Task<TEntity> GetAsync(TPk key, IDbConnection session = null)
         {
-            if (unitOfWork != null)
+            if (session != null)
             {
-                return await unitOfWork.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
+                return await session.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
             }
-            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
+            using (var uow = Factory.Create<TSession>())
             {
                 return await uow.GetAsync(CreateInstanceHelper.Resolve<TEntity>(key));
             }
@@ -35,7 +35,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
             {
                 return await connection.GetAsync(keys, statement);
             }
-            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
+            using (var uow = Factory.Create<TSession>())
             {
                 return await uow.GetAsync(keys, statement);
             }

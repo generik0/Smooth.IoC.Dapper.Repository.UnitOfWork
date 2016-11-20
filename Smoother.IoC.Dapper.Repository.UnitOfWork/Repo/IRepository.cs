@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
@@ -9,11 +10,11 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
     {
-        TEntity Get(TPk key, IUnitOfWork<TSession> unitOfWork = null);
-        Task<TEntity> GetAsync(TPk key, IUnitOfWork<TSession> unitOfWork = null);
-        IEnumerable<TEntity>  GetAll(IUnitOfWork<TSession> unitOfWork = null);
-        Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork<TSession> unitOfWork = null);
-        int SaveOrUpdate(TEntity entity, IUnitOfWork<TSession> unitOfWork = null);
-        Task<int> SaveOrUpdateAsync(TEntity entity, IUnitOfWork<TSession> unitOfWork = null);
+        TEntity Get(TPk key, IDbConnection session = null);
+        Task<TEntity> GetAsync(TPk key, IDbConnection session = null);
+        IEnumerable<TEntity>  GetAll(IDbConnection session = null);
+        Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection session = null);
+        int SaveOrUpdate(TEntity entity, IDbTransaction transaction);
+        Task<int> SaveOrUpdateAsync(TEntity entity, IDbTransaction transaction);
     }
 }

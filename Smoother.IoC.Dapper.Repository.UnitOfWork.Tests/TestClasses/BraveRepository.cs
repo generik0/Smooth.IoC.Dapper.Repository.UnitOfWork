@@ -9,7 +9,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 
     public class BraveRepository : Repository<ITestSession,Brave, int>, IBraveRepository
     {
-        public BraveRepository(IUnitOfWorkFactory<ITestSession> factory) : base(factory)
+        public BraveRepository(IDbFactory factory) : base(factory)
         {
         }
     }

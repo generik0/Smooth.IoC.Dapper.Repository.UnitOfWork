@@ -13,29 +13,29 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
     {
-        public IEnumerable<TEntity> GetAll(IUnitOfWork<TSession> unitOfWork = null)
+        public IEnumerable<TEntity> GetAll(IDbConnection session = null)
         {
-            return GetAllAsync(unitOfWork).Result;
+            return GetAllAsync(session).Result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork<TSession> unitOfWork = null)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection session = null)
         {
-            if (unitOfWork != null)
+            if (session != null)
             {
-                return await unitOfWork.FindAsync<TEntity>();
+                return await session.FindAsync<TEntity>();
             }
-            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
+            using (var uow = Factory.Create<TSession>())
             {
                 return await uow.FindAsync<TEntity>();
             }
         }
-        protected async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection connection, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
+        protected async Task<IEnumerable<TEntity>> GetAllAsync(IDbConnection session, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
         {
-            if (connection != null)
+            if (session != null)
             {
-                return await connection.FindAsync(statement);
+                return await session.FindAsync(statement);
             }
-            using (var uow = Factory.Create<IUnitOfWork<ISession>>())
+            using (var uow = Factory.Create<TSession>())
             {
                 return await uow.FindAsync(statement);
             }
