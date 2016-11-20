@@ -1,5 +1,4 @@
 ﻿using System.Data.SqlClient;
-using System.Data.SQLite;
 using Dapper.FastCrud;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
