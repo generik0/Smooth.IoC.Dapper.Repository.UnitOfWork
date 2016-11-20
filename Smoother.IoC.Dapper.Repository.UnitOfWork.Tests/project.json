@@ -9,6 +9,7 @@
     "Smoother.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*",
     "Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite": "1.0.0-*",
     "Smoother.IoC.Dapper.Repository.UnitOfWork.Castle": "1.0.0-*",
+    "Simple.Migrations": "0.9.6",
   },
 
   "testRunner": "nunit",
