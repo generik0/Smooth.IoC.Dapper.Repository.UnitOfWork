@@ -2,7 +2,7 @@
 using Dapper.FastCrud;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
+namespace Smoother.IoC.Dapper.Repository.UnitOfWork.MsSql
 {
     public class SqliteSession : Session, ISession
     {

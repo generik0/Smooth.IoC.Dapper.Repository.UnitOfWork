@@ -16,12 +16,16 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 
         public IUnitOfWork UnitOfWork()
         {
-            return _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this);
+            var uow= _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this);
+            uow.SqlDialect = SqlDialect;
+            return uow;
         }
 
         public IUnitOfWork UnitOfWork(IsolationLevel isolationLevel)
         {
-            return _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this, isolationLevel);
+            var uow = _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this, isolationLevel);
+            uow.SqlDialect = SqlDialect;
+            return uow;
         }
 
         public SqlDialect SqlDialect { get; }
