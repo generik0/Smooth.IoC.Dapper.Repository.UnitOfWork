@@ -7,7 +7,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
     {
         public int Id { get; set; }
         [ForeignKey("World")]
-        public int WorldId { get; set; }
+        public int? WorldId { get; set; }
         public World World { get; set; }
 
     }
