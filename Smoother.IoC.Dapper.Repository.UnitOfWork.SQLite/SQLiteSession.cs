@@ -5,11 +5,11 @@ using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.SQLite
 {
-    public class Session : DbConnection, ISession
+    public class SqliteSession : Session, ISession
     {
         public string _getIdentitySql { get; private set; }
 
-        public Session(IDbFactory factory,string connectionString ) : base(factory)
+        public SqliteSession(IDbFactory factory,string connectionString ) : base(factory)
         {
             if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
             {

@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 {
-    public class DbConnection : IDbConnection
+    public abstract class DbConnection : IDbConnection
     {
         private readonly IDbFactory _factory;
         public IDbConnection Connection { get; protected set; }
@@ -22,7 +22,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 
         public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
-            return Connection?.BeginTransaction(isolationLevel);
+            return   Connection?.BeginTransaction(isolationLevel);
         }
 
         public void Close()

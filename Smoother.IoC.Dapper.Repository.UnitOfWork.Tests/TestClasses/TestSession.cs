@@ -8,7 +8,7 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
     {
     }
 
-    public class TestSession : Session, ITestSession
+    public class TestSession : SqliteSession, ITestSession
     {
         public TestSession(IConfigurationContainer configurationExpert, IDbFactory session)
             : base(session, configurationExpert.GetConnectionString("ConnectionSettings.json", "DefaultConnection"))

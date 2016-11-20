@@ -24,7 +24,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
             {
                 return await session.FindAsync<TEntity>();
             }
-            using (var uow = Factory.Create<TSession>())
+            using (var uow = Factory.CreateSession<TSession>())
             {
                 return await uow.FindAsync<TEntity>();
             }
@@ -35,7 +35,7 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
             {
                 return await session.FindAsync(statement);
             }
-            using (var uow = Factory.Create<TSession>())
+            using (var uow = Factory.CreateSession<TSession>())
             {
                 return await uow.FindAsync(statement);
             }

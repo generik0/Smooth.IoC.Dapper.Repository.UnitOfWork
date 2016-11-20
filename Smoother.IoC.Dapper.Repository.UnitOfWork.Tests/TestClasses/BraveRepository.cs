@@ -3,7 +3,7 @@ using Smoother.IoC.Dapper.Repository.UnitOfWork.Repo;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 {
-    public interface IBraveRepository
+    public interface IBraveRepository : IRepository<Brave, int>
     {
     }
 

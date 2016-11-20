@@ -4,6 +4,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 using static Smoother.IoC.Dapper.Repository.UnitOfWork.Castle.FacilityHelper;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Castle
@@ -16,13 +17,11 @@ namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Castle
             {
                 container.Kernel.AddFacility<TypedFactoryFacility>();
             }
-            container.Register(Component.For<IDbFactory>().AsFactory().LifestyleSingleton());
+            container.Register(Component.For<IDbFactory>().AsFactory().IsFallback().LifestyleSingleton());
             container.Register(Component.For<IConfigurationContainer>()
-                .ImplementedBy<ConfigurationContainer>().LifestyleSingleton());
-            ////container.Register(Component.For<IUnitOfWorkFactory<ISession>>().AsFactory().LifestyleSingleton());
-
-            //container.Register(Component.For(typeof(IUnitOfWork<>))
-            //    .ImplementedBy(typeof(IUnitOfWork<>)).LifestyleTransient());
+                .ImplementedBy<ConfigurationContainer>().IsFallback().LifestyleSingleton());
+            container.Register(Component.For<IUnitOfWork>()
+                .ImplementedBy<Data.UnitOfWork>().IsFallback().LifestyleTransient());
 
         }
     }

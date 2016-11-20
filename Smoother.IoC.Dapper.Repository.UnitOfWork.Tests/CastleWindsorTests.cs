@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Castle;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
 {
@@ -26,6 +27,10 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
                     _container.Register(Classes.FromThisAssembly()
                         .Where(t => t.GetInterfaces().Length > 0 && t.GetInterfaces().Any(x => x != typeof(IDisposable)))
                         .Unless(t => t.IsAbstract)
+                        .Configure(c =>
+                        {
+                            c.IsFallback();
+                        })
                         .LifestyleTransient()
                         .WithServiceAllInterfaces());
                 });
@@ -37,19 +42,40 @@ namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
         {
             var dbFactory = _container.Resolve<IDbFactory>();
             ITestSession session = null;
-            Assert.DoesNotThrow(() => session = dbFactory.Create<ITestSession>());
+            Assert.DoesNotThrow(() => session = dbFactory.CreateSession<ITestSession>());
             Assert.That(session, Is.Not.Null);
         }
 
 
         [Test, Category("Integration")]
-        public static void Install_1_Resolves_IBravoRepository()
+        public static void Install_2_Resolves_IUnitOfWork()
+        {
+            var dbFactory = _container.Resolve<IDbFactory>();
+            using (var session = dbFactory.CreateSession<ITestSession>())
+            {
+                IUnitOfWork uow = null;
+                Assert.DoesNotThrow(()=> uow = session.UnitOfWork());
+                Assert.That(uow, Is.Not.Null);
+            }
+        }
+
+        [Test, Category("Integration")]
+        public static void Install_3_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
             Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());
             Assert.That(repo, Is.Not.Null);
         }
 
-        
+        [Test, Category("Integration")]
+        public static void Install_3_xx_xx()
+        {
+            IBraveRepository repo = _container.Resolve<IBraveRepository>();
+
+            repo.Get(1);
+
+        }
+
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk> : RepositoryBase, IRepository<TSession, TEntity, TPk>
+    public abstract partial class Repository<TSession, TEntity, TPk> : IRepository<TEntity, TPk>
         where TEntity : class, ITEntity<TPk>
         where TSession : ISession
     {
