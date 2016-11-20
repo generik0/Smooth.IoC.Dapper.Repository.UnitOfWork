@@ -4,7 +4,6 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Configuration;
 using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
 using static Smoother.IoC.Dapper.Repository.UnitOfWork.Castle.FacilityHelper;
 
 namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Castle

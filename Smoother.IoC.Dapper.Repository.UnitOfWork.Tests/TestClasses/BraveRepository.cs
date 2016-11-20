@@ -1,5 +1,5 @@
-﻿using Smoother.IoC.Dapper.Repository.UnitOfWork.Repo;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.UoW;
+﻿using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smoother.IoC.Dapper.Repository.UnitOfWork.Repo;
 
 namespace Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 {

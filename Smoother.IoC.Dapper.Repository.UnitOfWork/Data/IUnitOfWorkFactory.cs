@@ -1,7 +1,6 @@
 ﻿using System.Data;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smoother.IoC.Dapper.Repository.UnitOfWork.UoW
+namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public interface IUnitOfWorkFactory<TSession> where TSession : ISession
     {
