@@ -22,12 +22,20 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         private void SetDialect()
         {
-            var type = typeof(TConnection).Name.ToLowerInvariant();
-            if (type.Contains("sqlite"))
+            var type = typeof(TConnection).FullName.ToLowerInvariant();
+            if (type.Contains("sqlclient") || type.Contains("mssql"))
+            {
+                SqlDialect = SqlDialect.SqLite;
+            }
+            else if (type.Contains("sqlite"))
             {
                 SqlDialect = SqlDialect.SqLite;
             }
             else if (type.Contains("mysql"))
+            {
+                SqlDialect = SqlDialect.MySql;
+            }
+            else if (type.Contains("pgsql")|| type.Contains("postgresql"))
             {
                 SqlDialect = SqlDialect.MySql;
             }

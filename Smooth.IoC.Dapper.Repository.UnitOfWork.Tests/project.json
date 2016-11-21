@@ -9,7 +9,9 @@
     "Smooth.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*",
     "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle": "1.0.0-*",
     "Simple.Migrations": "0.9.6",
-    "System.Data.SQLite.Core": "1.0.103"
+    "System.Data.SQLite.Core": "1.0.103",
+    "MySql.Data": "7.0.6-IR31",
+    "dotConnect.Express.for.PostgreSQL": "7.6.763"
   },
 
   "testRunner": "nunit",
