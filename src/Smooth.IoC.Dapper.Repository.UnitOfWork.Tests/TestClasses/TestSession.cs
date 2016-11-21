@@ -1,5 +1,4 @@
 ﻿using System.Data.SQLite;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Configuration;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
@@ -10,8 +9,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
 
     public class TestSession : Session<SQLiteConnection>, ITestSession
     {
-        public TestSession(IConfigurationContainer configurationExpert, IDbFactory session)
-            : base(session, configurationExpert.GetConnectionString("ConnectionSettings.json", "DefaultConnection"))
+        public TestSession(IDbFactory session)
+            : base(session, "Data Source=:memory:;Version=3;New=True;")
         {
         }
     }
