@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Configuration;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.Configurations
 {
     [TestFixture]
     public class ConfigurationContainerTests : AssertionHelper
