@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Castle.Core.Internal;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Dapper.FastCrud;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
@@ -25,7 +27,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
                 {
                     _container.Install(new SmootherIoCDapperRepositoryUnitOfWorkInstaller());
                     _container.Register(Classes.FromThisAssembly()
-                        .Where(t => t.GetInterfaces().Length > 0 && t.GetInterfaces().Any(x => x != typeof(IDisposable)))
+                        .Where(t => t.GetInterfaces().Length > 0 && 
+                            t.GetInterfaces().Any(x => x != typeof(IDisposable)) 
+                            && !t.HasAttribute<NoIoC>())
                         .Unless(t => t.IsAbstract)
                         .Configure(c =>
                         {
@@ -60,7 +64,19 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
         }
 
         [Test, Category("Integration")]
-        public static void Install_3_Resolves_IBravoRepository()
+        public static void Install_3_Resolves_SqlDialectCorrectly()
+        {
+            var dbFactory = _container.Resolve<IDbFactory>();
+            using (var session = dbFactory.CreateSession<ITestSession>())
+            {
+                Assert.That(session.SqlDialect== SqlDialect.SqLite);
+                var uow = session.UnitOfWork();
+                Assert.That(uow.SqlDialect == SqlDialect.SqLite);
+            }
+        }
+
+        [Test, Category("Integration")]
+        public static void Install_4_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
             Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());

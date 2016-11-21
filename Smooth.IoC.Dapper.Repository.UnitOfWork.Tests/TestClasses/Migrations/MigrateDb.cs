@@ -31,7 +31,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Mig
         }
     }
 
-    internal class TestSession : SqliteSession<SQLiteConnection>
+    [NoIoC]
+    public class TestSession : Session<SQLiteConnection>
     {
         public TestSession(IDbFactory factory, string connectionString) : base(factory, connectionString)
         {

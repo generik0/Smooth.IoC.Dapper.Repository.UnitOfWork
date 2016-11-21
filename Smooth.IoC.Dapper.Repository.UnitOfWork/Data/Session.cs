@@ -8,12 +8,33 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         where TConnection : System.Data.Common.DbConnection
     {
         private readonly IDbFactory _factory;
-        public SqlDialect SqlDialect { get; }
+        public SqlDialect SqlDialect { get; private set; }
 
-        protected Session(IDbFactory factory, SqlDialect sqlDialect) : base(factory)
+        protected Session(IDbFactory factory, string connectionString) : base(factory)
         {
             _factory = factory;
-            SqlDialect = sqlDialect;
+            SetDialect();
+            if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
+            {
+                Connect(connectionString);
+            }
+        }
+
+        private void SetDialect()
+        {
+            var type = typeof(TConnection).Name.ToLowerInvariant();
+            if (type.Contains("sqlite"))
+            {
+                SqlDialect = SqlDialect.SqLite;
+            }
+            else if (type.Contains("mysql"))
+            {
+                SqlDialect = SqlDialect.MySql;
+            }
+            else 
+            {
+                SqlDialect = SqlDialect.MsSql;
+            }
         }
 
         protected void Connect(string connectionString)
