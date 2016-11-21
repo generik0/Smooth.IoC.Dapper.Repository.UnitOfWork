@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0-*",
+  "title": "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle",
+  "authors": [ "Rik Svendsen Rose" ],
+  "packOptions": {
+    "owners": [ "Rik Svendsen Rose" ],
+    "licenseUrl": "http://www.opensource.org/licenses/MIT",
+    "iconUrl": "https://raw.githubusercontent.com/Generik0/Smoother.IoC.Dapper.Repository.UnitOfWork/master/logo.png",
+    "requireLicenseAcceptance": false,
+    "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory. Using Castle"
+  },
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      }
+    },
+    "Release": {
+      "buildOptions": {
+        "define": [ "RELEASE", "TRACE" ],
+        "optimize": true
+      }
+    }
+  },
+  "frameworks": {
+    "net452": {
+      "frameworkAssemblies": {
+      },
+      "dependencies": {
+        "Castle.Core": "3.3.3",
+        "Castle.Windsor": "3.3.0"
+      }
+    },
+    "net461": {
+      "buildOptions": {
+        "define": [ "NET_46_OR_GREATER" ]
+      },
+      "frameworkAssemblies": {
+      },
+      "dependencies": {
+        "Castle.Core": "3.3.3",
+        "Castle.Windsor": "3.3.0"
+      }
+    },
+  },
+  "scripts": {
+    "postcompile": [
+    ] /* not working properly on myget: "dotnet pack --no-build --output ..\\Releases" */
+  },
+  "description": "The smoothest IoC Dapper Repository and UnitOfWork factory using Castle. VS2015 or an equivalent build environment is recommended.",
+  "buildOptions": {
+    "xmlDoc": true
+  },
+  "dependencies": {
+    "Smooth.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0-*",
+  "title": "Smooth.IoC.Dapper.Repository.UnitOfWork",
+  "authors": [ "Rik Svendsen Rose" ],
+  "packOptions": {
+    "owners": [ "Rik Svendsen Rose" ],
+    "licenseUrl": "http://www.opensource.org/licenses/MIT",
+    "iconUrl": "https://raw.githubusercontent.com/Generik0/Smoother.IoC.Dapper.Repository.UnitOfWork/master/logo.png",
+    "requireLicenseAcceptance": false,
+    "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory"
+  },
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      }
+    },
+    "Release": {
+      "buildOptions": {
+        "define": [ "RELEASE", "TRACE" ],
+        "optimize": true
+      }
+    }
+  },
+  "frameworks": {
+    "net452": {
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "",
+        "System.Data": ""
+
+      },
+      "dependencies": {
+      }
+    },
+    "net461": {
+      "buildOptions": {
+        "define": [ "NET_46_OR_GREATER" ]
+      },
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "",
+        "System.Data": ""
+      },
+      "dependencies": {
+      }
+    },
+    "netstandard1.6": {
+      "buildOptions": {
+        "define": [ "COREFX" ]
+      },
+      "dependencies": {
+        "System.ComponentModel.Annotations": "4.3.0",
+        "System.ComponentModel.TypeConverter": "4.3.0"
+      }
+    }
+  },
+  "scripts": {
+    "postcompile": [
+    ] /* not working properly on myget: "dotnet pack --no-build --output ..\\Releases" */
+  },
+  "description": "The smoothest IoC Dapper Repository and UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
+  "buildOptions": {
+    "xmlDoc": true
+  },
+  "dependencies": {
+    "Dapper.FastCrud": "2.4.1",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "Dapper": "1.50.2",
+    "System.Data.Common": "4.3.0",
+  }
+}
