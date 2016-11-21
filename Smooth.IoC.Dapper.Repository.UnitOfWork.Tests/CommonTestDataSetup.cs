@@ -3,9 +3,9 @@ using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Migrations;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
 {
-    public abstract class CommonSetup
+    public abstract class CommonTestDataSetup
     {
         public static ISession Connection { get; set; }
 
