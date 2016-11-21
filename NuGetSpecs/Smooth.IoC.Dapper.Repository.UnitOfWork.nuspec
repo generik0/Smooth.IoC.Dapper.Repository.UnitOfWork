@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Smooth.IoC.Dapper.Repository.UnitOfWork</id>
+    <version>$version$</version>
+    <title>Dapper.FastCrud</title>
+    <authors>Rik Svendsen Rose</authors>
+    <owners>Rik Svendsen Rose</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</projectUrl>
+    <iconUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Smoother IoC using Dapper Dapper.FastCRUD with Repository and UnitOfWork patterns.</summary>
+    <description>
+      This project is to easier use IoC with:
+
+      * Dapper
+      * Dapper.FastCRUD
+      * And IoC, so far supported:
+      ** Castle Windsor
+      * A repository pattern (base classes)
+      * A UnitOfWork Pattern, NB
+      ** The Unit of work will control the session and a session facotry
+      ** Created using an UnitOfWork factory
+      ** A Session base class,
+      ** Created using an session factory
+
+      Features:
+      ----------
+    </description>
+    <copyright>Copyright 2016</copyright>
+    <tags>dapper crud orm sql sqlite mysql mssql localdb postgresql poco repository unitofwork di ioc</tags>
+    <frameworkAssemblies>
+    </frameworkAssemblies>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Dapper" version="[1.50.2, )" />
+        <dependency id="StringInterpolationBridge" version="[0.9.1, )"/>
+        <dependency id="Dapper.FastCrud" version="[2.4.1, )" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="[1.1.0, )" />
+      </group>
+      <group targetFramework=".NETFramework4.6">
+        <dependency id="Dapper" version="[1.50.2, )" />
+        <dependency id="Dapper.FastCrud" version="[2.4.1, )" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="[1.1.0, )" />
+      </group>
+	   <group targetFramework=".NETStandard1.6">
+       <dependency id="Dapper" version="[1.50.2, )" />
+       <dependency id="System.ComponentModel.Annotations" version="[4.1.0, )" />
+       <dependency id="System.ComponentModel.TypeConverter" version="[4.1.0, )" />
+       <dependency id="System.Data.Common" version="[4.1.0, )" />
+       <dependency id="System.Reflection.Extensions" version="[4.0.1, )" />
+	   </group>
+    </dependencies>
+  </metadata>
+  <files>
+  <!-- netstandard1.6 -->
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.Repository.UnitOfWork.dll" target="lib\netstandard1.6" />
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.Repository.UnitOfWork.xml" target="lib\netstandard1.6" />
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net46\Smooth.IoC.Dapper.Repository.UnitOfWork.dll" target="lib\net46" />
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net46\Smooth.IoC.Dapper.Repository.UnitOfWork.xml" target="lib\net46" />
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net45\Smooth.IoC.Dapper.Repository.UnitOfWork" target="lib\net45" />
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net45\Smooth.IoC.Dapper.Repository.UnitOfWork.xml" target="lib\net45" />
+  </files>
+</package>
