@@ -6,7 +6,7 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
 {
     [TestFixture]
-    public class RepositoryGetTests : CommonSetup
+    public class RepositoryGetTests : CommonTestDataSetup
     {
         [Test, Category("Integration")]
         public static void Get_Returns_CorrectAmountWithoutJoins()

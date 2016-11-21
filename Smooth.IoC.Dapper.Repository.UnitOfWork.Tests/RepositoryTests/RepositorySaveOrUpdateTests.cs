@@ -6,7 +6,7 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
 {
     [TestFixture]
-    public class RepositorySaveOrUpdateTests : CommonSetup
+    public class RepositorySaveOrUpdateTests : CommonTestDataSetup
     {
         [Test, Category("Integration")]
         public static void SaveOrUpdate_Returns_IdForInsertedEnitiy()
