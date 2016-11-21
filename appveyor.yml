@@ -1,5 +1,0 @@
-version: 1.0.{build}
-build:
-  project: Smooth.IoC.Dapper.Repository.UnitOfWork\Smooth.IoC.Dapper.Repository.UnitOfWork.xproj
-  verbosity: minimal
-test: off

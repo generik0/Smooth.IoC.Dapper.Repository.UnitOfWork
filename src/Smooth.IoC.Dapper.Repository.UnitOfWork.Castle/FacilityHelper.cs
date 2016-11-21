@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Castle.Windsor;
 
-namespace Smoother.IoC.Dapper.Repository.UnitOfWork.Castle
+namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Castle
 {
     public static class FacilityHelper
     {

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork", "Smooth.IoC.Dapper.Repository.UnitOfWork\Smooth.IoC.Dapper.Repository.UnitOfWork.xproj", "{E6550DC7-FC02-4B12-A7B5-DDB684A7760A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{35FC5642-50CE-43EC-B52D-595C6ABF17D8}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle", "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle\Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.xproj", "{B7372E4D-C0B1-4230-A11C-B09739CC1E1A}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork", "src\Smooth.IoC.Dapper.Repository.UnitOfWork\Smooth.IoC.Dapper.Repository.UnitOfWork.xproj", "{E6550DC7-FC02-4B12-A7B5-DDB684A7760A}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests", "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.xproj", "{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle", "src\Smooth.IoC.Dapper.Repository.UnitOfWork.Castle\Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.xproj", "{B7372E4D-C0B1-4230-A11C-B09739CC1E1A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests", "src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.xproj", "{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

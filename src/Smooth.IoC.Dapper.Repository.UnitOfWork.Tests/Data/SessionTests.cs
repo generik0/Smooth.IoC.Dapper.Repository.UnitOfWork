@@ -21,19 +21,19 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.Data
         [Test]
         public void SqlDialect_Equals_MySql()
         {
-            var target = new TestSqlite(null, null);
+            var target = new TestMySql(null, null);
             Assert.That(target.SqlDialect == SqlDialect.MySql);
         }
         [Test]
         public void SqlDialect_Equals_MsSql()
         {
-            var target = new TestSqlite(null, null);
+            var target = new TestMsSql(null, null);
             Assert.That(target.SqlDialect == SqlDialect.MsSql);
         }
         [Test]
         public void SqlDialect_Equals_PostgreSql()
         {
-            var target = new TestSqlite(null, null);
+            var target = new TestPostgreSql(null, null);
             Assert.That(target.SqlDialect == SqlDialect.PostgreSql);
         }
     }
@@ -60,9 +60,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.Data
         }
     }
     [NoIoC]
-    public class TestPostgreSQL : Session<PgSqlConnection>
+    public class TestPostgreSql : Session<PgSqlConnection>
     {
-        public TestPostgreSQL(IDbFactory factory, string connectionString) : base(factory, connectionString)
+        public TestPostgreSql(IDbFactory factory, string connectionString) : base(factory, connectionString)
         {
         }
     }

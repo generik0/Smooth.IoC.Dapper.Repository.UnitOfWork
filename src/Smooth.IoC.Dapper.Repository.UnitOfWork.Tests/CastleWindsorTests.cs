@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Castle.Core.Internal;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Dapper.FastCrud;
@@ -8,14 +7,15 @@ using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smoother.IoC.Dapper.Repository.UnitOfWork.Castle;
+using Castle.Core.Internal;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Castle;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
 {
     [TestFixture]
     public class CastleWindsorTests
     {
-        private static WindsorContainer _container;
+        private static IWindsorContainer _container;
 
         [SetUp]
         public void TestSetup()
@@ -25,7 +25,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
                 _container = new WindsorContainer();
                 Assert.DoesNotThrow(() =>
                 {
-                    _container.Install(new SmootherIoCDapperRepositoryUnitOfWorkInstaller());
+                    _container.Install(new SmoothIoCDapperRepositoryUnitOfWorkInstaller());
                     _container.Register(Classes.FromThisAssembly()
                         .Where(t => t.GetInterfaces().Length > 0 && 
                             t.GetInterfaces().Any(x => x != typeof(IDisposable)) 
