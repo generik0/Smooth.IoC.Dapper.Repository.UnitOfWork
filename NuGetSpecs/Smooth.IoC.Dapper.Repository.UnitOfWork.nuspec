@@ -59,7 +59,7 @@
     <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.Repository.UnitOfWork.xml" target="lib\netstandard1.6" />
     <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.Dapper.Repository.UnitOfWork.dll" target="lib\net461" />
     <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.Dapper.Repository.UnitOfWork.xml" target="lib\net461" />
-    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.Repository.UnitOfWork" target="lib\net452" />
+    <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.dll" target="lib\net452" />
     <file src="..\src\Smooth.IoC.Dapper.Repository.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.xml" target="lib\net452" />
   </files>
 </package>
