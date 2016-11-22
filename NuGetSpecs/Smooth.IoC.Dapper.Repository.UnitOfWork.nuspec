@@ -3,7 +3,7 @@
   <metadata>
     <id>Smooth.IoC.Dapper.Repository.UnitOfWork</id>
     <version>$version$</version>
-    <title>Dapper.FastCrud</title>
+    <title>Smooth.IoC.Dapper.Repository.UnitOfWork</title>
     <authors>Rik Svendsen Rose</authors>
     <owners>Rik Svendsen Rose</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
