@@ -27,17 +27,5 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                 return await uow.FindAsync<TEntity>();
             }
         }
-        protected async Task<IEnumerable<TEntity>> GetAllAsync(ISession session, Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statement)
-        {
-            if (session != null)
-            {
-                return await session.FindAsync(statement);
-            }
-            using (var uow = Factory.CreateSession<TSession>())
-            {
-                return await uow.FindAsync(statement);
-            }
-        }
-
     }
 }
