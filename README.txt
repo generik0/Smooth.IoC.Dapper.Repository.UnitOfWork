@@ -12,11 +12,51 @@ This project is to easier use IoC with:
 ** Created using an session factory
 
 You are welcom to look at the test cases how to use.
-But simply add the Repository abstract class to you repository classes
-Add Your session / connection class inherited from Session. Adding the DbConnection tyhoe as a generic.
-Use the IDbFactory injected into your classes
-Create a session in your code using (var session = IdbFactory.Create<MySession>())
-If you need a transaction then using(var uow = session.UnitOfWork)
+Checout the Castle project for the castle windsor installer... More IoC will come.
 
-Smooth.IoC.Dapper.Repository.UnitOfWork.Castle: Has example of Castle windsor registration and
-Smooth.IoC.Dapper.Repository.UnitOfWork.Tests has example of usage. The test does not constructor inject, which you ofcause should...
+
+//Creating a session, Extend the session base with your dbconnection type:
+public class TestSession : Session<SQLiteConnection>, ITestSession (Remember your default interface for the IoC)
+{
+    public TestSession(IDbFactory session)
+        : base(session, "Data Source=:memory:;Version=3;New=True;")
+    {
+    }
+}
+
+//Creating a Repository interface, Add the IRepository to your Repository interface and give it the Entity and Pk generics
+public interface IBraveRepository : IRepository<Brave, int>
+{
+}
+//Creating a Repository , Add the Repository base to your Repository class and give it the Entity and Pk generics
+public class BraveRepository : Repository<ITestSession,Brave, int>, IBraveRepository
+{
+    public BraveRepository(IDbFactory factory) : base(factory)
+    {
+    }
+}
+
+
+//Using an session in a class and getting unit of work. 
+	//Creating the session will connect to the database. The disposal will close connection
+	//Creating a unitofwork will create a transaction for the session. The disposal commit the transaction
+public class MyClass : IMyClass
+{
+	private readonly IDbFactory _factory
+    public MyClass(IDbFactory factory)
+    {
+		_factory = factory
+    }
+
+	publiv void DoWork()
+	{
+		using (var session = _factory.CreateSession<ITestSession>())
+        {
+			var myItem = session.GetKey(1);
+            using (var uow = session.UnitOfWork())
+			{
+				uow.SaveOrUpdate(myItem);
+			}
+        }
+	}
+}

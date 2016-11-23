@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		MyGet.include.ps1 = MyGet.include.ps1
 		MyGet.ps1 = MyGet.ps1
+		README.txt = README.txt
 		NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec = NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec
 	EndProjectSection
 EndProject
