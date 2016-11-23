@@ -5,6 +5,11 @@ $configuration = ($env:Configuration)
 $msBuildExe = ($env:MsBuildExe)
 $msBuildTarget = ($env:Targets)
 
+$rootFolder = Split-Path -parent $script:MyInvocation.MyCommand.Path
+$rootFolder = Join-Path $rootFolder ..
+. $rootFolder\MyGet.include.ps1
+
+
 MyGet-Write-Diagnostic ""
 MyGet-Write-Diagnostic ""
 MyGet-Write-Diagnostic "###### Run all tests ######"
