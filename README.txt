@@ -18,3 +18,5 @@ Use the IDbFactory injected into your classes
 Create a session in your code using (var session = IdbFactory.Create<MySession>())
 If you need a transaction then using(var uow = session.UnitOfWork)
 
+Smooth.IoC.Dapper.Repository.UnitOfWork.Castle: Has example of Castle windsor registration and
+Smooth.IoC.Dapper.Repository.UnitOfWork.Tests has example of usage. The test does not constructor inject, which you ofcause should...
