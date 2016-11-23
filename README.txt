@@ -10,3 +10,11 @@ This project is to easier use IoC with:
 ** Created using an UnitOfWork factory
 ** A Session base class,
 ** Created using an session factory
+
+You are welcom to look at the test cases how to use.
+But simply add the Repository abstract class to you repository classes
+Add Your session / connection class inherited from Session. Adding the DbConnection tyhoe as a generic.
+Use the IDbFactory injected into your classes
+Create a session in your code using (var session = IdbFactory.Create<MySession>())
+If you need a transaction then using(var uow = session.UnitOfWork)
+
