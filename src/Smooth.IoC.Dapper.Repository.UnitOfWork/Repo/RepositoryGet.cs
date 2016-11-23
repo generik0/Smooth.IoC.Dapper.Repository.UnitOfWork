@@ -12,15 +12,25 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, IEntity<TPk>
         where TSession : ISession
     {
-        public TEntity Get(TPk key, ISession session = null)
+        public TEntity GetKey(TPk key, ISession session = null)
         {
-            return GetAsync(key, session).Result;
+            return GetKeyAsync(key, session).Result;
         }
 
-        public async Task<TEntity> GetAsync(TPk key, ISession session = null)
+        public async Task<TEntity> GetKeyAsync(TPk key, ISession session = null)
         {
             var entity = CreateInstanceHelper.Resolve<TEntity>();
             entity.Id = key;
+            return await GetAsync(entity, session);
+        }
+
+        public TEntity Get(TEntity entity, ISession session = null)
+        {
+            return GetAsync(entity, session).Result;
+        }
+
+        public async Task<TEntity> GetAsync(TEntity entity, ISession session = null)
+        {
             if (session != null)
             {
                 return await session.GetAsync(entity);
@@ -28,17 +38,6 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             using (var uow = Factory.CreateSession<TSession>())
             {
                 return await uow.GetAsync(entity);
-            }
-        }
-        protected async Task<TEntity> GetAsync(IDbConnection connection, TEntity keys, Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statement)
-        {
-            if (connection != null)
-            {
-                return await connection.GetAsync(keys, statement);
-            }
-            using (var uow = Factory.CreateSession<TSession>())
-            {
-                return await uow.GetAsync(keys, statement);
             }
         }
     }
