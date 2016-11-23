@@ -11,6 +11,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repositor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C08F9BD6-CCD6-4BC3-955F-6EE14DE3C8E5}"
 	ProjectSection(SolutionItems) = preProject
+		MyGet.include.ps1 = MyGet.include.ps1
 		MyGet.ps1 = MyGet.ps1
 		NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec = NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec
 	EndProjectSection

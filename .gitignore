@@ -10,4 +10,7 @@ obj
 /TestResult.xml
 /Thumbs.db
 /src/Smooth.IoC.Dapper.Repository.UnitOfWork/project.lock.json
+
 !.nunit/*
+!MyGet.include.ps1
+MyGet.ps1
