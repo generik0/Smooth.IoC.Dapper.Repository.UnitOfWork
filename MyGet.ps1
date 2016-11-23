@@ -5,6 +5,11 @@ $configuration = ($env:Configuration)
 $msBuildExe = ($env:MsBuildExe)
 $msBuildTarget = ($env:Targets)
 
+#$packageVersion = "2.4.0-preview1"
+#$configuration = "Release"
+#$msBuildExe = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
+#$msBuildTarget = "Build"
+
 Write-Host "Loading MyGet.include.ps1"
 # Initialization
 $rootFolder = Split-Path -parent $script:MyInvocation.MyCommand.Path
@@ -30,7 +35,7 @@ if ($LASTEXITCODE -ne 0){
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### Run all tests ######"
-& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll"
+& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll" --framework=net-4.5
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "tests failed"
 }

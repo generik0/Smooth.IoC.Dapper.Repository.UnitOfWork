@@ -1,37 +1,63 @@
 {
-  "version": "1.0.0-*",
-
-  "dependencies": {
-    "Dapper.FastCrud": "2.4.1",
-    "FakeItEasy": "2.3.1",
-    "NUnit": "3.5.0",
-    "dotnet-test-nunit": "3.4.0-beta-2",
-    "Simple.Migrations": "0.9.6",
-    "System.Data.SQLite.Core": "1.0.103",
-    "MySql.Data": "7.0.6-IR31",
-    "dotConnect.Express.for.PostgreSQL": "7.6.763",
-    "Smooth.IoC.Dapper.Repository.UnitOfWork": "1.0.0-*",
-    "Castle.Core": "3.3.3",
-    "Castle.Windsor": "3.3.0",
-    "Microsoft.CodeAnalysis.CSharp": "1.3.0",
-    "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle": "1.0.0-*",
-    "NUnit.ConsoleRunner": "3.5.0"
+  "version": "0.1.0-*",
+  "title": "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests",
+  "authors": [ "Rik Svendsen Rose" ],
+  "packOptions": {
+    "owners": [ "Rik Svendsen Rose" ],
+    "licenseUrl": "http://www.opensource.org/licenses/MIT",
+    "iconUrl": "https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg",
+    "requireLicenseAcceptance": false,
+    "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory Tests."
   },
-
-  "testRunner": "nunit",
-
-  "frameworks": {
-    "net452": {
-      "frameworkAssemblies": {
-        
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [ "DEBUG", "TRACE" ],
+        "copyToOutput": {
+          "include": [ "ConnectionSettings.json", "x86\\SQLite.Interop.dll", "x64\\SQLite.Interop.dll" ]
+        }
       }
     }
   },
-  "buildOptions": {
-    "xmlDoc": false,
-    "copyToOutput": {
-      "include": [ "ConnectionSettings.json", "x86\\SQLite.Interop.dll", "x64\\SQLite.Interop.dll" ]
+  "frameworks": {
+    "net452": {
+      "frameworkAssemblies": {
+      },
+      "dependencies": {
+        "Castle.Core": "3.3.3",
+        "Castle.Windsor": "3.3.0"
+      }
+    },
+    "net461": {
+      "buildOptions": {
+        "define": [ "NET_46_OR_GREATER" ]
+      },
+      "frameworkAssemblies": {
+      },
+      "dependencies": {
+        "Castle.Core": "3.3.3",
+        "Castle.Windsor": "3.3.0"
+      }
     }
+  },
+  "scripts": {
+    "postcompile": [
+    ] /* not working properly on myget: "dotnet pack --no-build --output ..\\Releases" */
+  },
+  "description": "The smoothest IoC Dapper Repository and UnitOfWork factory using Castle. VS2015 or an equivalent build environment is recommended.",
+  "buildOptions": {
+    "xmlDoc": true
+  },
+  "dependencies": {
+    "dotConnect.Express.for.PostgreSQL": "7.6.763",
+    "dotnet-test-nunit": "3.4.0-beta-3",
+    "FakeItEasy": "2.3.1",
+    "Microsoft.CodeAnalysis.CSharp": "1.3.2",
+    "MySql.Data": "6.9.9",
+    "NUnit": "3.5.0",
+    "Simple.Migrations": "0.9.6",
+    "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0-*",
+    "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle": "0.1.0-*",
+    "System.Data.SQLite.Core": "1.0.103"
   }
-  
 }
