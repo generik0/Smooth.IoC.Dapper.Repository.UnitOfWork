@@ -30,7 +30,7 @@ if ($LASTEXITCODE -ne 0){
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### Run all tests ######"
-& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll"
+& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll"
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "tests failed"
 }
