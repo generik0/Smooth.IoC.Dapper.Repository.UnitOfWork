@@ -14,7 +14,7 @@ $validBuildRunners = @("myget")
 
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
-MyGet-Write-Diagnostic "###### Run all tests ######"
+MyGet-Write-Diagnostic "###### restore dependencies ######"
 & "$PSScriptRoot\.nuget\nuget.exe" restore "$PSScriptRoot\Smooth.IoC.Dapper.Repository.UnitOfWork.sln"
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "nuget restore failed"
@@ -22,18 +22,26 @@ if ($LASTEXITCODE -ne 0){
 
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
-MyGet-Write-Diagnostic "###### build the solution ######"
-& "$msBuildExe" "$PSScriptRoot\Smooth.IoC.Dapper.Repository.UnitOfWork.sln" /t:"$msBuildTarget" /p:Configuration="$configuration"
+MyGet-Write-Diagnostic "###### Build debug ######"
+& "$msBuildExe" "$PSScriptRoot\Smooth.IoC.Dapper.Repository.UnitOfWork.sln" /t:"$msBuildTarget" /p:Configuration="Debug"
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "build failed"
 }
-
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### Run all tests ######"
-& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\$configuration\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll"
+& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll"
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "tests failed"
+}
+
+
+MyGet-Write-Diagnostic " "
+MyGet-Write-Diagnostic " "
+MyGet-Write-Diagnostic "###### build configuration target the solution ######"
+& "$msBuildExe" "$PSScriptRoot\Smooth.IoC.Dapper.Repository.UnitOfWork.sln" /t:"$msBuildTarget" /p:Configuration="$configuration"
+if ($LASTEXITCODE -ne 0){
+    MyGet-Die "build failed"
 }
 
 MyGet-Write-Diagnostic " "
