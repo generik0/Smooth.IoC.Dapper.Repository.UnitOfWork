@@ -31,7 +31,7 @@ if ($LASTEXITCODE -ne 0){
 
 MyGet-Write-Diagnostic ""
 MyGet-Write-Diagnostic ""
-MyGet-Write-Diagnostic "###### create the NuGet packages ######"
+MyGet-Write-Diagnostic "###### Create the NuGet packages ######"
 & "$PSScriptRoot\.nuget\nuget.exe" pack "$PSScriptRoot\NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec" -OutputDirectory "$PSScriptRoot\Releases" -Version "$packageVersion" -Properties configuration="$configuration" -Verbosity detailed
 if ($LASTEXITCODE -ne 0){
     throw "Nuget library packaging failed"
