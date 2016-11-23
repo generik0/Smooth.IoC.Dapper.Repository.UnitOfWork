@@ -10,7 +10,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         TEntity GetKey(TPk key, ISession session = null);
         Task<TEntity> GetKeyAsync(TPk key, ISession session = null);
         TEntity Get(TEntity entity, ISession session = null);
-        Task<TEntity> GetAsync(TEntity entity, ISession session = null)
+        Task<TEntity> GetAsync(TEntity entity, ISession session = null);
         IEnumerable<TEntity>  GetAll(ISession session = null);
         Task<IEnumerable<TEntity>> GetAllAsync(ISession session = null);
         TPk SaveOrUpdate(TEntity entity, IUnitOfWork transaction);
