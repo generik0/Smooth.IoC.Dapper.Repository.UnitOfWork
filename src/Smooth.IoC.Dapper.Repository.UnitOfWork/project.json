@@ -1,9 +1,9 @@
 {
   "version": "0.1.0-*",
   "title": "Smooth.IoC.Dapper.Repository.UnitOfWork",
-  "authors": [ "Rik Svendsen Rose" ],
+  "authors": [ "Generik0" ],
   "packOptions": {
-    "owners": [ "Rik Svendsen Rose" ],
+    "owners": [ "Generik0" ],
     "licenseUrl": "http://www.opensource.org/licenses/MIT",
     "iconUrl": "https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg",
     "requireLicenseAcceptance": false,
