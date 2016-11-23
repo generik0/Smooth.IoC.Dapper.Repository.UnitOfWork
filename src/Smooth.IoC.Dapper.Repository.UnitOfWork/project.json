@@ -5,7 +5,7 @@
   "packOptions": {
     "owners": [ "Rik Svendsen Rose" ],
     "licenseUrl": "http://www.opensource.org/licenses/MIT",
-    "iconUrl": "https://raw.githubusercontent.com/Generik0/Smoother.IoC.Dapper.Repository.UnitOfWork/master/logo.png",
+    "iconUrl": "https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg",
     "requireLicenseAcceptance": false,
     "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory"
   },
