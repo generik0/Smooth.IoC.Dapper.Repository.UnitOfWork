@@ -17,7 +17,7 @@ if ($LASTEXITCODE -ne 0){
     throw "build failed"
 }
 
-& "$PSScriptRoot\.nunit\nunit-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\$configuration\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll" /exclude=ExternalDatabase /noshadow  /framework:v4.5
+& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\$configuration\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll"
 if ($LASTEXITCODE -ne 0){
     throw "tests failed"
 }
