@@ -5,10 +5,12 @@ $configuration = ($env:Configuration)
 $msBuildExe = ($env:MsBuildExe)
 $msBuildTarget = ($env:Targets)
 
+Write-Host "Loading MyGet.include.ps1"
+# Initialization
 $rootFolder = Split-Path -parent $script:MyInvocation.MyCommand.Path
-$rootFolder = Join-Path $rootFolder ..
-. $rootFolder\MyGet.include.ps1
-
+. $rootFolder\myget.include.ps1
+# Valid build runners
+$validBuildRunners = @("myget")
 
 MyGet-Write-Diagnostic ""
 MyGet-Write-Diagnostic ""
