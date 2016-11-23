@@ -77,7 +77,7 @@
           "lib/net451/System.Data.Common.dll": {}
         }
       },
-      "Smooth.IoC.Dapper.Repository.UnitOfWork/1.0.0": {
+      "Smooth.IoC.Dapper.Repository.UnitOfWork/0.1.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
@@ -162,7 +162,7 @@
           "lib/net451/System.Data.Common.dll": {}
         }
       },
-      "Smooth.IoC.Dapper.Repository.UnitOfWork/1.0.0": {
+      "Smooth.IoC.Dapper.Repository.UnitOfWork/0.1.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6.1",
         "dependencies": {
@@ -325,7 +325,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "Smooth.IoC.Dapper.Repository.UnitOfWork/1.0.0": {
+    "Smooth.IoC.Dapper.Repository.UnitOfWork/0.1.0": {
       "type": "project",
       "path": "../Smooth.IoC.Dapper.Repository.UnitOfWork/project.json",
       "msbuildProject": "../Smooth.IoC.Dapper.Repository.UnitOfWork/Smooth.IoC.Dapper.Repository.UnitOfWork.xproj"
@@ -333,7 +333,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Smooth.IoC.Dapper.Repository.UnitOfWork >= 1.0.0-*"
+      "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.1.0-*"
     ],
     ".NETFramework,Version=v4.5.2": [
       "Castle.Core >= 3.3.3",
