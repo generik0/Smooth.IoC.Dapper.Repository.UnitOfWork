@@ -29,9 +29,9 @@ You are welcome to look at the unit tests for examples or look below in this rea
 So what i have done/created is this:
 
 1. **IDbFactory** is a simple interface that you register with your IoC. It can create/spwan ISession's and IUntOfWork's. But primary used in code to spawn sessions.
-2. **ISession&gt;TDatabase&lt;** extends IDbConnection. You use it to extend your Database connection / Session type. Yours session classes and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
+2. **ISession&lt;TDatabase&gt;** extends IDbConnection. You use it to extend your Database connection / Session type. Yours session classes and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
 3. **IUnitOfWork** extends IDbTransaction. You dont need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
-4. **IRepository&gt;TSession, TEntity, TPk&lt;** is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
+4. **IRepository&lt;TSession, TEntity, TPk&gt;** is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
 
 So far added examples om Castle.Windsor, StructureMap, Ninjet injection.
 
@@ -45,7 +45,7 @@ Creating a your custom session and interface type, Extend the session base with 
 *You can inject a setting/config interface for this injected into your session class and then pass the connection setting (not shown here)*:
 **Generic is a ADO DbConnection and supports with Dapper.FastCRUD MsSql, MySql, SQLite, PostgreSql.**
 
-<pre><code>public class TestSession : Session&gt;SQLiteConnection&lt;, ITestSession {
+<pre><code>public class TestSession : Session&lt;SQLiteConnection&gt;, ITestSession {
     public TestSession(IDbFactory session)
         : base(session, "Data Source=:memory:;Version=3;New=True;")
     {
@@ -60,7 +60,7 @@ Creating a Repository interface, Add the IRepository to your Repository interfac
 
 **Rememeber when you unit test you can use your ISession inteface on another session class in your test project and that way use another database for testing than the production code** 
 
-<pre><code>public class BraveRepository : Repository&gt;ITestSession,Brave, int&lt;, IBraveRepository
+<pre><code>public class BraveRepository : Repository&lt;ITestSession,Brave, int&gt;, IBraveRepository
 {
     public BraveRepository(IDbFactory factory) : base(factory)
     {
@@ -88,7 +88,7 @@ Here we create a session to get data, and create a uow to save data.
 
 	publiv void DoSomething()
 	{
-		using (var session = _factory.CreateSession&gt;ITestSession&lt;())
+		using (var session = _factory.CreateSession&lt;ITestSession&gt;())
         {
 			var myItem = _repository.GetKey(1, session);
             using (var uow = session.UnitOfWork())
@@ -134,13 +134,13 @@ You need to register the factory and UnitofWork
 {
     public void Install(IWindsorContainer container, IConfigurationStore store)
     {
-        if (container.Kernel.GetFacilities().ToList().FirstOrDefault(x =&lt; x.GetType() == typeof(TypedFactoryFacility)) == null)
+        if (container.Kernel.GetFacilities().ToList().FirstOrDefault(x =&gt; x.GetType() == typeof(TypedFactoryFacility)) == null)
         {
-            container.Kernel.AddFacility&gt;TypedFactoryFacility&lt;();
+            container.Kernel.AddFacility&lt;TypedFactoryFacility&gt;();
         }
-        container.Register(Component.For&gt;IDbFactory&lt;().AsFactory().IsFallback().LifestyleSingleton());
-        container.Register(Component.For&gt;IUnitOfWork&lt;()
-            .ImplementedBy&gt;Data.UnitOfWork&lt;().IsFallback().LifestyleTransient());
+        container.Register(Component.For&lt;IDbFactory&gt;().AsFactory().IsFallback().LifestyleSingleton());
+        container.Register(Component.For&lt;IUnitOfWork&gt;()
+            .ImplementedBy&lt;Data.UnitOfWork&gt;().IsFallback().LifestyleTransient());
     }
 }
 </code></pre>
@@ -153,8 +153,8 @@ You need to create a concrete factory and register it, passing the containter as
 {
     public void Register(IContainer container)
     {
-        container.Configure(c=&lt;c.For&gt;IDbFactory&lt;()
-        .UseIfNone&gt;StructureMapDbFactory&lt;().Ctor&gt;IContainer&lt;()
+        container.Configure(c=&gt;c.For&lt;IDbFactory&gt;()
+        .UseIfNone&lt;StructureMapDbFactory&gt;().Ctor&lt;IContainer&gt;()
         .Is(container).Singleton());
     }
 }</code></pre>
@@ -169,19 +169,19 @@ The Concrete StructureMapDbFactory looks like this:
         _container = container;
     }
 
-    public T CreateSession&gt;T&lt;() where T : ISession
+    public T CreateSession&lt;T&gt;() where T : ISession
     {
-        return _container.GetInstance&gt;T&lt;();
+        return _container.GetInstance&lt;T&gt;();
     }
 
-    public T CreateUnitOwWork&gt;T&lt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
     {
-        return  _container.With(factory).With(connection).GetInstance&gt;T&lt;();
+        return  _container.With(factory).With(connection).GetInstance&lt;T&gt;();
     }
 
-    public T CreateUnitOwWork&gt;T&lt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
-        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&gt;T&lt;();
+        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&lt;T&gt;();
     }
 
     public void Release(IDisposable instance)
@@ -202,9 +202,9 @@ It is only so the DbFactory is singleton. It doesn't need to be, but i am hoping
 {
     public void Bind(IKernel kernel)
     {
-        kernel.Bind&gt;INinjectDbFactory&lt;().ToFactory(() =&lt; new TypeMatchingArgumentInheritanceInstanceProvider());
-        kernel.Rebind&gt;IDbFactory&lt;().To&gt;DbFactory&lt;().InSingletonScope();
-        kernel.Bind&gt;IUnitOfWork&lt;().To&gt;Dapper.Repository.UnitOfWork.Data.UnitOfWork&lt;()
+        kernel.Bind&lt;INinjectDbFactory&gt;().ToFactory(() =&gt; new TypeMatchingArgumentInheritanceInstanceProvider());
+        kernel.Rebind&lt;IDbFactory&gt;().To&lt;DbFactory&gt;().InSingletonScope();
+        kernel.Bind&lt;IUnitOfWork&gt;().To&lt;Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;()
             .WithConstructorArgument(typeof(IDbFactory))
             .WithConstructorArgument(typeof(ISession))
             .WithConstructorArgument(typeof(IsolationLevel));
@@ -218,19 +218,19 @@ class DbFactory : IDbFactory
     public DbFactory(IResolutionRoot resolutionRoot)
     {
         _resolutionRoot = resolutionRoot;
-        _factory= resolutionRoot.Get&gt;INinjectDbFactory&lt;();
+        _factory= resolutionRoot.Get&lt;INinjectDbFactory&gt;();
     }
-    public T CreateSession&gt;T&lt;() where T : ISession
+    public T CreateSession&lt;T&gt;() where T : ISession
     {
-        return _factory.CreateSession&gt;T&lt;();
+        return _factory.CreateSession&lt;T&gt;();
     }
-    public T CreateUnitOwWork&gt;T&lt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
     {
-        return _factory.CreateUnitOwWork&gt;T&lt;(factory, connection);
+        return _factory.CreateUnitOwWork&lt;T&gt;(factory, connection);
     }
-    public T CreateUnitOwWork&gt;T&lt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
-        return _factory.CreateUnitOwWork&gt;T&lt;(factory, connection);
+        return _factory.CreateUnitOwWork&lt;T&gt;(factory, connection);
     }
     public void Release(IDisposable instance)
     {
