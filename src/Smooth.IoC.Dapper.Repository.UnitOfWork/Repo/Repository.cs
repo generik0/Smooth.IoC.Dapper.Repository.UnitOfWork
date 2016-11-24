@@ -35,7 +35,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             {
                 _mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
                 if (_mapping.Dialect == dialect) return;
-                OrmConfiguration.GetDefaultEntityMapping<TEntity>().SetDialect(dialect);
+                _mapping.SetDialect(dialect);
             }
         }
     }
