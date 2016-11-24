@@ -131,16 +131,61 @@ You need to register your own repository and session classes yourself. But using
 
 You need to register the factory and UnitofWork
 <pre><code>public class SmoothIoCDapperRepositoryUnitOfWorkInstaller : IWindsorInstaller
+{
+    public void Install(IWindsorContainer container, IConfigurationStore store)
     {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
+        if (container.Kernel.GetFacilities().ToList().FirstOrDefault(x => x.GetType() == typeof(TypedFactoryFacility)) == null)
         {
-            if (container.Kernel.GetFacilities().ToList().FirstOrDefault(x => x.GetType() == typeof(TypedFactoryFacility)) == null)
-            {
-                container.Kernel.AddFacility<TypedFactoryFacility>();
-            }
-            container.Register(Component.For<IDbFactory>().AsFactory().IsFallback().LifestyleSingleton());
-            container.Register(Component.For<IUnitOfWork>()
-                .ImplementedBy<Data.UnitOfWork>().IsFallback().LifestyleTransient());
+            container.Kernel.AddFacility<TypedFactoryFacility>();
         }
+        container.Register(Component.For<IDbFactory>().AsFactory().IsFallback().LifestyleSingleton());
+        container.Register(Component.For<IUnitOfWork>()
+            .ImplementedBy<Data.UnitOfWork>().IsFallback().LifestyleTransient());
     }
+}
 </code></pre>
+
+
+## Structure Map registration
+
+You need to create a concrete factory and register it, passing the containter as an argurment to the factory
+<pre><code>public class StructureMapRegistration
+{
+    public void Register(IContainer container)
+    {
+        container.Configure(c=>c.For<IDbFactory>()
+        .UseIfNone<StructureMapDbFactory>().Ctor<IContainer>()
+        .Is(container).Singleton());
+    }
+}</code></pre>
+
+The Concrete StructureMapDbFactory looks like this:
+<pre><code>public class StructureMapDbFactory : IDbFactory
+{
+    private IContainer _container;
+
+    public StructureMapDbFactory(IContainer container)
+    {
+        _container = container;
+    }
+
+    public T CreateSession<T>() where T : ISession
+    {
+        return _container.GetInstance<T>();
+    }
+
+    public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    {
+        return  _container.With(factory).With(connection).GetInstance<T>();
+    }
+
+    public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    {
+        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance<T>();
+    }
+
+    public void Release(IDisposable instance)
+    {
+        _container.Release(instance);
+    }
+}</code></pre>

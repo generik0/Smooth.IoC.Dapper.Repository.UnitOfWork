@@ -492,7 +492,6 @@
         "dependencies": {
           "Dapper": "1.50.2",
           "Dapper.FastCrud": "2.4.1",
-          "StructureMap": "4.4.2",
           "System.Data.Common": "4.3.0"
         },
         "frameworkAssemblies": [
@@ -1339,6 +1338,7 @@
       "NUnit >= 3.5.0",
       "Simple.Migrations >= 0.9.6",
       "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.1.0-*",
+      "StructureMap >= 4.4.2",
       "System.Data.SQLite.Core >= 1.0.103",
       "dotConnect.Express.for.PostgreSQL >= 7.6.763",
       "dotnet-test-nunit >= 3.4.0-beta-3"

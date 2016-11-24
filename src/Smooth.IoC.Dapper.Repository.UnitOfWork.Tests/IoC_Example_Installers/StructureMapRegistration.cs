@@ -12,6 +12,5 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             .UseIfNone<StructureMapDbFactory>().Ctor<IContainer>()
             .Is(container).Singleton());
         }
-
     }
 }
