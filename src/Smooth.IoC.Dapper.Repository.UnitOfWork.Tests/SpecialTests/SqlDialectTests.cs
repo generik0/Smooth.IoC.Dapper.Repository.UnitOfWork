@@ -9,7 +9,7 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
     [TestFixture]
-    public class SessionTests
+    public class SqlDialectTests
     {
         [Test]
         public void SqlDialect_Equals_SqLite()
