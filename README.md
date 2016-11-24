@@ -33,7 +33,7 @@ So what i have done/created is this:
 3. **IUnitOfWork** extends IDbTransaction. You dont need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
 4. **IRepository<TSession, TEntity, TPk>** is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
 
-So far added examples om Castle.Windsor, StructureMap injection.
+So far added examples om Castle.Windsor, StructureMap, Ninjet injection.
 
 ##Code examples
 
@@ -187,5 +187,53 @@ The Concrete StructureMapDbFactory looks like this:
     public void Release(IDisposable instance)
     {
         _container.Release(instance);
+    }
+}</code></pre>
+
+## Ninject registration
+
+Ninject like Castle, and unlike Structure Map has a good factory. Unfortunately the factory does not have a Release. So i decided to in the example to combine the use of the ninject factory and a concrete factory.
+*You need to install-package Ninject.Extensions.Factory for this to work*
+
+When you register the binding, for this example to work, the Bind must be after your other registrations so that "Rebind" on the DbFactory works.
+It is only so the DbFactory is singleton. It doesn't need to be, but i am hoping it is faster for the IoC to resolve.
+
+<pre><code>public class NinjectBinder
+{
+    public void Bind(IKernel kernel)
+    {
+        kernel.Bind<INinjectDbFactory>().ToFactory(() => new TypeMatchingArgumentInheritanceInstanceProvider());
+        kernel.Rebind<IDbFactory>().To<DbFactory>().InSingletonScope();
+        kernel.Bind<IUnitOfWork>().To<Dapper.Repository.UnitOfWork.Data.UnitOfWork>()
+            .WithConstructorArgument(typeof(IDbFactory))
+            .WithConstructorArgument(typeof(ISession))
+            .WithConstructorArgument(typeof(IsolationLevel));
+    }
+}
+class DbFactory : IDbFactory
+{
+    private readonly IResolutionRoot _resolutionRoot;
+    private INinjectDbFactory _factory;
+
+    public DbFactory(IResolutionRoot resolutionRoot)
+    {
+        _resolutionRoot = resolutionRoot;
+        _factory= resolutionRoot.Get<INinjectDbFactory>();
+    }
+    public T CreateSession<T>() where T : ISession
+    {
+        return _factory.CreateSession<T>();
+    }
+    public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    {
+        return _factory.CreateUnitOwWork<T>(factory, connection);
+    }
+    public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    {
+        return _factory.CreateUnitOwWork<T>(factory, connection);
+    }
+    public void Release(IDisposable instance)
+    {
+        _resolutionRoot.Release(instance);
     }
 }</code></pre>
