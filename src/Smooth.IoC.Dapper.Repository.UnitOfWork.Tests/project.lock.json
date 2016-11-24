@@ -245,6 +245,52 @@
           "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
+      "Ninject/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45-full/Ninject.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.dll": {}
+        }
+      },
+      "Ninject.Extensions.Conventions/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Extensions.Conventions.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Extensions.Conventions.dll": {}
+        }
+      },
+      "Ninject.Extensions.Factory/3.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "[3.2.0, 4.0.0)",
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Extensions.Factory.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Extensions.Factory.dll": {}
+        }
+      },
+      "Ninject.Extensions.Interception/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Extensions.Interception.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Extensions.Interception.dll": {}
+        }
+      },
       "NuGet.Common/3.5.0-beta2-1484": {
         "type": "package",
         "frameworkAssemblies": [
@@ -800,6 +846,108 @@
         "tools/install.ps1"
       ]
     },
+    "Ninject/3.2.0": {
+      "sha512": "CN7i6J/a1y85jVdeg0FkH5Obqo47SVQBU5929NPmlsi/AbE6ofJoStPHJco4H3aSI696obvoDmFxbZ+tfz7m6A==",
+      "type": "package",
+      "path": "Ninject/3.2.0",
+      "files": [
+        "Ninject.3.2.0.nupkg.sha512",
+        "Ninject.nuspec",
+        "lib/net35/Ninject.dll",
+        "lib/net35/Ninject.xml",
+        "lib/net40/Ninject.dll",
+        "lib/net40/Ninject.xml",
+        "lib/net45-full/Ninject.dll",
+        "lib/net45-full/Ninject.xml",
+        "lib/sl2/Ninject.dll",
+        "lib/sl2/Ninject.xml",
+        "lib/sl3-wp/Ninject.dll",
+        "lib/sl3-wp/Ninject.xml",
+        "lib/sl3/Ninject.dll",
+        "lib/sl3/Ninject.xml",
+        "lib/sl4-windowsphone71/Ninject.dll",
+        "lib/sl4-windowsphone71/Ninject.xml",
+        "lib/sl4/Ninject.dll",
+        "lib/sl4/Ninject.xml",
+        "lib/sl5/Ninject.dll",
+        "lib/sl5/Ninject.xml"
+      ]
+    },
+    "Ninject.Extensions.Conventions/3.2.0": {
+      "sha512": "9fRW5wM6kB7LLP6cDFjLlRawrVgir3mjlZqAD348jN0mwhyl5klkH34Cm69HKI2702FRDRgVVPNvJdcG0wf6Pw==",
+      "type": "package",
+      "path": "Ninject.Extensions.Conventions/3.2.0",
+      "files": [
+        "lib/net35/Ninject.Extensions.Conventions.dll",
+        "lib/net35/Ninject.Extensions.Conventions.xml",
+        "lib/net40/Ninject.Extensions.Conventions.dll",
+        "lib/net40/Ninject.Extensions.Conventions.xml",
+        "lib/net45-full/Ninject.Extensions.Conventions.dll",
+        "lib/net45-full/Ninject.Extensions.Conventions.xml",
+        "lib/sl2/Ninject.Extensions.Conventions.dll",
+        "lib/sl2/Ninject.Extensions.Conventions.xml",
+        "lib/sl3-wp/Ninject.Extensions.Conventions.dll",
+        "lib/sl3-wp/Ninject.Extensions.Conventions.xml",
+        "lib/sl3/Ninject.Extensions.Conventions.dll",
+        "lib/sl3/Ninject.Extensions.Conventions.xml",
+        "lib/sl4-windowsphone71/Ninject.Extensions.Conventions.dll",
+        "lib/sl4-windowsphone71/Ninject.Extensions.Conventions.xml",
+        "lib/sl4/Ninject.Extensions.Conventions.dll",
+        "lib/sl4/Ninject.Extensions.Conventions.xml",
+        "lib/sl5/Ninject.Extensions.Conventions.dll",
+        "lib/sl5/Ninject.Extensions.Conventions.xml",
+        "ninject.extensions.conventions.3.2.0.nupkg.sha512",
+        "ninject.extensions.conventions.nuspec"
+      ]
+    },
+    "Ninject.Extensions.Factory/3.2.1": {
+      "sha512": "8dYPqYjVJxPyPRu52udugmfoqb/NwYkOM+KPlwzb0n6/vQ80vDmN+RB08r4HedyelHqXdtbwLsaYTw5rSq4R8w==",
+      "type": "package",
+      "path": "Ninject.Extensions.Factory/3.2.1",
+      "files": [
+        "Ninject.Extensions.Factory.3.2.1.nupkg.sha512",
+        "Ninject.Extensions.Factory.nuspec",
+        "lib/net35/Ninject.Extensions.Factory.dll",
+        "lib/net35/Ninject.Extensions.Factory.xml",
+        "lib/net40/Ninject.Extensions.Factory.dll",
+        "lib/net40/Ninject.Extensions.Factory.xml",
+        "lib/net45-full/Ninject.Extensions.Factory.dll",
+        "lib/net45-full/Ninject.Extensions.Factory.xml",
+        "lib/sl2/Ninject.Extensions.Factory.dll",
+        "lib/sl2/Ninject.Extensions.Factory.xml",
+        "lib/sl3-wp/Ninject.Extensions.Factory.dll",
+        "lib/sl3-wp/Ninject.Extensions.Factory.xml",
+        "lib/sl3/Ninject.Extensions.Factory.dll",
+        "lib/sl3/Ninject.Extensions.Factory.xml",
+        "lib/sl4-windowsphone71/Ninject.Extensions.Factory.dll",
+        "lib/sl4-windowsphone71/Ninject.Extensions.Factory.xml",
+        "lib/sl4/Ninject.Extensions.Factory.dll",
+        "lib/sl4/Ninject.Extensions.Factory.xml",
+        "lib/sl5/Ninject.Extensions.Factory.dll",
+        "lib/sl5/Ninject.Extensions.Factory.xml"
+      ]
+    },
+    "Ninject.Extensions.Interception/3.2.0": {
+      "sha512": "TytovzkgkNplk/aLCY56tEe27bZL0l8W9gokBdaZv8FUZcVhdYjDpVD2S0+yXXgirI3mq/L3BBMuQlJVM5TY6Q==",
+      "type": "package",
+      "path": "Ninject.Extensions.Interception/3.2.0",
+      "files": [
+        "Ninject.Extensions.Interception.3.2.0.nupkg.sha512",
+        "Ninject.Extensions.Interception.nuspec",
+        "lib/net35/Ninject.Extensions.Interception.dll",
+        "lib/net35/Ninject.Extensions.Interception.xml",
+        "lib/net40/Ninject.Extensions.Interception.dll",
+        "lib/net40/Ninject.Extensions.Interception.xml",
+        "lib/net45-full/Ninject.Extensions.Interception.dll",
+        "lib/net45-full/Ninject.Extensions.Interception.xml",
+        "lib/sl3/Ninject.Extensions.Interception.dll",
+        "lib/sl3/Ninject.Extensions.Interception.xml",
+        "lib/sl4/Ninject.Extensions.Interception.dll",
+        "lib/sl4/Ninject.Extensions.Interception.xml",
+        "lib/sl5/Ninject.Extensions.Interception.dll",
+        "lib/sl5/Ninject.Extensions.Interception.xml"
+      ]
+    },
     "NuGet.Common/3.5.0-beta2-1484": {
       "sha512": "rLBmcZOPVF7Mne/LumDNACZZyI5B67hjylt+Z/WSEUQ/IXE9nLv8IVL0+T9xljIaSSQCjO8cOtmJ6ztqrsQKcQ==",
       "type": "package",
@@ -1336,6 +1484,9 @@
       "Microsoft.CodeAnalysis.CSharp >= 1.3.2",
       "MySql.Data >= 6.9.9",
       "NUnit >= 3.5.0",
+      "Ninject.Extensions.Conventions >= 3.2.0",
+      "Ninject.Extensions.Factory >= 3.2.1",
+      "Ninject.Extensions.Interception >= 3.2.0",
       "Simple.Migrations >= 0.9.6",
       "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.1.0-*",
       "StructureMap >= 4.4.2",
