@@ -20,7 +20,7 @@ Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic wa
 
 NB. I also feel it is important that it is possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).
 This design allows for this. As your custom session interface is used as the generic for the repository, not the session class allowing for different connection strings. 
-You can even use the same database migrations if you have done code first. I have used [SimpleMigrations](https://github.com/generik0/SimpleMigrations) as it allows both console running for the production code / installer and inproc for unit testing.
+You can even use the same database migrations if you have done code first. I have used [SimpleMigrations](https://github.com/canton7/Simple.Migrations) as it allows both console running for the production code / installer and inproc for unit testing.
 
 You are welcome to look at the unit tests for examples or look below in this readme.
 

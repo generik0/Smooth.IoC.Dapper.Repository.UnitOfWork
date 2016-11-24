@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Linq;
+using Castle.Core.Internal;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Dapper.FastCrud;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Castle.Core.Internal;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Castle;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
 {
     [TestFixture]
     public class CastleWindsorTests

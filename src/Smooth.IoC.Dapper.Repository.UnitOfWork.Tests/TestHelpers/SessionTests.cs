@@ -4,10 +4,9 @@ using Dapper.FastCrud;
 using Devart.Data.PostgreSql;
 using MySql.Data.MySqlClient;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.Data
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
     [TestFixture]
     public class SessionTests

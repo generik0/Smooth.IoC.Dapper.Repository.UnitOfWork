@@ -1,7 +1,7 @@
 ﻿using System.Data.SQLite;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
     public interface ITestSession : ISession
     {

@@ -6,7 +6,7 @@ using SimpleMigrations;
 using SimpleMigrations.VersionProvider;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Migrations
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations
 {
     public class MigrateDb
     {

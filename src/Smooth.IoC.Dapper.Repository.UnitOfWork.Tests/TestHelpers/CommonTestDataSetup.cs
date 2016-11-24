@@ -1,9 +1,9 @@
 ﻿using Dapper.FastCrud;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Migrations;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
     public abstract class CommonTestDataSetup
     {
