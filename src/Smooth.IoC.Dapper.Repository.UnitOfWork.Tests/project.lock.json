@@ -395,6 +395,15 @@
           "lib/net40/StringInterpolationBridge.dll": {}
         }
       },
+      "StructureMap/4.4.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/StructureMap.dll": {}
+        },
+        "runtime": {
+          "lib/net45/StructureMap.dll": {}
+        }
+      },
       "System.Collections.Immutable/1.2.0": {
         "type": "package",
         "compile": {
@@ -483,6 +492,7 @@
         "dependencies": {
           "Dapper": "1.50.2",
           "Dapper.FastCrud": "2.4.1",
+          "StructureMap": "4.4.2",
           "System.Data.Common": "4.3.0"
         },
         "frameworkAssemblies": [
@@ -914,6 +924,15 @@
         },
         "runtime": {
           "lib/net45/Simple.Migrations.dll": {}
+        }
+      },
+      "StructureMap/4.4.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/StructureMap.dll": {}
+        },
+        "runtime": {
+          "lib/net45/StructureMap.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -1466,6 +1485,7 @@
         "dependencies": {
           "Dapper": "1.50.2",
           "Dapper.FastCrud": "2.4.1",
+          "StructureMap": "4.4.2",
           "System.Data.Common": "4.3.0"
         },
         "frameworkAssemblies": [
@@ -1927,6 +1947,18 @@
         "lib/net20/StringInterpolationBridge.dll",
         "lib/net40/StringInterpolationBridge.dll",
         "lib/net46/_._"
+      ]
+    },
+    "StructureMap/4.4.2": {
+      "sha512": "cBmIv/Kg/zCp2xemG4Qk5s7uHgiVkpPnTaBb5I4Ofezkvudr0VF+LqOdnnPHPEfSviakgIZpZrdAeHhoNQn3CA==",
+      "type": "package",
+      "path": "StructureMap/4.4.2",
+      "files": [
+        "lib/net45/StructureMap.dll",
+        "lib/netstandard1.3/StructureMap.dll",
+        "lib/netstandard1.5/StructureMap.dll",
+        "structuremap.4.4.2.nupkg.sha512",
+        "structuremap.nuspec"
       ]
     },
     "System.AppContext/4.1.0": {
