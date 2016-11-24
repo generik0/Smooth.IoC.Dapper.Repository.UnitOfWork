@@ -495,21 +495,6 @@
         "runtime": {
           "net452/Smooth.IoC.Dapper.Repository.UnitOfWork.dll": {}
         }
-      },
-      "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle/0.1.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
-        "dependencies": {
-          "Castle.Core": "3.3.3",
-          "Castle.Windsor": "3.3.0",
-          "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0"
-        },
-        "compile": {
-          "net452/Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.dll": {}
-        },
-        "runtime": {
-          "net452/Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.dll": {}
-        }
       }
     },
     ".NETFramework,Version=v4.6.1": {
@@ -1492,21 +1477,6 @@
         },
         "runtime": {
           "net461/Smooth.IoC.Dapper.Repository.UnitOfWork.dll": {}
-        }
-      },
-      "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle/0.1.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.6.1",
-        "dependencies": {
-          "Castle.Core": "3.3.3",
-          "Castle.Windsor": "3.3.0",
-          "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0"
-        },
-        "compile": {
-          "net461/Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.dll": {}
-        },
-        "runtime": {
-          "net461/Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.dll": {}
         }
       }
     }
@@ -4195,11 +4165,6 @@
       "type": "project",
       "path": "../Smooth.IoC.Dapper.Repository.UnitOfWork/project.json",
       "msbuildProject": "../Smooth.IoC.Dapper.Repository.UnitOfWork/Smooth.IoC.Dapper.Repository.UnitOfWork.xproj"
-    },
-    "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle/0.1.0": {
-      "type": "project",
-      "path": "../Smooth.IoC.Dapper.Repository.UnitOfWork.Castle/project.json",
-      "msbuildProject": "../Smooth.IoC.Dapper.Repository.UnitOfWork.Castle/Smooth.IoC.Dapper.Repository.UnitOfWork.Castle.xproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4210,7 +4175,6 @@
       "NUnit >= 3.5.0",
       "Simple.Migrations >= 0.9.6",
       "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.1.0-*",
-      "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle >= 0.1.0-*",
       "System.Data.SQLite.Core >= 1.0.103",
       "dotConnect.Express.for.PostgreSQL >= 7.6.763",
       "dotnet-test-nunit >= 3.4.0-beta-3"

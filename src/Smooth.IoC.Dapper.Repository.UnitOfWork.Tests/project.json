@@ -57,7 +57,6 @@
     "NUnit": "3.5.0",
     "Simple.Migrations": "0.9.6",
     "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0-*",
-    "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle": "0.1.0-*",
     "System.Data.SQLite.Core": "1.0.103"
   }
 }
