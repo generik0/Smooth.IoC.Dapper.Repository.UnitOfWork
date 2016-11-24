@@ -60,7 +60,11 @@ Creating a Repository interface, Add the IRepository to your Repository interfac
 
 **Rememeber when you unit test you can use your ISession inteface on another session class in your test project and that way use another database for testing than the production code** 
 
-<pre><code>public class BraveRepository : Repository&lt;ITestSession,Brave, int&gt;, IBraveRepository
+<pre><code>public interface IBraveRepository : IRepository&lt;Brave, int&gt;
+{
+}
+
+public class BraveRepository : Repository&lt;ITestSession,Brave, int&gt;, IBraveRepository
 {
     public BraveRepository(IDbFactory factory) : base(factory)
     {
