@@ -21,7 +21,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
             using (var transaction = Connection.UnitOfWork())
             {
                 Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, transaction));
-                transaction.Rollback();
+//                transaction.Rollback();
             }
             Assert.That(result, Is.EqualTo(4));
         }
@@ -36,6 +36,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
             var original = expected.New;
             expected.NewId = 2;
             int resultId = 0;
+
             using (var transaction = Connection.UnitOfWork())
             {
                 Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, transaction));
