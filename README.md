@@ -10,6 +10,8 @@ I made this project to fix the contradictory concepts behind the Repository and 
 Also i wanted the usage of the session and uow became nice and simple.  
 This covers 97% of these needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
+##The problem
+
 All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
 Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.
 
@@ -22,7 +24,7 @@ You can even use the same database migrations if you have done code first. I hav
 
 You are welcome to look at the unit tests for examples or look below in this readme.
 
-#What is it:
+#What this the pachkage include and do?
 
 So what i have done/created is this:
 
@@ -31,7 +33,7 @@ So what i have done/created is this:
 3. **IUnitOfWork** extends IDbTransaction. You dont need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
 4. **IRepository<TSession, TEntity, TPk>** is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
 
-##Kode examples:
+##Kode examples
 
 ### Session and ISession
 
