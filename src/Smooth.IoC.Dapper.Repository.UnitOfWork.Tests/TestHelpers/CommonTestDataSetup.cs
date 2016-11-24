@@ -1,5 +1,4 @@
-﻿using Dapper.FastCrud;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
@@ -14,7 +13,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
         {
             if (Connection != null) return;
             Connection = new MigrateDb().Connection;
-            OrmConfiguration.DefaultDialect = SqlDialect.SqLite;
         }
     }
 }
