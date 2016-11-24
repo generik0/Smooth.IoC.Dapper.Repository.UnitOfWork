@@ -20,11 +20,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (session != null)
             {
+                SetDialectIfNeeded(session);
                 return await session.FindAsync<TEntity>();
             }
-            using (var uow = Factory.CreateSession<TSession>())
+            using (var connection = Factory.CreateSession<TSession>())
             {
-                return await uow.FindAsync<TEntity>();
+                SetDialectIfNeeded(connection);
+                return await connection.FindAsync<TEntity>();
             }
         }
     }

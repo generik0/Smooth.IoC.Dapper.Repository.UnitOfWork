@@ -15,10 +15,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         public async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork transaction)
         {
+            SetDialectIfNeeded(transaction);
             if (entity.Id.Equals(default(TPk)))
             {
                 return await Task.Run(() =>
                 {
+                    
                     transaction.Connection.Insert(entity);
                     return entity.Id;
                 });
