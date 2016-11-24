@@ -36,11 +36,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         private static void SetDialogueIfNeeded<TEntity>(SqlDialect sqlDialect)
         {
-            if (OrmConfiguration.GetDefaultEntityMapping<TEntity>().Dialect == sqlDialect) return;
+            var mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
+            if (mapping.IsFrozen||mapping.Dialect == sqlDialect) return;
             lock (_lockSqlDialectUpdate)
             {
-                var mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
-                if (mapping.Dialect == sqlDialect) return;
+                mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>(); //reload to be sure
+                if (mapping.IsFrozen || mapping.Dialect == sqlDialect) return;
                 mapping.SetDialect(sqlDialect);
             }
         }
