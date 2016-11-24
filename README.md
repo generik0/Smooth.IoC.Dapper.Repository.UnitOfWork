@@ -37,6 +37,16 @@ So far added examples om Castle.Windsor, StructureMap, Ninjet injection.
 
 ## Code examples
 
+
+### Dapper and Dapper.FastCRUD
+I use Dapper and Dapper.FastCRUD for my sql work.
+Dapper is a micro ORM data does only what you ask of it through queries. [Dapper](https://github.com/StackExchange/dapper-dot-net)  
+There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper.  [Dapper](https://github.com/MoonStorm/Dapper.FastCRUD).  
+The drawback with Dapper.FastCRUD is it may fail if you don't give it the SqlDialect. If you are only using one database type you can e.g:
+<pre><code>OrmConfiguration.DefaultDialect = SqlDialect.SqLite;</code></pre>
+Otherwise for now, i recommend using the method available in the Repository base called *SetDialectIfNeeded(session)* in your repository methods, where you want to use FastCRUD.
+You can do what ever you like with dapper, but multiple database types and using FastCRUD will require you set the dialect before yhou call any FastCRUD methods.
+
 ### Session and ISession
 
 Below is an example of a session / dbconnection class.
