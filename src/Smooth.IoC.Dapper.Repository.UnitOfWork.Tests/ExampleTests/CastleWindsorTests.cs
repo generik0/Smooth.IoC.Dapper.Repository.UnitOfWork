@@ -5,6 +5,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Dapper.FastCrud;
 using NUnit.Framework;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
@@ -23,7 +24,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 _container = new WindsorContainer();
                 Assert.DoesNotThrow(() =>
                 {
-                    _container.Install(new SmoothIoCDapperRepositoryUnitOfWorkInstaller());
+                    _container.Install(new CastleWindsorInstaller());
                     _container.Register(Classes.FromThisAssembly()
                         .Where(t => t.GetInterfaces().Length > 0 && 
                             t.GetInterfaces().Any(x => x != typeof(IDisposable)) 
