@@ -19,21 +19,11 @@
       }
     }
   },
+
   "testRunner": "nunit",
 
   "frameworks": {
     "net452": {
-      "frameworkAssemblies": {
-      },
-      "dependencies": {
-        "Castle.Core": "3.3.3",
-        "Castle.Windsor": "3.3.0"
-      }
-    },
-    "net461": {
-      "buildOptions": {
-        "define": [ "NET_46_OR_GREATER" ]
-      },
       "frameworkAssemblies": {
       },
       "dependencies": {
