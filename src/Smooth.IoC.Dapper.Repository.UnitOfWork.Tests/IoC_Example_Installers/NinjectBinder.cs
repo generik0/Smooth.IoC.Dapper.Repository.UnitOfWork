@@ -21,7 +21,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
 
     }
-    public class DbFactory : IDbFactory
+    class DbFactory : IDbFactory
     {
         private readonly IResolutionRoot _resolutionRoot;
         private INinjectDbFactory _factory;
