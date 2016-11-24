@@ -4,8 +4,11 @@
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
-[navbar]Menu***
-
+[navbar]Brand reference
+***
+* Hierarchical
+ * list of
+ * menu items[/navbar]
 
 #Why
 
