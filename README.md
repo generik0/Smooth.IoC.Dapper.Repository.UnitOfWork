@@ -4,19 +4,13 @@
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
-[navbar]Brand reference
-***
-* Hierarchical
- * list of
- * menu items[/navbar]
-
-#Why
-
+# Why
+ 
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
 Also i wanted the usage of the session and uow to become nice and simple.  
 This covers 97% of these needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
-##The problem
+## The problem
 
 All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
 Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.
@@ -30,7 +24,7 @@ You can even use the same database migrations if you have done code first. I hav
 
 You are welcome to look at the unit tests for examples or look below in this readme.
 
-#What this the pachkage include and do?
+# What this the pachkage include and do?
 
 So what i have done/created is this:
 
@@ -41,7 +35,7 @@ So what i have done/created is this:
 
 So far added examples om Castle.Windsor, StructureMap, Ninjet injection.
 
-##Code examples
+## Code examples
 
 ### Session and ISession
 
@@ -130,14 +124,14 @@ Here is the simple version where we just want to get some data and the repositor
 }</code></pre>
 
 
-#That simple. That smooth.#
+# That simple. That smooth.#
 
 
 #IoC registration
 
 You need to register your own repository and session classes yourself. But using default convensions this should happen automatically in you bootsrapper, right?
 
-## Castle Windsor Installer:
+## Castle Windsor Installer
 
 You need to register the factory and UnitofWork
 <pre><code>public class SmoothIoCDapperRepositoryUnitOfWorkInstaller : IWindsorInstaller
