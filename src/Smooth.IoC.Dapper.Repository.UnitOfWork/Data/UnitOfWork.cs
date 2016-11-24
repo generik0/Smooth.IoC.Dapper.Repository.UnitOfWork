@@ -1,8 +1,10 @@
 ﻿using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using Dapper.FastCrud;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
+    [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
     public class UnitOfWork : DbTransaction, IUnitOfWork
     {
         public SqlDialect SqlDialect { get; set; }
