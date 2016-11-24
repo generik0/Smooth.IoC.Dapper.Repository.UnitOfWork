@@ -19,8 +19,7 @@
       }
     }
   },
-  "testRunner": "nunit",
-
+  
   "frameworks": {
     "net452": {
       "frameworkAssemblies": {
