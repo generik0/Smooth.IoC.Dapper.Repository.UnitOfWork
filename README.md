@@ -1,25 +1,26 @@
 ![Project Icon](logo.jpg) Smooth.IoC.Dapper.Repository.UnitOfWork
 ===========================================
 
-[![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
+[![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
 #Why
 
-I made this project to fix the contradictory concepts behind the reposotory and unitofwork patterns together with using inversition of control / dipendancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) autoamtically connection / begin transaction on creation, and disconnect/commit on disposal. 
-All so the usage of the session and uow became nice and simple.
-This covers 97% of needs. But i have also insured the the session and uow types extend the ADO base types, so you can basically do anything you like with the session / transactions. 
+I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
+Also i wanted the usage of the session and uow became nice and simple.  
+This covers 97% of these needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
-All of the repository patterns i could find examples of on the internet didn't include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.
+All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
+Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.
 
 I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegnce/help was needed.
 Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic was born...
 
 NB. I also feel it is important that it is possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).
 This design allows for this. As your custom session interface is used as the generic for the repository, not the session class allowing for different connection strings. 
+You can even use the same database migrations if you have done code first. I have used [SimpleMigrations](https://github.com/generik0/SimpleMigrations) as it allows both console running for the production code / installer and inproc for unit testing.
 
-You are welcome to look at the unit tests for examples.
-
+You are welcome to look at the unit tests for examples or look below in this readme.
 
 #What is it:
 
@@ -66,9 +67,8 @@ Creating a Repository interface, Add the IRepository to your Repository interfac
 }</code></pre>
 
 ### Using Session and UnitOFWork in a class/method
-Below is an examples of a repository class that extends Repository.
-Here we create a session to get data, and create a uow to sdave data.
-
+Below is an examples of a the factory spawning a session and the session (using its injected factory) to spawn a UoW.  
+Here we create a session to get data, and create a uow to save data.  
 *The connection and begin transaction will happen on create and close and commit will happen @disposal*
 
 <pre><code>public class MyClass : IMyClass
@@ -95,8 +95,7 @@ Here we create a session to get data, and create a uow to sdave data.
 	}
 }</code></pre>
 
-Here is the simple version where we just want to get some data and the repository will created and close the connection it self.
-
+Here is the simple version where we just want to get some data and the repository will created and close the connection it self.  
 *The connection and commit will happen @disposal*
 
 <pre><code>public class MyClass : IMyClass
