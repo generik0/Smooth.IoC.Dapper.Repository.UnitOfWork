@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using Dapper.FastCrud;
+﻿using Dapper.FastCrud;
 using Dapper.FastCrud.Mappings;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
@@ -13,8 +10,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         protected readonly IDbFactory Factory;
         private EntityMapping<TEntity> _mapping;
-        private bool _sqlDialectCorrect;
-        private readonly object _lockSqlDialectUpdate = new object();
+        private static readonly object _lockSqlDialectUpdate = new object();
 
         protected Repository(IDbFactory factory)
         {
@@ -33,13 +29,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         private void SetDialectIfDialogIncorrect(SqlDialect dialect)
         {
-            if (_sqlDialectCorrect) return;
+            _mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
+            if (_mapping.Dialect == dialect) return;
             lock (_lockSqlDialectUpdate)
             {
                 _mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
-                if (_mapping.Dialect == dialect || _sqlDialectCorrect) return;
-                _sqlDialectCorrect = true;
-                _mapping.SetDialect(dialect);
+                if (_mapping.Dialect == dialect) return;
+                OrmConfiguration.GetDefaultEntityMapping<TEntity>().SetDialect(dialect);
             }
         }
     }

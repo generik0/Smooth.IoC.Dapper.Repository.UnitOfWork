@@ -17,8 +17,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
         {
         }
 
-        public IEnumerable<Brave> GetAllJoins(IDbConnection connection)
+        public IEnumerable<Brave> GetAllJoins(ISession connection)
         {
+            SetDialectIfNeeded(connection);
             return connection.Find<Brave>(statement =>
             {
                 statement.Include<New>(join => join.InnerJoin())
@@ -26,8 +27,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
             });
         }
 
-        public Brave Get(int key, IDbConnection connection)
+        public Brave Get(int key, ISession connection)
         {
+            SetDialectIfNeeded(connection);
             var entity = CreateInstanceHelper.Resolve<Brave>();
             entity.Id = key;
             return connection.Get(entity, statement =>

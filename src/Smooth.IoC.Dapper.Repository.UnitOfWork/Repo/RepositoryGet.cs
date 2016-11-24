@@ -31,12 +31,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             if (session != null)
             {
                 SetDialectIfNeeded(session);
-                return await session.GetAsync(entity, statement=>statement.WithEntityMappingOverride(_mapping));
+                return await session.GetAsync(entity);
             }
             using (var connection = Factory.CreateSession<TSession>())
             {
                 SetDialectIfNeeded(connection);
-                return await connection.GetAsync(entity, statement => statement.WithEntityMappingOverride(_mapping));
+                return await connection.GetAsync(entity);
             }
         }
     }
