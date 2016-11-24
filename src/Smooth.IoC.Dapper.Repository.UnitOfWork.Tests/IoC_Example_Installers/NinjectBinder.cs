@@ -12,6 +12,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
         public void Bind(IKernel kernel)
         {
             kernel.Bind<INinjectDbFactory>().ToFactory(() => new TypeMatchingArgumentInheritanceInstanceProvider());
+            kernel.Rebind<IDbFactory>().To<DbFactory>().InSingletonScope();
             kernel.Bind<IUnitOfWork>().To<Dapper.Repository.UnitOfWork.Data.UnitOfWork>()
                 .WithConstructorArgument(typeof(IDbFactory))
                 .WithConstructorArgument(typeof(ISession))

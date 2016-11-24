@@ -22,7 +22,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 _kernel = new StandardKernel();
                 Assert.DoesNotThrow(() =>
                 {
-                    new NinjectBinder().Bind(_kernel);
                     _kernel.Bind(x =>
                     {
                         x.FromThisAssembly()
@@ -30,6 +29,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                             .BindDefaultInterface()
                             .Configure(c=>c.InTransientScope());
                     });
+                    new NinjectBinder().Bind(_kernel);
                 });
             }
         }
