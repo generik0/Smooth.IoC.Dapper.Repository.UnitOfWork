@@ -64,6 +64,7 @@
   "dependencies": {
     "Dapper.FastCrud": "2.4.1",
     "Dapper": "1.50.2",
-    "System.Data.Common": "4.3.0"
+    "System.Data.Common": "4.3.0",
+    "StructureMap": "4.4.2"
   }
 }

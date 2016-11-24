@@ -2,11 +2,12 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Castle
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
 {
-    public class SmoothIoCDapperRepositoryUnitOfWorkInstaller : IWindsorInstaller
+    public class CastleWindsorInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
@@ -16,7 +17,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Castle
             }
             container.Register(Component.For<IDbFactory>().AsFactory().IsFallback().LifestyleSingleton());
             container.Register(Component.For<IUnitOfWork>()
-                .ImplementedBy<Data.UnitOfWork>().IsFallback().LifestyleTransient());
+                .ImplementedBy<Dapper.Repository.UnitOfWork.Data.UnitOfWork>().IsFallback().LifestyleTransient());
 
         }
     }

@@ -16,12 +16,18 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         public void Commit()
         {
-            Transaction?.Commit();
+            if (Connection?.State == ConnectionState.Open)
+            {
+                Transaction?.Commit();
+            }
         }
 
         public void Rollback()
         {
-            Transaction?.Rollback();
+            if (Connection?.State == ConnectionState.Open)
+            {
+                Transaction?.Rollback();
+            }
         }
 
         ~DbTransaction()
@@ -42,15 +48,15 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             Disposed = true;
             if (!disposing) return;
 
-            if (Transaction == null || Transaction.Connection==null) return;
+            if (Transaction?.Connection == null) return;
             try
             {
-                Transaction.Commit();
-                Transaction.Dispose();
+                Commit();
+                Transaction?.Dispose();
             }
             catch
             {
-                Transaction.Rollback();
+                Rollback();
                 throw;
             }
             finally

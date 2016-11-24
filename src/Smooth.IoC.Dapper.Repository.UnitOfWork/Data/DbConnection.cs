@@ -43,7 +43,10 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         public void Open()
         {
-            Connection?.Open();
+            if (Connection?.State != ConnectionState.Open)
+            {
+                Connection?.Open();
+            }
         }
 
         public string ConnectionString

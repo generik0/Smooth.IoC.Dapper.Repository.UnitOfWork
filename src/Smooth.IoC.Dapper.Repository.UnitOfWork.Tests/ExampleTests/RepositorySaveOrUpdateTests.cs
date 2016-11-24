@@ -1,9 +1,9 @@
 ﻿using FakeItEasy;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
 {
     [TestFixture]
     public class RepositorySaveOrUpdateTests : CommonTestDataSetup
@@ -21,7 +21,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
             using (var transaction = Connection.UnitOfWork())
             {
                 Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, transaction));
-                transaction.Rollback();
+//                transaction.Rollback();
             }
             Assert.That(result, Is.EqualTo(4));
         }
@@ -36,6 +36,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests
             var original = expected.New;
             expected.NewId = 2;
             int resultId = 0;
+
             using (var transaction = Connection.UnitOfWork())
             {
                 Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, transaction));

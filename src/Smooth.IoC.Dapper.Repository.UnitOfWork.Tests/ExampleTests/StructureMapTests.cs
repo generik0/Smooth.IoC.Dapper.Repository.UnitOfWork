@@ -1,42 +1,36 @@
-﻿using System;
-using System.Linq;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using Dapper.FastCrud;
+﻿using Dapper.FastCrud;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.RepositoryTests;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Castle.Core.Internal;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Castle;
+using StructureMap;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
 {
     [TestFixture]
-    public class CastleWindsorTests
+    public class StructureMapTests
     {
-        private static IWindsorContainer _container;
+        private static IContainer _container;
 
         [SetUp]
         public void TestSetup()
         {
             if (_container == null)
             {
-                _container = new WindsorContainer();
+                _container = new Container();
                 Assert.DoesNotThrow(() =>
                 {
-                    _container.Install(new SmoothIoCDapperRepositoryUnitOfWorkInstaller());
-                    _container.Register(Classes.FromThisAssembly()
-                        .Where(t => t.GetInterfaces().Length > 0 && 
-                            t.GetInterfaces().Any(x => x != typeof(IDisposable)) 
-                            && !t.HasAttribute<NoIoC>())
-                        .Unless(t => t.IsAbstract)
-                        .Configure(c =>
+                    new StructureMapRegistration().Register(_container);
+                    _container.Configure(c =>
+                    {
+                        
+                        c.Scan(s =>
                         {
-                            c.IsFallback();
-                        })
-                        .LifestyleTransient()
-                        .WithServiceAllInterfaces());
+                            s.AssembliesFromApplicationBaseDirectory();
+                            s.WithDefaultConventions();
+                        });
+
+                    });
                 });
             }
         }
@@ -44,7 +38,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
         [Test, Category("Integration")]
         public static void Install_1_Resolves_ISession()
         {
-            var dbFactory = _container.Resolve<IDbFactory>();
+            var dbFactory = _container.GetInstance<IDbFactory>();
             ITestSession session = null;
             Assert.DoesNotThrow(() => session = dbFactory.CreateSession<ITestSession>());
             Assert.That(session, Is.Not.Null);
@@ -54,7 +48,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
         [Test, Category("Integration")]
         public static void Install_2_Resolves_IUnitOfWork()
         {
-            var dbFactory = _container.Resolve<IDbFactory>();
+            var dbFactory = _container.GetInstance<IDbFactory>();
             using (var session = dbFactory.CreateSession<ITestSession>())
             {
                 IUnitOfWork uow = null;
@@ -66,7 +60,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
         [Test, Category("Integration")]
         public static void Install_3_Resolves_SqlDialectCorrectly()
         {
-            var dbFactory = _container.Resolve<IDbFactory>();
+            var dbFactory = _container.GetInstance<IDbFactory>();
             using (var session = dbFactory.CreateSession<ITestSession>())
             {
                 Assert.That(session.SqlDialect== SqlDialect.SqLite);
@@ -79,7 +73,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests
         public static void Install_4_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
-            Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());
+            Assert.DoesNotThrow(() => repo = _container.GetInstance<IBraveRepository>());
             Assert.That(repo, Is.Not.Null);
         }
     }

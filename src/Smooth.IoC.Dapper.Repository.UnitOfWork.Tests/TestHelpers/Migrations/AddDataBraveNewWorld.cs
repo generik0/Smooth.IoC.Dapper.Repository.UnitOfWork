@@ -1,7 +1,7 @@
 ﻿using System;
 using SimpleMigrations;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestClasses.Migrations
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations
 {
     [Migration(2)]
     public class AddDataBraveNewWorld : Migration
