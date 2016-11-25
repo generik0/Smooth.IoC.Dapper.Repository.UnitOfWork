@@ -9,7 +9,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public static class SessionExtensions
     {
-        private static readonly object _lockSqlDialectUpdate = new object();
+        internal static readonly object LockSqlDialectUpdate = new object();
 
         public static int BulkDelete<TEntity>(this ISession connection,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
@@ -127,7 +127,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         {
             var mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
             if (mapping.IsFrozen||mapping.Dialect == sqlDialect) return;
-            lock (_lockSqlDialectUpdate)
+            lock (LockSqlDialectUpdate)
             {
                 mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>(); //reload to be sure
                 if (mapping.IsFrozen || mapping.Dialect == sqlDialect) return;

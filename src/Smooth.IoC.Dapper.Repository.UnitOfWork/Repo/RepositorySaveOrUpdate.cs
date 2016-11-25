@@ -9,22 +9,22 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class, IEntity<TPk>
         where TSession : ISession
     {
-        public TPk SaveOrUpdate(TEntity entity, IUnitOfWork transaction)
+        public TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
         {
-            return SaveOrUpdateAsync(entity, transaction).Result;
+            return SaveOrUpdateAsync(entity, uow).Result;
         }
 
-        public async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork transaction)
+        public async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
         {
             if (entity.Id.Equals(default(TPk)))
             {
                 return await Task.Run(() =>
                 {
-                    transaction.Connection.Insert(entity);
+                    uow.Insert(entity);
                     return entity.Id;
                 });
             }
-            var result = await transaction.Connection.UpdateAsync(entity);
+            var result = await uow.UpdateAsync(entity);
             return result ? entity.Id : default(TPk);
         }
 
