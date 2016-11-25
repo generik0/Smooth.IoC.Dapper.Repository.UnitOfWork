@@ -20,7 +20,8 @@
     }
   },
 
-  
+  "testRunner": "nunit",
+
 
   "frameworks": {
     "net452": {
