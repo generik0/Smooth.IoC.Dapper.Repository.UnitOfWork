@@ -40,7 +40,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
             public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
             {
-                return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
+                return _container.Resolve<T>(new ParameterOverride("factory", factory),
+                    new ParameterOverride("session", session), new ParameterOverride("isolationLevel", isolationLevel));
             }
 
             public void Release(IDisposable instance)
