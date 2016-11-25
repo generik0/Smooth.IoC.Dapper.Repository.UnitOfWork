@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Data;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using StructureMap;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
 {
+    [NoIoC]
     public class StructureMapDbFactory : IDbFactory
     {
         private IContainer _container;

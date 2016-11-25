@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Practices.Unity;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
@@ -14,6 +15,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
         }
 
+        [NoIoC]
         class UnityDbFactory : IDbFactory
         {
             private readonly IUnityContainer _container;

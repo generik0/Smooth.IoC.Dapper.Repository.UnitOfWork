@@ -26,7 +26,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 {
                     new AutofacRegistrar().Register(builder);
                     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces()
-                    .Where(t => t.GetInterfaces().Any());
+                    .Where(t => t.GetInterfaces().Any() && t.GetCustomAttribute<NoIoC>() == null);
                     _container = builder.Build();
                 });
                 Assert.That(_container.IsRegistered<ITestSession>(), Is.True);
