@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Dapper.FastCrud;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
@@ -57,18 +58,18 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         public IUnitOfWork UnitOfWork()
         {
-            var uow= _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this);
+            var uow= _factory.Create<IUnitOfWork>(_factory, this);
             uow.SqlDialect = SqlDialect;
             return uow;
         }
 
         public IUnitOfWork UnitOfWork(IsolationLevel isolationLevel)
         {
-            var uow = _factory.CreateUnitOwWork<IUnitOfWork>(_factory, this, isolationLevel);
+            var uow = _factory.Create<IUnitOfWork>(_factory, this, isolationLevel);
             uow.SqlDialect = SqlDialect;
             return uow;
         }
 
-        
+        public Guid Guid { get; } = Guid.NewGuid();
     }
 }

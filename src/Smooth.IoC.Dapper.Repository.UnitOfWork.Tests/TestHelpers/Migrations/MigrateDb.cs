@@ -18,7 +18,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Mig
             var factory = A.Fake<IDbFactory>();
             Connection = new TestSession(factory, "Data Source=:memory:;Version=3;New=True;");
 
-            A.CallTo(() => factory.CreateUnitOwWork<IUnitOfWork>(A<IDbFactory>._, A<ISession>._))
+            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._))
                 .ReturnsLazily(CreateUnitOrWork);
             var migrator = new SimpleMigrator(migrationsAssembly, Connection, versionProvider);
             migrator.Load();

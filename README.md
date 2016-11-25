@@ -104,7 +104,7 @@ Here we create a session to get data, and create a uow to save data.
 
 	publiv void DoSomething()
 	{
-		using (var session = _factory.CreateSession&lt;ITestSession&gt;())
+		using (var session = _factory.Create&lt;ITestSession&gt;())
         {
 			var myItem = _repository.GetKey(1, session);
             using (var uow = session.UnitOfWork())
@@ -185,17 +185,17 @@ The Concrete StructureMapDbFactory looks like this:
         _container = container;
     }
 
-    public T CreateSession&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : ISession
     {
         return _container.GetInstance&lt;T&gt;();
     }
 
-    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
     {
         return  _container.With(factory).With(connection).GetInstance&lt;T&gt;();
     }
 
-    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
         return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&lt;T&gt;();
     }
@@ -208,7 +208,8 @@ The Concrete StructureMapDbFactory looks like this:
 
 ## Ninject registration
 
-Ninject like Castle, and unlike Structure Map has a good factory. Unfortunately the factory does not have a Release. So i decided to in the example to combine the use of the ninject factory and a concrete factory.
+Ninject like Castle, and unlike Structure Map has a good factory. Unfortunately the factory does not have a Release. 
+So i decided to in the example to combine the use of the ninject's factory and a concrete factory.
 *You need to install-package Ninject.Extensions.Factory for this to work*
 
 When you register the binding, for this example to work, the Bind must be after your other registrations so that "Rebind" on the DbFactory works.
@@ -236,20 +237,70 @@ class DbFactory : IDbFactory
         _resolutionRoot = resolutionRoot;
         _factory= resolutionRoot.Get&lt;INinjectDbFactory&gt;();
     }
-    public T CreateSession&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _factory.CreateSession&lt;T&gt;();
+        return _factory.Create&lt;T&gt;();
     }
-    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
     {
-        return _factory.CreateUnitOwWork&lt;T&gt;(factory, connection);
+        return _factory.Create&lt;T&gt;(factory, connection);
     }
-    public T CreateUnitOwWork&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
-        return _factory.CreateUnitOwWork&lt;T&gt;(factory, connection);
+        return _factory.Create&lt;T&gt;(factory, connection);
     }
     public void Release(IDisposable instance)
     {
         _resolutionRoot.Release(instance);
+    }
+}</code></pre>
+
+
+## Unity registration
+
+Unity does not appear to have a very good factory. So one has to wrap the factory in a concrete implementation. Luckely the concrete 
+implementation can be internal (or even private if you like).
+Ünfortuantely Unity could not figure out when i tried to override only 2 paramateres, that it should use a diffent constructor. So the UnitOfWork 
+Constructor with 3 parameters is always called.
+
+<pre><code>public void Register(IUnityContainer container)
+{
+    container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
+    container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
+}
+
+class UnityDbFactory : IDbFactory
+{
+    private readonly IUnityContainer _container;
+
+    public UnityDbFactory(IUnityContainer container)
+    {
+        _container = container;
+    }
+
+    public T Create<T>() where T : ISession
+    {
+        return _container.Resolve<T>();
+    }
+
+    public T Create<T>() where T : ISession
+    {
+        return _container.Resolve<T>();
+    }
+
+    public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+    {
+        return _container.Resolve<T>(new ParameterOverride("factory", factory), 
+            new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
+    }
+
+    public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+    {
+        return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
+    }
+
+    public void Release(IDisposable instance)
+    {
+        _container.Teardown(instance);
     }
 }</code></pre>

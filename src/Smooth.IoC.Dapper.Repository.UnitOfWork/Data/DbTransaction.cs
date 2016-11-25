@@ -8,6 +8,8 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         private readonly IDbFactory _factory;
         protected bool Disposed;
         public IDbTransaction Transaction { get; set; }
+        public IDbConnection Connection => Transaction.Connection;
+        public IsolationLevel IsolationLevel => Transaction?.IsolationLevel ?? IsolationLevel.Unspecified;
 
         protected DbTransaction(IDbFactory factory)
         {
@@ -65,8 +67,5 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
                 _factory.Release(this);
             }
         }
-
-        public IDbConnection Connection => Transaction?.Connection;
-        public IsolationLevel IsolationLevel => Transaction?.IsolationLevel ?? IsolationLevel.Unspecified;
     }
 }

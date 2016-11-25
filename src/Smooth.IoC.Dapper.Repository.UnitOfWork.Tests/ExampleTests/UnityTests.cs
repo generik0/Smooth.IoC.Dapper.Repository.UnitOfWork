@@ -1,35 +1,27 @@
-﻿using System.Data;
-using Dapper.FastCrud;
-using Ninject;
-using Ninject.Extensions.Conventions;
+using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Registrations;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
 {
     [TestFixture]
-    public class NinjectTests
+    public class UnityTests
     {
-        private static IKernel _kernel;
+        private static IUnityContainer _container;
 
         [SetUp]
         public void TestSetup()
         {
-            if (_kernel == null)
+            if (_container == null)
             {
-                _kernel = new StandardKernel();
+                _container = new UnityContainer();
                 Assert.DoesNotThrow(() =>
                 {
-                    _kernel.Bind(x =>
-                    {
-                        x.FromThisAssembly()
-                            .SelectAllClasses()
-                            .BindDefaultInterface()
-                            .Configure(c=>c.InTransientScope());
-                    });
-                    new NinjectBinder().Bind(_kernel);
+                    new UnityRegistrar().Register(_container);
+                    new UnityConventionRegistrar(_container);
                 });
             }
         }
@@ -37,18 +29,17 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         [Test, Category("Integration")]
         public static void Install_1_Resolves_ISession()
         {
-            var dbFactory = _kernel.Get<IDbFactory>();
+            var dbFactory = _container.Resolve<IDbFactory>();
             ITestSession session = null;
             Assert.DoesNotThrow(() => session = dbFactory.Create<ITestSession>());
-            Assert.DoesNotThrow(() => session.Dispose());
             Assert.That(session, Is.Not.Null);
         }
 
 
         [Test, Category("Integration")]
-        public static void Install_2a_Resolves_IUnitOfWork()
+        public static void Install_2_Resolves_IUnitOfWork()
         {
-            var dbFactory = _kernel.Get<IDbFactory>();
+            var dbFactory = _container.Resolve<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
                 IUnitOfWork uow = null;
@@ -56,22 +47,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 Assert.That(uow, Is.Not.Null);
             }
         }
-        [Test, Category("Integration")]
-        public static void Install_2b_Resolves_IUnitOfWorkWithIsolation()
-        {
-            var dbFactory = _kernel.Get<IDbFactory>();
-            using (var session = dbFactory.Create<ITestSession>())
-            {
-                IUnitOfWork uow = null;
-                Assert.DoesNotThrow(() => uow = session.UnitOfWork(IsolationLevel.Serializable));
-                Assert.That(uow, Is.Not.Null);
-            }
-        }
 
         [Test, Category("Integration")]
         public static void Install_4_Resolves_WithSameConnection()
         {
-            var dbFactory = _kernel.Get<IDbFactory>();
+            var dbFactory = _container.Resolve<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
                 using (var uow = session.UnitOfWork())
@@ -85,10 +65,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         public static void Install_5_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
-            Assert.DoesNotThrow(() => repo = _kernel.Get<IBraveRepository>());
+            Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());
             Assert.That(repo, Is.Not.Null);
         }
     }
 }
-
-

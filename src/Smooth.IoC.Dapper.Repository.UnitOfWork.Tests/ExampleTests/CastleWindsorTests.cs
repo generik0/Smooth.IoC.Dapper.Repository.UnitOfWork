@@ -75,7 +75,20 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         }
 
         [Test, Category("Integration")]
-        public static void Install_4_Resolves_IBravoRepository()
+        public static void Install_4_Resolves_WithSameConnection()
+        {
+            var dbFactory = _container.Resolve<IDbFactory>();
+            using (var session = dbFactory.Create<ITestSession>())
+            {
+                using (var uow = session.UnitOfWork())
+                {
+                    Assert.That(uow.Connection, Is.EqualTo(session.Connection));
+                }
+            }
+        }
+
+        [Test, Category("Integration")]
+        public static void Install_5_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
             Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());

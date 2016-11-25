@@ -21,7 +21,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
 
     }
-    class DbFactory : IDbFactory
+
+    internal class DbFactory : IDbFactory
     {
         private readonly IResolutionRoot _resolutionRoot;
         private readonly INinjectDbFactory _factory;
@@ -42,14 +43,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             return _factory.Create<T>();
         }
 
-        public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection) where T : IUnitOfWork
+        public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
         {
-            return _factory.CreateUnitOwWork<T>(factory, connection);
+            return _factory.CreateUnitOwWork<T>(factory, session);
         }
 
-        public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+        public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
         {
-            return _factory.CreateUnitOwWork<T>(factory, connection);
+            return _factory.CreateUnitOwWork<T>(factory, session);
         }
 
         public void Release(IDisposable instance)
