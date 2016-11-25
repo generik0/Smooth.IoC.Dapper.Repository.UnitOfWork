@@ -34,7 +34,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                 SetDialectIfNeeded(session);
                 return await session.GetAsync(entity);
             }
-            using (var connection = Factory.CreateSession<TSession>())
+            using (var connection = Factory.Create<TSession>())
             {
                 SetDialectIfNeeded(connection);
                 return await connection.GetAsync(entity);

@@ -39,7 +39,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         {
             var dbFactory = _kernel.Get<IDbFactory>();
             ITestSession session = null;
-            Assert.DoesNotThrow(() => session = dbFactory.CreateSession<ITestSession>());
+            Assert.DoesNotThrow(() => session = dbFactory.Create<ITestSession>());
             Assert.DoesNotThrow(() => session.Dispose());
             Assert.That(session, Is.Not.Null);
         }
@@ -49,7 +49,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         public static void Install_2a_Resolves_IUnitOfWork()
         {
             var dbFactory = _kernel.Get<IDbFactory>();
-            using (var session = dbFactory.CreateSession<ITestSession>())
+            using (var session = dbFactory.Create<ITestSession>())
             {
                 IUnitOfWork uow = null;
                 Assert.DoesNotThrow(()=> uow = session.UnitOfWork());
@@ -60,7 +60,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         public static void Install_2b_Resolves_IUnitOfWorkWithIsolation()
         {
             var dbFactory = _kernel.Get<IDbFactory>();
-            using (var session = dbFactory.CreateSession<ITestSession>())
+            using (var session = dbFactory.Create<ITestSession>())
             {
                 IUnitOfWork uow = null;
                 Assert.DoesNotThrow(() => uow = session.UnitOfWork(IsolationLevel.Serializable));
@@ -72,7 +72,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         public static void Install_3_Resolves_SqlDialectCorrectly()
         {
             var dbFactory = _kernel.Get<IDbFactory>();
-            using (var session = dbFactory.CreateSession<ITestSession>())
+            using (var session = dbFactory.Create<ITestSession>())
             {
                 Assert.That(session.SqlDialect== SqlDialect.SqLite);
                 var uow = session.UnitOfWork();
