@@ -143,6 +143,49 @@ Here is the simple version where we just want to get some data and the repositor
 
 You need to register your own repository and session classes yourself. But using default convensions this should happen automatically in you bootsrapper, right?
 
+## Autofac registration
+
+Autofac does have a factory using delegates but this does not fit the same pattern as all the other IoC. 
+So one has to wrap the factory in a concrete implementation. Luckely the concrete implementation can be internal (or even private if you like).
+Registration examples:	
+
+<pre><code>public void Register(IUnityContainer container)
+{
+    container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
+    container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
+}
+
+class UnityDbFactory : IDbFactory
+{
+    private readonly IUnityContainer _container;
+	
+	public UnityDbFactory(IUnityContainer container)
+    {
+        _container = container;
+    }
+	public T Create<T>() where T : ISession
+    {
+        return _container.Resolve<T>();
+    }
+	public T Create<T>() where T : ISession
+    {
+        return _container.Resolve<T>();
+    }
+	public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+    {
+        return _container.Resolve<T>(new ParameterOverride("factory", factory), 
+            new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
+    }
+	public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+    {
+        return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
+    }
+	public void Release(IDisposable instance)
+    {
+        _container.Teardown(instance);
+    }
+}</code></pre>
+
 ## Castle Windsor Installer
 
 You need to register the factory and UnitofWork
@@ -160,51 +203,6 @@ You need to register the factory and UnitofWork
     }
 }
 </code></pre>
-
-
-## Structure Map registration
-
-You need to create a concrete factory and register it, passing the containter as an argurment to the factory
-<pre><code>public class StructureMapRegistration
-{
-    public void Register(IContainer container)
-    {
-        container.Configure(c=&gt;c.For&lt;IDbFactory&gt;()
-        .UseIfNone&lt;StructureMapDbFactory&gt;().Ctor&lt;IContainer&gt;()
-        .Is(container).Singleton());
-    }
-}</code></pre>
-
-The Concrete StructureMapDbFactory looks like this:
-<pre><code>public class StructureMapDbFactory : IDbFactory
-{
-    private IContainer _container;
-
-    public StructureMapDbFactory(IContainer container)
-    {
-        _container = container;
-    }
-
-    public T Create&lt;T&gt;() where T : ISession
-    {
-        return _container.GetInstance&lt;T&gt;();
-    }
-
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
-    {
-        return  _container.With(factory).With(connection).GetInstance&lt;T&gt;();
-    }
-
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
-    {
-        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&lt;T&gt;();
-    }
-
-    public void Release(IDisposable instance)
-    {
-        _container.Release(instance);
-    }
-}</code></pre>
 
 ## Ninject registration
 
@@ -255,6 +253,46 @@ class DbFactory : IDbFactory
     }
 }</code></pre>
 
+## Structure Map registration
+
+You need to create a concrete factory and register it, passing the containter as an argurment to the factory
+<pre><code>public class StructureMapRegistration
+{
+    public void Register(IContainer container)
+    {
+        container.Configure(c=&gt;c.For&lt;IDbFactory&gt;()
+        .UseIfNone&lt;StructureMapDbFactory&gt;().Ctor&lt;IContainer&gt;()
+        .Is(container).Singleton());
+    }
+}</code></pre>
+
+The Concrete StructureMapDbFactory looks like this:
+<pre><code>public class StructureMapDbFactory : IDbFactory
+{
+    private IContainer _container;
+
+    public StructureMapDbFactory(IContainer container)
+    {
+        _container = container;
+    }
+	public T Create&lt;T&gt;() where T : ISession
+    {
+        return _container.GetInstance&lt;T&gt;();
+    }
+    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
+    {
+        return  _container.With(factory).With(connection).GetInstance&lt;T&gt;();
+    }
+    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
+    {
+        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&lt;T&gt;();
+    }
+    public void Release(IDisposable instance)
+    {
+        _container.Release(instance);
+    }
+}</code></pre>
+
 
 ## Unity registration
 
@@ -277,28 +315,23 @@ class UnityDbFactory : IDbFactory
     {
         _container = container;
     }
-
     public T Create<T>() where T : ISession
     {
         return _container.Resolve<T>();
     }
-
     public T Create<T>() where T : ISession
     {
         return _container.Resolve<T>();
     }
-
     public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
     {
         return _container.Resolve<T>(new ParameterOverride("factory", factory), 
             new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
     }
-
     public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
         return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
     }
-
     public void Release(IDisposable instance)
     {
         _container.Teardown(instance);

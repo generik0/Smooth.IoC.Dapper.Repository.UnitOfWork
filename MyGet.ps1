@@ -1,14 +1,14 @@
 ﻿$ErrorActionPreference = "Stop"
 
-$packageVersion = ($env:PackageVersion)
-$configuration = ($env:Configuration)
-$msBuildExe = ($env:MsBuildExe)
-$msBuildTarget = ($env:Targets)
+#$packageVersion = ($env:PackageVersion)
+#$configuration = ($env:Configuration)
+#$msBuildExe = ($env:MsBuildExe)
+#$msBuildTarget = ($env:Targets)
 
-#$packageVersion = "2.4.0-preview1"
-#$configuration = "Release"
-#$msBuildExe = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
-#$msBuildTarget = "Build"
+$packageVersion = "2.4.0-preview1"
+$configuration = "Release"
+$msBuildExe = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
+$msBuildTarget = "Build"
 
 Write-Host "Loading MyGet.include.ps1"
 # Initialization
