@@ -8,15 +8,14 @@
  
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
 Also i wanted the usage of the session and uow to become nice and simple.  
-This covers 97% of these needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
+This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
 ## The problem
 
 All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
-Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.
-
+Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.  
 I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegnce/help was needed.
-Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic was born...
+Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic was born...  
 
 NB. I also feel it is important that it is possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).
 This design allows for this. As your custom session interface is used as the generic for the repository, not the session class allowing for different connection strings. 
@@ -24,28 +23,31 @@ You can even use the same database migrations if you have done code first. I hav
 
 You are welcome to look at the unit tests for examples or look below in this readme.
 
-# What this the pachkage include and do?
+# What this the pachage include and do?
 
 So what i have done/created is this:
 
 1. **IDbFactory** is a simple interface that you register with your IoC. It can create/spwan ISession's and IUntOfWork's. But primary used in code to spawn sessions.
-2. **ISession&lt;TDatabase&gt;** extends IDbConnection. You use it to extend your Database connection / Session type. Yours session classes and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
-3. **IUnitOfWork** extends IDbTransaction. You dont need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
-4. **IRepository&lt;TSession, TEntity, TPk&gt;** is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
+2. **ISession&lt;TDatabase&gt;** (and Session&lt;TDatabase&gt; abstraction):	Extends IDbConnection. You use it to extend your Database connection / Session type. Yours session classes and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
+3. **IUnitOfWork** (and UnitOfWork): Extends IDbTransaction. You don't need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
+4. **IRepository&lt;TSession, TEntity, TPk&gt;** (Repository&lt;TSession, TEntity, TPk&gt; abstraction):	Is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
+5. **IEntity&lt;TPk&gt;**: An interface for your Entities so FastCRUD GetKey works in Repositories. To use this your table / entity should always have and Id column as Pk in what every type you like (its a generic :-).
+6. **IRepositoryBase** (and RepositoryBase&lt;TEntity&gt; abstraction):	This is a vanilla base repository, you can use it if you do not want to use Dapper or Dapper.FastCRUD and/or IEntity interface. It includes an protected method to set the dialect which you will need to do, if not using FastCRUD without the IEntity interface.
 
 So far added examples om Castle.Windsor, StructureMap, Ninjet injection.
 
 ## Code examples
 
-
 ### Dapper and Dapper.FastCRUD
-I use Dapper and Dapper.FastCRUD for my sql work.
+I use Dapper and Dapper.FastCRUD for my sql work.  
 Dapper is a micro ORM data does only what you ask of it through queries. [Dapper](https://github.com/StackExchange/dapper-dot-net)  
-There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper.  [Dapper](https://github.com/MoonStorm/Dapper.FastCRUD).  
-The drawback with Dapper.FastCRUD is it may fail if you don't give it the SqlDialect. If you are only using one database type you can e.g:
-<pre><code>OrmConfiguration.DefaultDialect = SqlDialect.SqLite;</code></pre>
-Otherwise for now, i recommend using the method available in the Repository base called *SetDialectIfNeeded(session)* in your repository methods, where you want to use FastCRUD.
-You can do what ever you like with dapper, but multiple database types and using FastCRUD will require you set the dialect before yhou call any FastCRUD methods.
+There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
+The drawback with Dapper.FastCRUD is it may fail if you don't give it the SqlDialect.
+
+So i have extended FastDappers IDbConnection extensions. I.e. ISession and IUnitOfWork are extended, so if the session or uow run a dapper query they set the dialogue if needed.
+This means that your Entity can only be used for one database type. So if you want your entity to spand across more than one database, you need to make a entity abstraction class 
+and create children of the extension. Also use the RepositoryBase to extend from bypassing the Repository abstraction.
+
 
 ### Session and ISession
 
