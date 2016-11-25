@@ -5,7 +5,7 @@ $configuration = ($env:Configuration)
 $msBuildExe = ($env:MsBuildExe)
 $msBuildTarget = ($env:Targets)
 
-#$packageVersion = "2.4.0-preview1"
+#$packageVersion = "0.0.0-C1"
 #$configuration = "Release"
 #$msBuildExe = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
 #$msBuildTarget = "Build"

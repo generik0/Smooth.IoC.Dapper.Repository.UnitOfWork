@@ -3,6 +3,7 @@ using System.Data;
 using Ninject;
 using Ninject.Extensions.Factory;
 using Ninject.Syntax;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
@@ -21,7 +22,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
 
     }
-
+    [NoIoC]
     internal class DbFactory : IDbFactory
     {
         private readonly IResolutionRoot _resolutionRoot;

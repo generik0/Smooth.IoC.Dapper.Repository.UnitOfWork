@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Practices.Unity;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
@@ -9,10 +10,12 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
     {
         public void Register(IUnityContainer container)
         {
-            container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
+            container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(),
+                new InjectionConstructor(container));
             container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
         }
 
+        [NoIoC]
         class UnityDbFactory : IDbFactory
         {
             private readonly IUnityContainer _container;
@@ -40,7 +43,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
             public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
             {
-                return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
+                return _container.Resolve<T>(new ParameterOverride("factory", factory),
+                    new ParameterOverride("session", session), new ParameterOverride("isolationLevel", isolationLevel));
             }
 
             public void Release(IDisposable instance)

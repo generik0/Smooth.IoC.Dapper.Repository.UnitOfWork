@@ -42,6 +42,7 @@
     "xmlDoc": true
   },
   "dependencies": {
+    "Autofac": "4.2.1",
     "dotConnect.Express.for.PostgreSQL": "7.6.763",
     "dotnet-test-nunit": "3.4.0-beta-3",
     "FakeItEasy": "2.3.1",
