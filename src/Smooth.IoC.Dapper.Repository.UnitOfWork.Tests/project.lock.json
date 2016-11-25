@@ -605,9 +605,8 @@
       ]
     },
     "Dapper/1.50.2": {
-      "sha512": "PhxIV8TI/5aYdLT4epuIZB+Evf0sv9gcQDpFGa04fSKDfNQIChRq0sKUgQbfpFWbuDW/UDDuiL3Grkhp/cvYrA==",
+      "sha512": "4sUecJaw/cXXq0nyM1qld+GcE+sKzEOEECotlbJN7hZRAY8c09sNWDY7MynUw0/W3hF+k9VPWu2RbEXGnJ8svA==",
       "type": "package",
-      "path": "Dapper/1.50.2",
       "files": [
         "Dapper.1.50.2.nupkg.sha512",
         "Dapper.nuspec",
@@ -721,9 +720,8 @@
       ]
     },
     "Microsoft.DiaSymReader/1.0.8": {
-      "sha512": "HAhTmRgU+nnDVYxMZFAS1iwqg6CudbsSMZfSY9UJj4AJO4L69xZCtTOPKC5rW8+egNBWjDb0iBZV4ZdNI6dZnA==",
+      "sha512": "ABLULVhCAiyBFLBT5xX6vB4NhZDgwUylGRQK+zW5nZn2rbh1f8LOnFZ9gVSxzL6qOzPNb32Nu3QZ43iZerHOxA==",
       "type": "package",
-      "path": "Microsoft.DiaSymReader/1.0.8",
       "files": [
         "Microsoft.DiaSymReader.1.0.8.nupkg.sha512",
         "Microsoft.DiaSymReader.nuspec",
