@@ -13,8 +13,8 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         T Create<T>() where T : ISession;
         [Obsolete]
         T CreateSession<T>() where T : ISession;
-        T CreateUnitOwWork<T>(IDbFactory factory, ISession connection) where T : IUnitOfWork;
-        T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork;
+        T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork;
+        T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork;
         void Release(IDisposable instance);
 
         
