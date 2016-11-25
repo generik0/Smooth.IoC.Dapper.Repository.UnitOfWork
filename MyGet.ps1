@@ -17,6 +17,7 @@ $rootFolder = Split-Path -parent $script:MyInvocation.MyCommand.Path
 # Valid build runners
 $validBuildRunners = @("myget")
 
+
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### restore dependencies ######"
@@ -35,7 +36,8 @@ if ($LASTEXITCODE -ne 0){
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### Run all tests ######"
-& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll" --framework=net-4.5
+#& "$PSScriptRoot\.nunit\nunit3-console.exe" "$PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\bin\Debug\net452\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.dll" --framework=net-4.5
+dotnet test $PSScriptRoot\src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\ --no-build
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "tests failed"
 }

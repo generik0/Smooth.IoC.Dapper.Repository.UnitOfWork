@@ -15,3 +15,4 @@ obj
 !.nunit/*
 !MyGet.include.ps1
 MyGet.ps1
+src/**/*TestResult.xml
