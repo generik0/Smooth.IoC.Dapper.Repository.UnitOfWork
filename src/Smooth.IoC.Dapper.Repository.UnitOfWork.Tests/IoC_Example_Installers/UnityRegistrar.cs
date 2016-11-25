@@ -5,23 +5,23 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
 {
-    public class UnityRegister
+    public class UnityRegistrar
     {
-        private static IUnityContainer _container;
-
         public void Register(IUnityContainer container)
         {
-            container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
             container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
-            //(new InjectionConstructor(typeof(IDbFactory), typeof(ISession)));
-            //(new InjectionConstructor(new ResolvedParameter<IDbFactory>(), new ResolvedParameter<ISession>()));
-            
-            
-            _container = container;
         }
 
         class UnityDbFactory : IDbFactory
         {
+            private readonly IUnityContainer _container;
+
+            public UnityDbFactory(IUnityContainer container)
+            {
+                _container = container;
+            }
+
             public T Create<T>() where T : ISession
             {
                 return _container.Resolve<T>();

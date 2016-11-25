@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
@@ -20,7 +20,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 _container = new UnityContainer();
                 Assert.DoesNotThrow(() =>
                 {
-                    new UnityRegister().Register(_container);
+                    new UnityRegistrar().Register(_container);
                     new UnityConventionRegistrar(_container);
                 });
             }
