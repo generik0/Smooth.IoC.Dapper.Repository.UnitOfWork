@@ -14,7 +14,7 @@ This should cover 97% of your needs. But i have also insured the the Session and
 
 All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
 Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.  
-I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegnce/help was needed.
+I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegence/help was needed.
 Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic was born...  
 
 NB. I also feel it is important that it is possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).
@@ -42,12 +42,11 @@ So far added examples om Castle.Windsor, StructureMap, Ninjet injection, Unity a
 I use Dapper and Dapper.FastCRUD for my sql work.  
 Dapper is a micro ORM data does only what you ask of it through queries. [Dapper](https://github.com/StackExchange/dapper-dot-net)  
 There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
-The drawback with Dapper.FastCRUD is it may fail if you don't give it the SqlDialect.
 
-So i have extended FastDappers IDbConnection extensions. I.e. ISession and IUnitOfWork are extended, so if the session or uow run a dapper query they set the dialogue if needed.
-This means that your Entity can only be used for one database type. So if you want your entity to spand across more than one database, you need to make a entity abstraction class 
-and create children of the extension. Also use the RepositoryBase to extend from bypassing the Repository abstraction.
-
+The drawback with Dapper.FastCRUD is it may fail if you don't give it the wrong SqlDialect.
+So i have extended FastDappers IDbConnection extensions so the projects own ISession and IUnitOfWork are extended. Then is a FastCRUD methed os called on an ISession or IUnitOfWork 
+the package insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type. 
+* If you want your entity to spand across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
 
 ### Session and ISession
 
