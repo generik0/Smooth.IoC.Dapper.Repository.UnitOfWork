@@ -1,6 +1,7 @@
 ﻿using Dapper.FastCrud;
 using Dapper.FastCrud.Mappings;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {

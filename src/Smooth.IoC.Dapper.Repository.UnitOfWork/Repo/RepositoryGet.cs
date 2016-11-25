@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dapper.FastCrud;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo

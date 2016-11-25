@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Smooth.IoC.Dapper.Repository.UnitOfWork;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
