@@ -21,7 +21,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
             using (var transaction = Connection.UnitOfWork())
             {
                 Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, transaction));
-//                transaction.Rollback();
             }
             Assert.That(result, Is.EqualTo(4));
         }

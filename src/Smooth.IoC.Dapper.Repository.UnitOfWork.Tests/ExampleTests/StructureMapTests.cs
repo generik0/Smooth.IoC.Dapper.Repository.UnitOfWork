@@ -58,19 +58,20 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         }
 
         [Test, Category("Integration")]
-        public static void Install_3_Resolves_SqlDialectCorrectly()
+        public static void Install_4_Resolves_WithSameConnection()
         {
             var dbFactory = _container.GetInstance<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
-                Assert.That(session.SqlDialect== SqlDialect.SqLite);
-                var uow = session.UnitOfWork();
-                Assert.That(uow.SqlDialect == SqlDialect.SqLite);
+                using (var uow = session.UnitOfWork())
+                {
+                    Assert.That(uow.Connection, Is.EqualTo(session.Connection));
+                }
             }
         }
 
         [Test, Category("Integration")]
-        public static void Install_4_Resolves_IBravoRepository()
+        public static void Install_5_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
             Assert.DoesNotThrow(() => repo = _container.GetInstance<IBraveRepository>());
