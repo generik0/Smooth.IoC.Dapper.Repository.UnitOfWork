@@ -26,7 +26,7 @@ So far added examples om Castle.Windsor, StructureMap, Ninject injection and Uni
 
     </description>
     <copyright>Copyright 2016</copyright>
-    <tags>dapper crud orm sql sqlite mysql mssql localdb postgresql poco repository unitofwork di ioc</tags>
+    <tags>dapper crud orm sql sqlite mysql mssql localdb postgresql poco repository unitofwork di ioc castle ninject structuremap unity</tags>
     <frameworkAssemblies>
     </frameworkAssemblies>
     <dependencies>
