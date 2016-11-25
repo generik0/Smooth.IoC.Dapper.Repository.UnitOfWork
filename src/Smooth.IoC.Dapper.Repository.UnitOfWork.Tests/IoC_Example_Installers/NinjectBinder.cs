@@ -24,7 +24,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
     class DbFactory : IDbFactory
     {
         private readonly IResolutionRoot _resolutionRoot;
-        private INinjectDbFactory _factory;
+        private readonly INinjectDbFactory _factory;
 
         public DbFactory(IResolutionRoot resolutionRoot)
         {
@@ -32,9 +32,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             _factory= resolutionRoot.Get<INinjectDbFactory>();
         }
 
+        public T Create<T>() where T : ISession
+        {
+            return _factory.Create<T>();
+        }
+
         public T CreateSession<T>() where T : ISession
         {
-            return _factory.CreateSession<T>();
+            return _factory.Create<T>();
         }
 
         public T CreateUnitOwWork<T>(IDbFactory factory, ISession connection) where T : IUnitOfWork

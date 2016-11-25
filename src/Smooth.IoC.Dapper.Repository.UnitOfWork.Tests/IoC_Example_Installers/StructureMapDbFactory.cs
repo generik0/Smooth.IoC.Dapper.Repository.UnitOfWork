@@ -14,6 +14,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             _container = container;
         }
 
+        public T Create<T>() where T : ISession
+        {
+            return _container.GetInstance<T>();
+        }
+
         public T CreateSession<T>() where T : ISession
         {
             return _container.GetInstance<T>();

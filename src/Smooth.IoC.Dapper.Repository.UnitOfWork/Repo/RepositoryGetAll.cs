@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dapper.FastCrud;
-using Dapper.FastCrud.Configuration.StatementOptions.Builders;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -20,12 +18,10 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (session != null)
             {
-                SetDialectIfNeeded(session);
                 return await session.FindAsync<TEntity>();
             }
-            using (var connection = Factory.CreateSession<TSession>())
+            using (var connection = Factory.Create<TSession>())
             {
-                SetDialectIfNeeded(connection);
                 return await connection.FindAsync<TEntity>();
             }
         }

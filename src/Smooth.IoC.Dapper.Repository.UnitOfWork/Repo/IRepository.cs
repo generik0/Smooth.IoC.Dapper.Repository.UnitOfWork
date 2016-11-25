@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -13,7 +14,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         Task<TEntity> GetAsync(TEntity entity, ISession session = null);
         IEnumerable<TEntity>  GetAll(ISession session = null);
         Task<IEnumerable<TEntity>> GetAllAsync(ISession session = null);
-        TPk SaveOrUpdate(TEntity entity, IUnitOfWork transaction);
-        Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork transaction);
+        TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow);
+        Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow);
     }
 }
