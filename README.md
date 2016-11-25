@@ -34,7 +34,7 @@ So what i have done/created is this:
 5. **IEntity&lt;TPk&gt;**: An interface for your Entities so FastCRUD GetKey works in Repositories. To use this your table / entity should always have and Id column as Pk in what every type you like (its a generic :-).
 6. **IRepositoryBase** (and RepositoryBase&lt;TEntity&gt; abstraction):	This is a vanilla base repository, you can use it if you do not want to use Dapper or Dapper.FastCRUD and/or IEntity interface. It includes an protected method to set the dialect which you will need to do, if not using FastCRUD without the IEntity interface.
 
-So far added examples om Castle.Windsor, StructureMap, Ninjet injection.
+So far added examples om Castle.Windsor, StructureMap, Ninjet injection, Unity and Autofac.
 
 ## Code examples
 
