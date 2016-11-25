@@ -17,7 +17,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         public async Task<TEntity> GetKeyAsync(TPk key, ISession session = null)
         {
-            var entity = CreateInstanceHelper.Resolve<TEntity>();
+             var entity = CreateInstanceHelper.Resolve<TEntity>();
             entity.Id = key;
             return await GetAsync(entity, session);
         }
@@ -31,12 +31,10 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (session != null)
             {
-                SetDialectIfNeeded(session);
                 return await session.GetAsync(entity);
             }
             using (var connection = Factory.Create<TSession>())
             {
-                SetDialectIfNeeded(connection);
                 return await connection.GetAsync(entity);
             }
         }
