@@ -35,7 +35,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
             {
                 return _container.Resolve<T>(new NamedParameter("factory", factory),
-                    new NamedParameter("session", session), new NamedParameter("isolationLevel", IsolationLevel.Serializable));
+                    new NamedParameter("session", session));
             }
 
             public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
