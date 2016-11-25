@@ -9,7 +9,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
     {
         public void Register(IUnityContainer container)
         {
-            container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
+            container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(),
+                new InjectionConstructor(container));
             container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
         }
 
