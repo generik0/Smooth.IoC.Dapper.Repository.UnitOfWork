@@ -28,7 +28,7 @@
 
     </description>
     <copyright>Copyright 2016</copyright>
-    <tags>dapper crud orm sql sqlite mysql mssql localdb postgresql poco repository unitofwork di ioc castle ninject structuremap unity</tags>
+    <tags>dapper crud orm sql sqlite mysql mssql localdb postgresql poco repository unitofwork di ioc autofac castle ninject structuremap unity</tags>
     <frameworkAssemblies>
     </frameworkAssemblies>
     <dependencies>
