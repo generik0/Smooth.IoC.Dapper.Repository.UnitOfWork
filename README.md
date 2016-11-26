@@ -29,12 +29,14 @@ I made this project to fix the contradictory concepts behind the Repository and 
  / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically 
  connection / begin transaction on creation, and disconnect/commit on disposal.  
 Also i wanted the usage of the session and uow to become nice and simple.  
+
+*So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
+
 This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically
  do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
 I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FASTCrud. 
-The IoC of your choice is not included in the package,  but i have made example registrations for the "majors" look at: [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
-*So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
+The IoC of your choice is not included in the package,  but i have made example registrations for the "majors" look at: [Code Examples: IoC registration](#Code-Examples:-IoC-registration).
 
 ## What are the features of the library?
 The library gives you the building blocks to:
