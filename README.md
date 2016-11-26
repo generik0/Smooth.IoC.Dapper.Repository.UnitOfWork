@@ -28,7 +28,7 @@
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
  / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically 
  connection / begin transaction on creation, and disconnect/commit on disposal.  
-Also i wanted the usage of the session and uow to become nice and simple.  
+Also i wanted the usage of the session and uow to become nice and smooth like....  
 
 *So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
 
