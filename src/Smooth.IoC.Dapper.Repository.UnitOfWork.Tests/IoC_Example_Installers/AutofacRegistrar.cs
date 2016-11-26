@@ -22,23 +22,23 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 _container = container;
             }
 
-            public T Create<T>() where T : ISession
+            public T Create<T>() where T : class, ISession
             {
                 return _container.Resolve<T>();
             }
 
-            public T CreateSession<T>() where T : ISession
+            public T CreateSession<T>() where T : class, ISession
             {
                 return _container.Resolve<T>();
             }
 
-            public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+            public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
             {
                 return _container.Resolve<T>(new NamedParameter("factory", factory),
                     new NamedParameter("session", session));
             }
 
-            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
             {
                 return _container.Resolve<T>(new NamedParameter("factory", factory),
                     new NamedParameter("session", session), new NamedParameter("isolationLevel", isolationLevel));
@@ -46,7 +46,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
             public void Release(IDisposable instance)
             {
-                ;//do nothing
+                instance.Dispose();
             }
         }
     }

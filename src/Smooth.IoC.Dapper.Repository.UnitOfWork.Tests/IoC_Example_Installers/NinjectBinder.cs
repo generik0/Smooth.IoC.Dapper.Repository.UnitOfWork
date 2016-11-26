@@ -20,43 +20,43 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 .WithConstructorArgument(typeof(IsolationLevel));
         }
 
-
-    }
-    [NoIoCFluentRegistration]
-    internal class DbFactory : IDbFactory
-    {
-        private readonly IResolutionRoot _resolutionRoot;
-        private readonly INinjectDbFactory _factory;
-
-        public DbFactory(IResolutionRoot resolutionRoot)
+        [NoIoCFluentRegistration]
+        internal sealed class DbFactory : IDbFactory
         {
-            _resolutionRoot = resolutionRoot;
-            _factory= resolutionRoot.Get<INinjectDbFactory>();
-        }
+            private readonly IResolutionRoot _resolutionRoot;
+            private readonly INinjectDbFactory _factory;
 
-        public T Create<T>() where T : ISession
-        {
-            return _factory.Create<T>();
-        }
+            public DbFactory(IResolutionRoot resolutionRoot)
+            {
+                _resolutionRoot = resolutionRoot;
+                _factory = resolutionRoot.Get<INinjectDbFactory>();
+            }
 
-        public T CreateSession<T>() where T : ISession
-        {
-            return _factory.Create<T>();
-        }
+            public T Create<T>() where T : class, ISession
+            {
+                return _factory.Create<T>();
+            }
 
-        public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
-        {
-            return _factory.CreateUnitOwWork<T>(factory, session);
-        }
+            public T CreateSession<T>() where T : class, ISession
+            {
+                return _factory.Create<T>();
+            }
 
-        public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
-        {
-            return _factory.CreateUnitOwWork<T>(factory, session);
-        }
+            public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+            {
+                return _factory.CreateUnitOwWork<T>(factory, session);
+            }
 
-        public void Release(IDisposable instance)
-        {
-            _resolutionRoot.Release(instance);
+            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel)
+                where T : class, IUnitOfWork
+            {
+                return _factory.CreateUnitOwWork<T>(factory, session);
+            }
+
+            public void Release(IDisposable instance)
+            {
+                _resolutionRoot.Release(instance);
+            }
         }
     }
 }

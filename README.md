@@ -6,30 +6,35 @@
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 - [ Smooth.IoC.Dapper.Repository.UnitOfWork](#)
-- [Why](#)
-	- [What are the features of the library?](#)
-	- [The problem, why use this library?](#)
-	- [What this the package include?](#)
+- [Why](#)  
+	- [What are the features of the library?](#)  
+	- [The problem, why use this library?](#)  
+	- [What this the package include?](#)  
 - [About Dapper and Dapper.FastCRUD](#)
-- [Code Examples: Sessions, Repositories and UnitOfWork](#)
-		- [Session and ISession](#)
-		- [Repository and IRepository](#)
-		- [Using Session and UnitOFWork in a class/method](#)
+- [Code Examples: Sessions, Repositories and UnitOfWork](#)  
+    - [Session and ISession](#)  
+    - [Repository and IRepository](#)  
+    - [Using Session and UnitOFWork in a class/method](#)  
 - [That simple. That smooth.](#)
 - [Code Examples: IoC registration](#)
-	- [Autofac registration](#)
-	- [Castle Windsor Installer](#)
-	- [Ninject registration](#)
-	- [Structure Map registration](#)
-	- [Unity registration](#)
+	- [Autofac registration](#)  
+	- [Castle Windsor Installer](#)  
+	- [Ninject registration](#)  
+	- [Autofac registration](#)  
+	- [Structure Map registration](#)  
+	- [Unity registration](#)  
 
 # Why
-I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
+I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
+ / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically 
+ connection / begin transaction on creation, and disconnect/commit on disposal.  
 Also i wanted the usage of the session and uow to become nice and simple.  
-This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
+This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically
+ do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
-I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FASTCrud. The IoC of your choice is not included in the package, 
-but i have made example registrations for the "majors" look at: [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
+I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FASTCrud. 
+The IoC of your choice is not included in the package,  but i have made example registrations for the "majors" look at: [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
+*So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
 
 ## What are the features of the library?
 The library gives you the building blocks to:
@@ -270,34 +275,103 @@ It is only so the DbFactory is singleton. It doesn't need to be, but i am hoping
             .WithConstructorArgument(typeof(ISession))
             .WithConstructorArgument(typeof(IsolationLevel));
     }
-}
-class DbFactory : IDbFactory
-{
-    private readonly IResolutionRoot _resolutionRoot;
-    private INinjectDbFactory _factory;
+	internal sealed class DbFactory : IDbFactory
+    {
+        private readonly IResolutionRoot _resolutionRoot;
+        private readonly INinjectDbFactory _factory;
 
-    public DbFactory(IResolutionRoot resolutionRoot)
-    {
-        _resolutionRoot = resolutionRoot;
-        _factory= resolutionRoot.Get&lt;INinjectDbFactory&gt;();
-    }
-    public T Create&lt;T&gt;() where T : ISession
-    {
-        return _factory.Create&lt;T&gt;();
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
-    {
-        return _factory.Create&lt;T&gt;(factory, connection);
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
-    {
-        return _factory.Create&lt;T&gt;(factory, connection);
-    }
-    public void Release(IDisposable instance)
-    {
-        _resolutionRoot.Release(instance);
+        public DbFactory(IResolutionRoot resolutionRoot)
+        {
+            _resolutionRoot = resolutionRoot;
+            _factory = resolutionRoot.Get&lt;INinjectDbFactory&gt;();
+        }
+
+        public T Create&lt;T&gt;() where T : class, ISession
+        {
+            return _factory.Create&lt;T&gt;();
+        }
+
+        public T CreateSession&lt;T&gt;() where T : class, ISession
+        {
+            return _factory.Create&lt;T&gt;();
+        }
+
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+        {
+            return _factory.CreateUnitOwWork&lt;T&gt;(factory, session);
+        }
+
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel)
+            where T : class, IUnitOfWork
+        {
+            return _factory.CreateUnitOwWork&lt;T&gt;(factory, session);
+        }
+
+        public void Release(IDisposable instance)
+        {
+            _resolutionRoot.Release(instance);
+        }
     }
 }</code></pre>
+
+## Simple Injector registration
+I am not very happy about the Simpleinjector example. But it works. However the concrete factory implemenation include the word "new". Simple Injector 
+does not like passing runtime arguements for the constructor and as the UnitOrWork requier the session instance it is a problem. Otherwise we get a new instance.
+I decided to make a concrete factory, and for the UoW it "new's" the UnitOfWork. I looked at the delegate factory pattern in simple injector, this may be a better solution for the future
+But the online help on the subject was incorrect and i could not replicate.
+
+<pre><code>public class SimpleInjectorRegistrar
+{
+    public void Register(Container container)
+    {
+        container.RegisterSingleton&lt;IDbFactory&gt;(new SimpleInjectorDbFactory&lt;ISession&gt;(container));
+    }
+
+    public static void RegisterDisposableTransient(Container container , Type service, Type implementation )
+    {
+        var reg = Lifestyle.Transient.CreateRegistration(implementation, container);
+        reg.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "suppressed.");
+        container.AddRegistration(service, reg);
+    }
+
+    [NoIoCFluentRegistration]
+    internal sealed class SimpleInjectorDbFactory&lt;TSession&gt; : IDbFactory where TSession : class, ISession
+    {
+        private readonly Container _container;
+        private readonly Func&lt;TSession&gt; _sessionFactory;
+        public SimpleInjectorDbFactory(Container container)
+        {
+            _container = container;
+        }
+
+        public T Create&lt;T&gt;() where T : class, ISession
+        {
+            return _container.GetInstance&lt;T&gt;();
+        }
+
+        public T CreateSession&lt;T&gt;() where T : class, ISession
+        {
+            return _container.GetInstance&lt;T&gt;();
+        }
+
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+        {
+
+            return new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session) as T;
+        }
+
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
+        {
+            return new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session, isolationLevel) as T;
+        }
+
+        public void Release(IDisposable instance)
+        {
+            instance?.Dispose();
+        }
+    }
+}</code></pre>
+
 
 ## Structure Map registration
 You need to create a concrete factory and register it, passing the containter as an argurment to the factory
@@ -309,32 +383,40 @@ You need to create a concrete factory and register it, passing the containter as
         .UseIfNone&lt;StructureMapDbFactory&gt;().Ctor&lt;IContainer&gt;()
         .Is(container).Singleton());
     }
-}</code></pre>
 
-The Concrete StructureMapDbFactory looks like this:
-<pre><code>public class StructureMapDbFactory : IDbFactory
-{
-    private IContainer _container;
+    internal class StructureMapDbFactory : IDbFactory
+    {
+        private IContainer _container;
 
-    public StructureMapDbFactory(IContainer container)
-    {
-        _container = container;
-    }
-	public T Create&lt;T&gt;() where T : ISession
-    {
-        return _container.GetInstance&lt;T&gt;();
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
-    {
-        return  _container.With(factory).With(connection).GetInstance&lt;T&gt;();
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
-    {
-        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&lt;T&gt;();
-    }
-    public void Release(IDisposable instance)
-    {
-        _container.Release(instance);
+        public StructureMapDbFactory(IContainer container)
+        {
+            _container = container;
+        }
+
+        public T Create&lt;T&gt;() where T : class, ISession
+        {
+            return _container.GetInstance&lt;T&gt;();
+        }
+
+        public T CreateSession&lt;T&gt;() where T : class, ISession
+        {
+            return _container.GetInstance&lt;T&gt;();
+        }
+
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+        {
+            return _container.With(factory).With(session).GetInstance&lt;T&gt;();
+        }
+
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
+        {
+            return _container.With(factory).With(session).With(isolationLevel).GetInstance&lt;T&gt;();
+        }
+
+        public void Release(IDisposable instance)
+        {
+            _container.Release(instance);
+        }
     }
 }</code></pre>
 

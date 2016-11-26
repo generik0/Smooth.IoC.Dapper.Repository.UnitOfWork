@@ -6,7 +6,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk> : RepositoryBase<TEntity>, IRepository<TEntity, TPk>
         where TEntity : class, IEntity<TPk>
-        where TSession : ISession
+        where TSession : class, ISession
     {
         protected readonly IDbFactory Factory;
         private EntityMapping<TEntity> _mapping;

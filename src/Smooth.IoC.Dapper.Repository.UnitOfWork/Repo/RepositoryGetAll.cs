@@ -7,7 +7,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk>
         where TEntity : class, IEntity<TPk>
-        where TSession : ISession
+        where TSession : class, ISession
     {
         public IEnumerable<TEntity> GetAll(ISession session = null)
         {
