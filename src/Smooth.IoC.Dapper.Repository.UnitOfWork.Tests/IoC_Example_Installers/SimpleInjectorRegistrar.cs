@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
-using System.Runtime.Remoting.Proxies;
 using SimpleInjector;
 using SimpleInjector.Diagnostics;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
@@ -63,9 +58,4 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             }
         }
     }
-
-
-
-
-
 }
