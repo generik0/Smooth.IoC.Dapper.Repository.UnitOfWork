@@ -7,7 +7,7 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk> where TEntity : class, IEntity<TPk>
-        where TSession : ISession
+        where TSession : class, ISession
     {
         public TEntity GetKey(TPk key, ISession session = null)
         {

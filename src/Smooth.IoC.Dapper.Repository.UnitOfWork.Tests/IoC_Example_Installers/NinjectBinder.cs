@@ -34,22 +34,22 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             _factory= resolutionRoot.Get<INinjectDbFactory>();
         }
 
-        public T Create<T>() where T : ISession
+        public T Create<T>() where T : class, ISession
         {
             return _factory.Create<T>();
         }
 
-        public T CreateSession<T>() where T : ISession
+        public T CreateSession<T>() where T : class, ISession
         {
             return _factory.Create<T>();
         }
 
-        public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+        public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
         {
             return _factory.CreateUnitOwWork<T>(factory, session);
         }
 
-        public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+        public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
         {
             return _factory.CreateUnitOwWork<T>(factory, session);
         }
