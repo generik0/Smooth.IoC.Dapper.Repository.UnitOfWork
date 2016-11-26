@@ -7,12 +7,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
     {
         public SqlDialect SqlDialect { get; set; }
         
-        public UnitOfWork(IDbFactory factory, ISession session) : base(factory)
-        {
-            Transaction = session.BeginTransaction();
-        }
-
-        public UnitOfWork(IDbFactory factory, ISession session, IsolationLevel isolationLevel) : base(factory)
+        public UnitOfWork(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) : base(factory)
         {
             Transaction = session.BeginTransaction(isolationLevel);
         }
