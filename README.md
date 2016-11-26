@@ -26,7 +26,7 @@
 
 # Why
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
- / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically 
+ / dependancy injection. Also i wanted to make the creation of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) by the injected factory automatically 
  connection / begin transaction on creation, and disconnect/commit on disposal.  
 Also i wanted the usage of the session and uow to become nice and smooth like....  
 
