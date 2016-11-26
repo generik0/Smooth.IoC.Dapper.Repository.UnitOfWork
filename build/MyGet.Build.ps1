@@ -41,7 +41,7 @@ if ($LASTEXITCODE -ne 0){
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### Create the NuGet packages ######"
-& "$rootFolder\.nuget\nuget.exe" pack "$rootFolder\NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec" -OutputDirectory "$rootFolder\Releases" -Version "$packageVersion" -Properties configuration="$configuration" -Verbosity detailed
+& "$CommandDirectory\.nuget\nuget.exe" pack "$rootFolder\NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec" -OutputDirectory "$rootFolder\Releases" -Version "$packageVersion" -Properties configuration="$configuration" -Verbosity detailed
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "Nuget library packaging failed"
 }
