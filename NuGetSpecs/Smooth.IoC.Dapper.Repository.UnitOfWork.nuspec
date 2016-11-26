@@ -12,7 +12,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>Smoother IoC using Dapper Dapper.FastCRUD with Repository and UnitOfWork patterns.</summary>
     <description>
-The package  Providesøa solution for the Repository and UnitOfWork patterns together with using inversition of control / Dependancy Injection. on the project site there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity integration. The IoC framework is not an issue... It is ment to integrate nice and smooth like...
+The package  Providesøa solution for the Repository and UnitOfWork patterns together with using inversition of control / Dependancy Injection.  
+On the project site there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity integration. The IoC framework is not an issue... It is ment to integrate nice and smooth like...
 
 Creation of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) by the injected factory automatically connection / begin transaction on creation, and disconnect/commit on disposal.
 
