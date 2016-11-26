@@ -84,8 +84,8 @@ Dapper is a micro ORM data does only what you ask of it through queries. [Dapper
 There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
 
 The drawback with Dapper.FastCRUD is it may fail if you don't give it the wrong SqlDialect.
-So i have extended FastDappers IDbConnection extensions so the projects own ISession and IUnitOfWork are extended. Then is a FastCRUD methed os called on an ISession or IUnitOfWork 
-the package insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type. 
+So i have extended FastDappers IDbConnection extensions so the projects own ISession and IUnitOfWork are extended. Then the FastCRUD IDbConnection extension method extended by ISession or IUnitOfWork extensions in
+the package. This insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type per ioc container / executing assembily. So you can also use a different databae for your tests than your production code.
 * This will only effect FastCRUD calls using ISession or IUnitOrWork instances. Not IDbConnection instances.
 * If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
 
