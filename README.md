@@ -4,11 +4,24 @@
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
-Table Of Contents
-* [Why](#Why)
-* [About Dapper and Dapper.FastCRUD](#About-Dapper-and-Dapper.FastCRUD)
-* [Code examples: Sessions Repositories, and UnitOfWork](#Code-Examples:-Sessions,-Repositories-and-UnitOfWork)
-* [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+- [ Smooth.IoC.Dapper.Repository.UnitOfWork](#)
+- [Why](#)
+	- [What are the features of the library?](#)
+	- [The problem, why use this library?](#)
+	- [What this the package include?](#)
+- [About Dapper and Dapper.FastCRUD](#)
+- [Code Examples: Sessions, Repositories and UnitOfWork](#)
+		- [Session and ISession](#)
+		- [Repository and IRepository](#)
+		- [Using Session and UnitOFWork in a class/method](#)
+- [That simple. That smooth.](#)
+- [Code Examples: IoC registration](#)
+	- [Autofac registration](#)
+	- [Castle Windsor Installer](#)
+	- [Ninject registration](#)
+	- [Structure Map registration](#)
+	- [Unity registration](#)
 
 # Why
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
