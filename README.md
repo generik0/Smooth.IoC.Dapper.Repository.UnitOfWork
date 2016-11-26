@@ -23,7 +23,7 @@ You can even use the same database migrations if you have done code first. I hav
 
 You are welcome to look at the unit tests for examples or look below in this readme.
 
-# What this the pachage include and do?
+# What this the package include and do?
 
 So what i have done/created is this:
 
@@ -32,7 +32,8 @@ So what i have done/created is this:
 3. **IUnitOfWork** (and UnitOfWork): Extends IDbTransaction. You don't need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
 4. **IRepository&lt;TSession, TEntity, TPk&gt;** (Repository&lt;TSession, TEntity, TPk&gt; abstraction):	Is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
 5. **IEntity&lt;TPk&gt;**: An interface for your Entities so FastCRUD GetKey works in Repositories. To use this your table / entity should always have and Id column as Pk in what every type you like (its a generic :-).
-6. **IRepositoryBase** (and RepositoryBase&lt;TEntity&gt; abstraction):	This is a vanilla base repository, you can use it if you do not want to use Dapper or Dapper.FastCRUD and/or IEntity interface. It includes an protected method to set the dialect which you will need to do, if not using FastCRUD without the IEntity interface.
+6. **IRepositoryBase** (and RepositoryBase&lt;TEntity&gt; abstraction):	This is a vanilla base repository, you can use it if you do not want to use Dapper or Dapper.FastCRUD and/or IEntity interface. 
+It includes an protected method to set the dialect which you will need to do, if you want to use FastCRUD  but without the IEntity interface.
 
 So far added examples om Castle.Windsor, StructureMap, Ninjet injection, Unity and Autofac.
 
@@ -149,40 +150,48 @@ Autofac does have a factory using delegates but this does not fit the same patte
 So one has to wrap the factory in a concrete implementation. Luckely the concrete implementation can be internal (or even private if you like).
 Registration examples:	
 
-<pre><code>public void Register(IUnityContainer container)
+<pre><code>public class AutofacRegistrar
 {
-    container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
-    container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
-}
+public void Register(ContainerBuilder builder)
+{
+    builder.Register(c=&gt; new AutofacDbFactory(c)).As&lt;IDbFactory&gt;().SingleInstance();
+    builder.RegisterType&lt;Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;().As&lt;IUnitOfWork&gt;();
 
-class UnityDbFactory : IDbFactory
+}
+internal class AutofacDbFactory : IDbFactory
 {
-    private readonly IUnityContainer _container;
-	
-	public UnityDbFactory(IUnityContainer container)
+    private readonly IComponentContext _container;
+
+    public AutofacDbFactory(IComponentContext container)
     {
         _container = container;
     }
-	public T Create<T>() where T : ISession
+
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-	public T Create<T>() where T : ISession
+
+    public T CreateSession&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-	public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : IUnitOfWork
     {
-        return _container.Resolve<T>(new ParameterOverride("factory", factory), 
-            new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
+        return _container.Resolve&lt;T&gt;(new NamedParameter("factory", factory),
+            new NamedParameter("session", session));
     }
-	public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
-        return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
+        return _container.Resolve&lt;T&gt;(new NamedParameter("factory", factory),
+            new NamedParameter("session", session), new NamedParameter("isolationLevel", isolationLevel));
     }
-	public void Release(IDisposable instance)
+
+    public void Release(IDisposable instance)
     {
-        _container.Teardown(instance);
+        ;//do nothing
     }
 }</code></pre>
 
@@ -298,13 +307,13 @@ The Concrete StructureMapDbFactory looks like this:
 
 Unity does not appear to have a very good factory. So one has to wrap the factory in a concrete implementation. Luckely the concrete 
 implementation can be internal (or even private if you like).
-Ünfortuantely Unity could not figure out when i tried to override only 2 paramateres, that it should use a diffent constructor. So the UnitOfWork 
+ï¿½nfortuantely Unity could not figure out when i tried to override only 2 paramateres, that it should use a diffent constructor. So the UnitOfWork 
 Constructor with 3 parameters is always called.
 
 <pre><code>public void Register(IUnityContainer container)
 {
-    container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
-    container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
+    container.RegisterType&lt;IDbFactory, UnityDbFactory&gt;(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
+    container.RegisterType&lt;IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;();
 }
 
 class UnityDbFactory : IDbFactory
@@ -315,20 +324,20 @@ class UnityDbFactory : IDbFactory
     {
         _container = container;
     }
-    public T Create<T>() where T : ISession
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-    public T Create<T>() where T : ISession
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-    public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : IUnitOfWork
     {
-        return _container.Resolve<T>(new ParameterOverride("factory", factory), 
+        return _container.Resolve&lt;T&gt;(new ParameterOverride("factory", factory), 
             new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
     }
-    public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
         return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
     }
