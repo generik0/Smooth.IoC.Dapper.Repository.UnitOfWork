@@ -9,7 +9,6 @@ Table Of Contents
 * [About Dapper and Dapper.FastCRUD](#About-Dapper-and-Dapper.FastCRUD)
 * [Code examples: Sessions Repositories, and UnitOfWork](#Code-Examples:-Sessions,-Repositories-and-UnitOfWork)
 * [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
- 
 
 # Why
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
