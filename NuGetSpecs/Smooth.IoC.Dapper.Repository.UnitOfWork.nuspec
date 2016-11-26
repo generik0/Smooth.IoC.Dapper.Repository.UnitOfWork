@@ -12,9 +12,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>Smoother IoC using Dapper Dapper.FastCRUD with Repository and UnitOfWork patterns.</summary>
     <description>
-I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
-Also i wanted the usage of the session, repos and uow to become nice and smooth with IoC. Any IoC.
+I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the creation of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) by the injected factory automatically connection / begin transaction on creation, and disconnect/commit on disposal.
+Also i wanted the usage of the session and uow to become nice and smooth like....
 
+*So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
 
 This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction.  
 *So far there are examples for Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
