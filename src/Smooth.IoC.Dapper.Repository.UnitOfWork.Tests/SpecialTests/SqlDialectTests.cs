@@ -37,21 +37,21 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             Assert.That(target.SqlDialect == SqlDialect.PostgreSql);
         }
     }
-    [NoIoC]
+    [NoIoCFluentRegistration]
     public class TestSqlite : Session<SQLiteConnection>
     {
         public TestSqlite(IDbFactory factory, string connectionString) : base(factory, connectionString)
         {
         }
     }
-    [NoIoC]
+    [NoIoCFluentRegistration]
     public class TestMySql : Session<MySqlConnection>
     {
         public TestMySql(IDbFactory factory, string connectionString) : base(factory, connectionString)
         {
         }
     }
-    [NoIoC]
+    [NoIoCFluentRegistration]
     public class TestMsSql : Session<SqlConnection>
     {
         public TestMsSql(IDbFactory factory, string connectionString) : base(factory, connectionString)
@@ -59,7 +59,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             
         }
     }
-    [NoIoC]
+    [NoIoCFluentRegistration]
     public class TestPostgreSql : Session<PgSqlConnection>
     {
         public TestPostgreSql(IDbFactory factory, string connectionString) : base(factory, connectionString)

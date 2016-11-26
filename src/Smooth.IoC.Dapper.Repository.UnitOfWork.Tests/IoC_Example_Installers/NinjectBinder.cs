@@ -22,7 +22,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
 
     }
-    [NoIoC]
+    [NoIoCFluentRegistration]
     internal class DbFactory : IDbFactory
     {
         private readonly IResolutionRoot _resolutionRoot;

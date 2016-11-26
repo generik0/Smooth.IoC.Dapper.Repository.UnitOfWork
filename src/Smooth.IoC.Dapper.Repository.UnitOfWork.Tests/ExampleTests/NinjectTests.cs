@@ -1,4 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Linq;
+using System.Reflection;
 using Dapper.FastCrud;
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -26,8 +29,10 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                     {
                         x.FromThisAssembly()
                             .SelectAllClasses()
+                            .Where(t => t.GetInterfaces().Any(i => i != typeof(IDisposable)) && t.GetCustomAttribute<NoIoCFluentRegistration>() == null)
                             .BindDefaultInterface()
                             .Configure(c=>c.InTransientScope());
+
                     });
                     new NinjectBinder().Bind(_kernel);
                 });

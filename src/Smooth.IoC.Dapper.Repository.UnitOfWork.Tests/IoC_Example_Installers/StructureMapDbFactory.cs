@@ -6,7 +6,7 @@ using StructureMap;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
 {
-    [NoIoC]
+    [NoIoCFluentRegistration]
     public class StructureMapDbFactory : IDbFactory
     {
         private IContainer _container;

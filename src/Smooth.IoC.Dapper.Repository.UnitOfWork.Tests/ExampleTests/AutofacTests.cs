@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -23,7 +24,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 {
                     new AutofacRegistrar().Register(builder);
                     builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces()
-                    .Where(t => t.GetInterfaces().Any() && t.GetCustomAttribute<NoIoC>() == null);
+                    .Where(t => t.GetInterfaces().Any(i=>i!=typeof(IDisposable)) && t.GetCustomAttribute<NoIoCFluentRegistration>() == null);
                     _container = builder.Build();
                 });
                 Assert.That(_container.IsRegistered<ITestSession>(), Is.True);

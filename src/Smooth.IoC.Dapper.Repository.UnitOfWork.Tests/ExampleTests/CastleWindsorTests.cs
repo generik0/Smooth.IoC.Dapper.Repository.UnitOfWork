@@ -27,7 +27,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                     _container.Install(new CastleWindsorInstaller());
                     _container.Register(Classes.FromThisAssembly()
                         .Where(t => t.GetInterfaces().Any(x => x != typeof(IDisposable)) 
-                            && !t.HasAttribute<NoIoC>())
+                            && !t.HasAttribute<NoIoCFluentRegistration>())
                         .Unless(t => t.IsAbstract)
                         .Configure(c =>
                         {

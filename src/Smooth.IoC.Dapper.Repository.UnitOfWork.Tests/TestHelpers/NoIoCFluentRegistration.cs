@@ -2,9 +2,9 @@
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
-    [NoIoC]
+    [NoIoCFluentRegistration]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
-    public sealed class NoIoC : Attribute
+    public sealed class NoIoCFluentRegistration : Attribute
     {
     }
 }
