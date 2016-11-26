@@ -263,39 +263,49 @@ It is only so the DbFactory is singleton. It doesn't need to be, but i am hoping
 {
     public void Bind(IKernel kernel)
     {
-        kernel.Bind&lt;INinjectDbFactory&gt;().ToFactory(() =&gt; new TypeMatchingArgumentInheritanceInstanceProvider());
-        kernel.Rebind&lt;IDbFactory&gt;().To&lt;DbFactory&gt;().InSingletonScope();
-        kernel.Bind&lt;IUnitOfWork&gt;().To&lt;Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;()
+        kernel.Bind<INinjectDbFactory>().ToFactory(() => new TypeMatchingArgumentInheritanceInstanceProvider());
+        kernel.Rebind<IDbFactory>().To<DbFactory>().InSingletonScope();
+        kernel.Bind<IUnitOfWork>().To<Dapper.Repository.UnitOfWork.Data.UnitOfWork>()
             .WithConstructorArgument(typeof(IDbFactory))
             .WithConstructorArgument(typeof(ISession))
             .WithConstructorArgument(typeof(IsolationLevel));
     }
-}
-class DbFactory : IDbFactory
-{
-    private readonly IResolutionRoot _resolutionRoot;
-    private INinjectDbFactory _factory;
+	internal sealed class DbFactory : IDbFactory
+    {
+        private readonly IResolutionRoot _resolutionRoot;
+        private readonly INinjectDbFactory _factory;
 
-    public DbFactory(IResolutionRoot resolutionRoot)
-    {
-        _resolutionRoot = resolutionRoot;
-        _factory= resolutionRoot.Get&lt;INinjectDbFactory&gt;();
-    }
-    public T Create&lt;T&gt;() where T : ISession
-    {
-        return _factory.Create&lt;T&gt;();
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
-    {
-        return _factory.Create&lt;T&gt;(factory, connection);
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
-    {
-        return _factory.Create&lt;T&gt;(factory, connection);
-    }
-    public void Release(IDisposable instance)
-    {
-        _resolutionRoot.Release(instance);
+        public DbFactory(IResolutionRoot resolutionRoot)
+        {
+            _resolutionRoot = resolutionRoot;
+            _factory = resolutionRoot.Get<INinjectDbFactory>();
+        }
+
+        public T Create<T>() where T : class, ISession
+        {
+            return _factory.Create<T>();
+        }
+
+        public T CreateSession<T>() where T : class, ISession
+        {
+            return _factory.Create<T>();
+        }
+
+        public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+        {
+            return _factory.CreateUnitOwWork<T>(factory, session);
+        }
+
+        public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel)
+            where T : class, IUnitOfWork
+        {
+            return _factory.CreateUnitOwWork<T>(factory, session);
+        }
+
+        public void Release(IDisposable instance)
+        {
+            _resolutionRoot.Release(instance);
+        }
     }
 }</code></pre>
 
@@ -305,36 +315,44 @@ You need to create a concrete factory and register it, passing the containter as
 {
     public void Register(IContainer container)
     {
-        container.Configure(c=&gt;c.For&lt;IDbFactory&gt;()
-        .UseIfNone&lt;StructureMapDbFactory&gt;().Ctor&lt;IContainer&gt;()
+        container.Configure(c=>c.For<IDbFactory>()
+        .UseIfNone<StructureMapDbFactory>().Ctor<IContainer>()
         .Is(container).Singleton());
     }
-}</code></pre>
 
-The Concrete StructureMapDbFactory looks like this:
-<pre><code>public class StructureMapDbFactory : IDbFactory
-{
-    private IContainer _container;
+    internal class StructureMapDbFactory : IDbFactory
+    {
+        private IContainer _container;
 
-    public StructureMapDbFactory(IContainer container)
-    {
-        _container = container;
-    }
-	public T Create&lt;T&gt;() where T : ISession
-    {
-        return _container.GetInstance&lt;T&gt;();
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection) where T : IUnitOfWork
-    {
-        return  _container.With(factory).With(connection).GetInstance&lt;T&gt;();
-    }
-    public T Create&lt;T&gt;(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork
-    {
-        return  _container.With(factory).With(connection).With(isolationLevel).GetInstance&lt;T&gt;();
-    }
-    public void Release(IDisposable instance)
-    {
-        _container.Release(instance);
+        public StructureMapDbFactory(IContainer container)
+        {
+            _container = container;
+        }
+
+        public T Create<T>() where T : class, ISession
+        {
+            return _container.GetInstance<T>();
+        }
+
+        public T CreateSession<T>() where T : class, ISession
+        {
+            return _container.GetInstance<T>();
+        }
+
+        public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+        {
+            return _container.With(factory).With(session).GetInstance<T>();
+        }
+
+        public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
+        {
+            return _container.With(factory).With(session).With(isolationLevel).GetInstance<T>();
+        }
+
+        public void Release(IDisposable instance)
+        {
+            _container.Release(instance);
+        }
     }
 }</code></pre>
 
