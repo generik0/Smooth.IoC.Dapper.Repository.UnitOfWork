@@ -31,7 +31,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Mig
         }
     }
 
-    [NoIoC]
+    [NoIoCFluentRegistration]
     public class TestSession : Session<SQLiteConnection>
     {
         public TestSession(IDbFactory factory, string connectionString) : base(factory, connectionString)

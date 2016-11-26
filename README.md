@@ -1,20 +1,40 @@
-![Project Icon](logo.jpg) Smooth.IoC.Dapper.Repository.UnitOfWork
+![Project Icon](https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg) Smooth.IoC.Dapper.Repository.UnitOfWork
 ===========================================
 
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
+Table Of Contents
+* [Why](#Why)
+* [About Dapper and Dapper.FastCRUD](#About-Dapper-and-Dapper.FastCRUD)
+* [Code examples: Sessions Repositories, and UnitOfWork](#Code-Examples:-Sessions,-Repositories-and-UnitOfWork)
+* [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
+
 # Why
- 
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control / dependancy injection. Also i wanted to make the resolving of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) automatically connection / begin transaction on creation, and disconnect/commit on disposal.  
 Also i wanted the usage of the session and uow to become nice and simple.  
 This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
-## The problem
+I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FASTCrud. The IoC of your choice is not included in the package, 
+but i have made example registrations for the "majors" look at: [Code Examples: IoC registration](#Code-Examples:-IoC-registration)
 
+## What are the features of the library?
+The library gives you the building blocks to:
+* Create Sessions from the IDbFactory in your methods, IDbFactory should be injected into your class's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
+* Your Sessions can create UnitOfWork's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
+* The IRepository and abstract concrete class should be used on your individual repository classes to provide simple and basic calls. But ofcasue you can add all the queries you want into your 
+Repositories and use the dapper and dapper.FastCRUD (or any other extensions) functionality provided to you.
+* This library does not lock you to using dapper and FastCRUD, you can use any library you like that extends IDbConnection and IDbTransation, and still use the IDbFactory, ISession and IUnitOrWork.  
+* Implemented for .net 4.5.2, .net 4.6.1+, .net 1.6 standard+.
+
+**You will have to register the IDbFactory and IUnitOfWork manually, along with your other registrations. But below in this readme and in the test examples i have added examples for: Autofac, Castle.Windsor, StructureMap, 
+Ninject, Unity.  I did not want to add al sorts of IoC containers to the package, so please look at the examples. And If you have better knowledge of an IoC framework, please let me know if it 
+can be done better, and smoother...**
+
+## The problem, why use this library?
 All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
 Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.  
-I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegnce/help was needed.
+I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegence/help was needed.
 Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic was born...  
 
 NB. I also feel it is important that it is possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).
@@ -23,40 +43,51 @@ You can even use the same database migrations if you have done code first. I hav
 
 You are welcome to look at the unit tests for examples or look below in this readme.
 
-# What this the pachage include and do?
-
+## What this the package include?
 So what i have done/created is this:
 
 1. **IDbFactory** is a simple interface that you register with your IoC. It can create/spwan ISession's and IUntOfWork's. But primary used in code to spawn sessions.
-2. **ISession&lt;TDatabase&gt;** (and Session&lt;TDatabase&gt; abstraction):	Extends IDbConnection. You use it to extend your Database connection / Session type. Yours session classes and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
-3. **IUnitOfWork** (and UnitOfWork): Extends IDbTransaction. You don't need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as IUnitOfWork extends IDbConnection ;-).
-4. **IRepository&lt;TSession, TEntity, TPk&gt;** (Repository&lt;TSession, TEntity, TPk&gt; abstraction):	Is a default repository that you extend with your own repository for each of the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. I have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
-5. **IEntity&lt;TPk&gt;**: An interface for your Entities so FastCRUD GetKey works in Repositories. To use this your table / entity should always have and Id column as Pk in what every type you like (its a generic :-).
-6. **IRepositoryBase** (and RepositoryBase&lt;TEntity&gt; abstraction):	This is a vanilla base repository, you can use it if you do not want to use Dapper or Dapper.FastCRUD and/or IEntity interface. It includes an protected method to set the dialect which you will need to do, if not using FastCRUD without the IEntity interface.
+2. **ISession&lt;TDatabase&gt;** (and Session&lt;TDatabase&gt; abstraction):	Extends IDbConnection. You use it to extend your Database connection / Session type. Yours session classes 
+and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is 
+created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
+3. **IUnitOfWork** (and UnitOfWork): Extends IDbTransaction. You don't need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as 
+IUnitOfWork extends IDbTransaction ;-).
+4. **IRepository&lt;TSession, TEntity, TPk&gt;** (Repository&lt;TSession, TEntity, TPk&gt; abstraction):	Is a default repository that you extend with your own repository for each of 
+the entities you want a repository for. There as some built in methods for GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. 
+ have used [dapper-dot-net](https://github.com/StackExchange/dapper-dot-net) and [dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD) for the quering.
+5. **IEntity&lt;TPk&gt;**: An interface for your Entities so FastCRUD GetKey works in Repositories. To use this your table / entity should always have and Id column as Pk in 
+what every type you like (its a generic :-).
+6. **IRepositoryBase** (and RepositoryBase&lt;TEntity&gt; abstraction):	This is a vanilla base repository, you can use it if you do not want to use Dapper or Dapper.FastCRUD 
+and/or IEntity interface. It includes an protected method to set the dialect which you will need to do, if you want to use FastCRUD  but without the IEntity interface.
 
-So far added examples om Castle.Windsor, StructureMap, Ninjet injection, Unity and Autofac.
-
-## Code examples
-
-### Dapper and Dapper.FastCRUD
+# About Dapper and Dapper.FastCRUD
 I use Dapper and Dapper.FastCRUD for my sql work.  
 Dapper is a micro ORM data does only what you ask of it through queries. [Dapper](https://github.com/StackExchange/dapper-dot-net)  
 There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
-The drawback with Dapper.FastCRUD is it may fail if you don't give it the SqlDialect.
 
-So i have extended FastDappers IDbConnection extensions. I.e. ISession and IUnitOfWork are extended, so if the session or uow run a dapper query they set the dialogue if needed.
-This means that your Entity can only be used for one database type. So if you want your entity to spand across more than one database, you need to make a entity abstraction class 
-and create children of the extension. Also use the RepositoryBase to extend from bypassing the Repository abstraction.
+The drawback with Dapper.FastCRUD is it may fail if you don't give it the wrong SqlDialect.
+So i have extended FastDappers IDbConnection extensions so the projects own ISession and IUnitOfWork are extended. Then is a FastCRUD methed os called on an ISession or IUnitOfWork 
+the package insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type. 
+* This will only effect FastCRUD calls using ISession or IUnitOrWork instances. Not IDbConnection instances.
+* If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
 
+# Code Examples: Sessions, Repositories and UnitOfWork
+Below is examples of using the package with Sessions, UnitOfWork and repositories.
 
 ### Session and ISession
-
 Below is an example of a session / dbconnection class.
-Creating a your custom session and interface type, Extend the session base with your dbconnection type. Remmeber to use default convensions for your interface, you need to pass the connection string into the Session base class.
+Creating a your custom session and interface type, Extend the session base with your DbConnection type. Remember to use default convensions for your interface, you need to pass the connection string into the Session base class.
+**NB the generic is a ADO IDbConnection, For Dapper.FastCRUD is supporst MsSql, MySql, SQLite, PostgreSql with the SqlDialect**
 
-*You can inject a setting/config interface for this injected into your session class and then pass the connection setting (not shown here)*:
-**Generic is a ADO DbConnection and supports with Dapper.FastCRUD MsSql, MySql, SQLite, PostgreSql.**
+*You can inject a setting/config interface for this injected into your session class and then pass the connection setting*:
+<pre><code>public class TestSession : Session&lt;SQLiteConnection&gt;, ITestSession {
+    public TestSession(IDbFactory session, IMyDatabaseSettings settings)
+            : base(session, settings.ConnectionString)
+    {
+    }
+}</code></pre>
 
+*You can manually add your connection string to the base class, but i don't recommend this*:
 <pre><code>public class TestSession : Session&lt;SQLiteConnection&gt;, ITestSession {
     public TestSession(IDbFactory session)
         : base(session, "Data Source=:memory:;Version=3;New=True;")
@@ -66,10 +97,8 @@ Creating a your custom session and interface type, Extend the session base with 
 
 
 ### Repository and IRepository
-
 Below is an example of a repository class that extends Repository. It uses your cusotm session(s) interface to understand the database to connect to. 
 Creating a Repository interface, Add the IRepository to your Repository interface and give it the Entity and Pk generics.
-
 **Rememeber when you unit test you can use your ISession inteface on another session class in your test project and that way use another database for testing than the production code** 
 
 <pre><code>public interface IBraveRepository : IRepository&lt;Brave, int&gt;
@@ -138,57 +167,62 @@ Here is the simple version where we just want to get some data and the repositor
 
 # That simple. That smooth.#
 
-
-#IoC registration
-
+# Code Examples: IoC registration
 You need to register your own repository and session classes yourself. But using default convensions this should happen automatically in you bootsrapper, right?
 
 ## Autofac registration
-
 Autofac does have a factory using delegates but this does not fit the same pattern as all the other IoC. 
 So one has to wrap the factory in a concrete implementation. Luckely the concrete implementation can be internal (or even private if you like).
 Registration examples:	
 
-<pre><code>public void Register(IUnityContainer container)
+<pre><code>public class AutofacRegistrar
 {
-    container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
-    container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
-}
+public void Register(ContainerBuilder builder)
+{
+    builder.Register(c=&gt; new AutofacDbFactory(c)).As&lt;IDbFactory&gt;().SingleInstance();
+    builder.RegisterType&lt;Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;().As&lt;IUnitOfWork&gt;();
 
-class UnityDbFactory : IDbFactory
+}
+internal class AutofacDbFactory : IDbFactory
 {
-    private readonly IUnityContainer _container;
-	
-	public UnityDbFactory(IUnityContainer container)
+    private readonly IComponentContext _container;
+
+    public AutofacDbFactory(IComponentContext container)
     {
         _container = container;
     }
-	public T Create<T>() where T : ISession
+
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-	public T Create<T>() where T : ISession
+
+    public T CreateSession&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-	public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : IUnitOfWork
     {
-        return _container.Resolve<T>(new ParameterOverride("factory", factory), 
-            new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
+        return _container.Resolve&lt;T&gt;(new NamedParameter("factory", factory),
+            new NamedParameter("session", session));
     }
-	public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
-        return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
+        return _container.Resolve&lt;T&gt;(new NamedParameter("factory", factory),
+            new NamedParameter("session", session), new NamedParameter("isolationLevel", isolationLevel));
     }
-	public void Release(IDisposable instance)
+
+    public void Release(IDisposable instance)
     {
-        _container.Teardown(instance);
+        ;//do nothing
     }
 }</code></pre>
 
 ## Castle Windsor Installer
+You need to register the factory and UnitofWork for castle to work. Castle has its own factory implemenation that creates and releases the instances for you. It's great!
 
-You need to register the factory and UnitofWork
 <pre><code>public class SmoothIoCDapperRepositoryUnitOfWorkInstaller : IWindsorInstaller
 {
     public void Install(IWindsorContainer container, IConfigurationStore store)
@@ -205,8 +239,7 @@ You need to register the factory and UnitofWork
 </code></pre>
 
 ## Ninject registration
-
-Ninject like Castle, and unlike Structure Map has a good factory. Unfortunately the factory does not have a Release. 
+Ninject like Castle has a good factory. Unfortunately the factory does not have a Release. 
 So i decided to in the example to combine the use of the ninject's factory and a concrete factory.
 *You need to install-package Ninject.Extensions.Factory for this to work*
 
@@ -254,7 +287,6 @@ class DbFactory : IDbFactory
 }</code></pre>
 
 ## Structure Map registration
-
 You need to create a concrete factory and register it, passing the containter as an argurment to the factory
 <pre><code>public class StructureMapRegistration
 {
@@ -295,16 +327,15 @@ The Concrete StructureMapDbFactory looks like this:
 
 
 ## Unity registration
-
 Unity does not appear to have a very good factory. So one has to wrap the factory in a concrete implementation. Luckely the concrete 
 implementation can be internal (or even private if you like).
-Ünfortuantely Unity could not figure out when i tried to override only 2 paramateres, that it should use a diffent constructor. So the UnitOfWork 
+Unfortunately Unity could not figure out when i tried to override only 2 paramateres, that it should use a diffent constructor. So the UnitOfWork 
 Constructor with 3 parameters is always called.
 
 <pre><code>public void Register(IUnityContainer container)
 {
-    container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
-    container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
+    container.RegisterType&lt;IDbFactory, UnityDbFactory&gt;(new ContainerControlledLifetimeManager(), new InjectionConstructor(container));
+    container.RegisterType&lt;IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;();
 }
 
 class UnityDbFactory : IDbFactory
@@ -315,20 +346,20 @@ class UnityDbFactory : IDbFactory
     {
         _container = container;
     }
-    public T Create<T>() where T : ISession
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-    public T Create<T>() where T : ISession
+    public T Create&lt;T&gt;() where T : ISession
     {
-        return _container.Resolve<T>();
+        return _container.Resolve&lt;T&gt;();
     }
-    public T Create<T>(IDbFactory factory, ISession session) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session) where T : IUnitOfWork
     {
-        return _container.Resolve<T>(new ParameterOverride("factory", factory), 
+        return _container.Resolve&lt;T&gt;(new ParameterOverride("factory", factory), 
             new ParameterOverride("session", session), new ParameterOverride("isolationLevel", IsolationLevel.Serializable));
     }
-    public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
+    public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : IUnitOfWork
     {
         return (T)Activator.CreateInstance(typeof(T), factory, session, isolationLevel);
     }

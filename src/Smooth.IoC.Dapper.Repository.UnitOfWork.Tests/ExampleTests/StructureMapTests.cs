@@ -28,6 +28,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                         {
                             s.AssembliesFromApplicationBaseDirectory();
                             s.WithDefaultConventions();
+                            s.ExcludeType<NoIoCFluentRegistration>();
                         });
 
                     });

@@ -15,7 +15,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
         }
 
-        [NoIoC]
+        [NoIoCFluentRegistration]
         class UnityDbFactory : IDbFactory
         {
             private readonly IUnityContainer _container;
