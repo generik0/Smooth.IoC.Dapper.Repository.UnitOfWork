@@ -53,6 +53,7 @@
     "Ninject.Extensions.Interception": "3.2.0",
     "NUnit": "3.5.0",
     "Simple.Migrations": "0.9.6",
+    "SimpleInjector": "3.3.1",
     "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0-*",
     "StructureMap": "4.4.2",
     "System.Data.SQLite.Core": "1.0.103",

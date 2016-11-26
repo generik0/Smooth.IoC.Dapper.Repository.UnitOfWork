@@ -450,6 +450,15 @@
           "lib/net45/Simple.Migrations.dll": {}
         }
       },
+      "SimpleInjector/3.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/SimpleInjector.dll": {}
+        },
+        "runtime": {
+          "lib/net45/SimpleInjector.dll": {}
+        }
+      },
       "StringInterpolationBridge/0.9.1": {
         "type": "package",
         "compile": {
@@ -1150,6 +1159,23 @@
         "lib/netstandard1.3/Simple.Migrations.xml"
       ]
     },
+    "SimpleInjector/3.3.1": {
+      "sha512": "QuuLoIrmKvMlz3Lwnk6Ma5fCwc3PVXD1DCbMXAfaDQ2YOQkWlDEHyxNBEJPck7o4gfRYbFgHqs4SpgJDd/kGHg==",
+      "type": "package",
+      "path": "SimpleInjector/3.3.1",
+      "files": [
+        "SimpleInjector.3.3.1.nupkg.sha512",
+        "SimpleInjector.nuspec",
+        "lib/net40-client/SimpleInjector.dll",
+        "lib/net40-client/SimpleInjector.xml",
+        "lib/net45/SimpleInjector.dll",
+        "lib/net45/SimpleInjector.xml",
+        "lib/netstandard1.0/SimpleInjector.dll",
+        "lib/netstandard1.0/SimpleInjector.xml",
+        "lib/portable-net4+sl4+wp8+win8+wpa81/SimpleInjector.dll",
+        "lib/portable-net4+sl4+wp8+win8+wpa81/SimpleInjector.xml"
+      ]
+    },
     "StringInterpolationBridge/0.9.1": {
       "sha512": "yDgl0AdstVh7aUlSGeBqEtc3gHZAVlL1mbo9UQNH0dOfsENKlwT0ktGVzzAXaSmIZqKpgpjLj1x+j8n/u191kw==",
       "type": "package",
@@ -1574,6 +1600,7 @@
       "Ninject.Extensions.Factory >= 3.2.1",
       "Ninject.Extensions.Interception >= 3.2.0",
       "Simple.Migrations >= 0.9.6",
+      "SimpleInjector >= 3.3.1",
       "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.1.0-*",
       "StructureMap >= 4.4.2",
       "System.Data.SQLite.Core >= 1.0.103",
