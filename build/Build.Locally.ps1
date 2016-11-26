@@ -1,10 +1,5 @@
 ﻿$ErrorActionPreference = "Stop"
 
-#$packageVersion = ($env:PackageVersion)
-#$configuration = ($env:Configuration)
-#$msBuildExe = ($env:MsBuildExe)
-#$msBuildTarget = ($env:Targets)
-
 $packageVersion = "0.0.0-C1"
 $configuration = "Release"
 $msBuildExe = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"

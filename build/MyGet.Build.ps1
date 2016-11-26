@@ -9,7 +9,7 @@ $validBuildRunners = @("myget")
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic " "
 MyGet-Write-Diagnostic "###### restore dependencies ######"
-& "$rootFolder\.nuget\nuget.exe" restore "$rootFolder\Smooth.IoC.Dapper.Repository.UnitOfWork.sln"
+& "$CommandDirectory\.nuget\nuget.exe" restore "$rootFolder\Smooth.IoC.Dapper.Repository.UnitOfWork.sln"
 if ($LASTEXITCODE -ne 0){
     MyGet-Die "nuget restore failed"
 }
