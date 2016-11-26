@@ -32,10 +32,10 @@ Also i wanted the usage of the session and uow to become nice and smooth like...
 
 *So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
 
-This should cover 97% of your needs. But i have also insured the the Session and UoW types extend the ADO base interfaces, so you can basically
+This should cover 97% of your needs. But i have also insured that the Session and UoW types extend the ADO base interfaces, so you can basically
  do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
 
-I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FASTCrud. 
+I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FastCRUD.
 The IoC of your choice is not included in the package,  but i have made example registrations for the "majors" look at: [Code Examples: IoC registration](#Code-Examples:-IoC-registration).
 
 ## What are the features of the library?
