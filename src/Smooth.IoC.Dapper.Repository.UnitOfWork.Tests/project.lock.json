@@ -575,7 +575,7 @@
           "lib/net45/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Smooth.IoC.Dapper.Repository.UnitOfWork/0.1.0": {
+      "Smooth.IoC.Dapper.Repository.UnitOfWork/0.2.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
@@ -1583,7 +1583,7 @@
         "lib/wp80/Microsoft.Practices.Unity.xml"
       ]
     },
-    "Smooth.IoC.Dapper.Repository.UnitOfWork/0.1.0": {
+    "Smooth.IoC.Dapper.Repository.UnitOfWork/0.2.0": {
       "type": "project",
       "path": "../Smooth.IoC.Dapper.Repository.UnitOfWork/project.json",
       "msbuildProject": "../Smooth.IoC.Dapper.Repository.UnitOfWork/Smooth.IoC.Dapper.Repository.UnitOfWork.xproj"
