@@ -6,14 +6,13 @@ obj
 *.nupkg
 /Releases/*.nupkg
 *.suo
-/.nunit/gui
 **/.buildtools
 /TestResult.xml
 /Thumbs.db
 /src/Smooth.IoC.Dapper.Repository.UnitOfWork/project.lock.json
 src/**/*TestResult.xml
 
-!.nunit/*
+!*/.nuget/*.*
 !MyGet.include.ps1
 !MyGet.ps1
 
