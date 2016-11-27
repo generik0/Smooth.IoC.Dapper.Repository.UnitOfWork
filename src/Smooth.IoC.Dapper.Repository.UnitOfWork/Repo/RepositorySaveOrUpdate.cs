@@ -20,11 +20,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             {
                 return await Task.Run(() =>
                 {
-                    uow.Insert(entity);
+                    uow.Insert(entity, statement=>statement.AttachToTransaction(uow));
                     return entity.Id;
                 });
             }
-            var result = await uow.UpdateAsync(entity);
+            var result = await uow.UpdateAsync(entity, statement => statement.AttachToTransaction(uow));
             return result ? entity.Id : default(TPk);
         }
 
