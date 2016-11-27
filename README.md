@@ -23,6 +23,7 @@
 	- [Autofac registration](#)  
 	- [Structure Map registration](#)  
 	- [Unity registration](#)  
+	- [Version History](#)
 
 # Why
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
@@ -31,6 +32,8 @@ I made this project to fix the contradictory concepts behind the Repository and 
 Also i wanted the usage of the session and uow to become nice and smooth like....  
 
 *So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
+
+I also want to be able to do unit testing with e.g. a Sqlite and production with e.g. a MsSQl. This is possible now...
 
 This should cover 97% of your needs. But i have also insured that the Session and UoW types extend the ADO base interfaces, so you can basically
  do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
@@ -212,12 +215,12 @@ internal class AutofacDbFactory : IDbFactory
         _container = container;
     }
 
-    public T Create&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
 
-    public T CreateSession&lt;T&gt;() where T : ISession
+    public T CreateSession&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
@@ -443,11 +446,11 @@ class UnityDbFactory : IDbFactory
     {
         _container = container;
     }
-    public T Create&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
-    public T Create&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
@@ -465,3 +468,20 @@ class UnityDbFactory : IDbFactory
         _container.Teardown(instance);
     }
 }</code></pre>
+
+
+# Version History
+- 0.0.x	
+	- Created Session, UnitOfWork, IDBFactory, Repository Getters and SaveOrUpdate 
+	- Castle Windsor integration
+- 0.1.x	
+	- Added examples and test for Autofac, Ninject, StructureMap, SimpleInjector and Unity. 
+	- Bug fixes. 
+	- Extended IUnitOFWork and Session for FastCRUD
+- 0.2.x	(Current) 
+	- Bug fix with transactions, 
+	- Add UnitOfWork Creation from Factory
+- 0.3.x (Future)
+	- Add more tests
+	- Add more FastCRUD standard calls in the repository	
+
