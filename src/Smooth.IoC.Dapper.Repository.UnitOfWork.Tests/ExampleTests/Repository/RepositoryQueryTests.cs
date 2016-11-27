@@ -18,8 +18,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
             Assert.DoesNotThrow(()=> results = Connection.Query<Brave>("Select * FROM Braves"));
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
         }
-
     }
 }
