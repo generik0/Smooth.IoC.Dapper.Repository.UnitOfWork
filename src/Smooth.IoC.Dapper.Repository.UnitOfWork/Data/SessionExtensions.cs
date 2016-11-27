@@ -29,14 +29,14 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
         {
             SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).BulkUpdate(statementOptions);
+            return (connection as IDbConnection).BulkUpdate(updateData,statementOptions);
         }
 
         public static Task<int> BulkUpdateAsync<TEntity>(this ISession connection, TEntity updateData,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
         {
             SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).BulkUpdateAsync(statementOptions);
+            return (connection as IDbConnection).BulkUpdateAsync(updateData,statementOptions);
         }
 
         public static int Count<TEntity>(this ISession connection,
@@ -57,14 +57,14 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
         {
             SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).Delete(statementOptions);
+            return (connection as IDbConnection).Delete(entityToDelete,statementOptions);
         }
 
         public static Task<bool> DeleteAsync<TEntity>(this ISession connection, TEntity entityToDelete,
             Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
         {
             SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).DeleteAsync(statementOptions);
+            return (connection as IDbConnection).DeleteAsync(entityToDelete,statementOptions);
         }
 
         public static IEnumerable<TEntity> Find<TEntity>(this ISession connection,

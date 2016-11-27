@@ -23,6 +23,7 @@
 	- [Autofac registration](#)  
 	- [Structure Map registration](#)  
 	- [Unity registration](#)  
+	- [Version History](#)
 
 # Why
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
@@ -31,6 +32,8 @@ I made this project to fix the contradictory concepts behind the Repository and 
 Also i wanted the usage of the session and uow to become nice and smooth like....  
 
 *So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
+
+I also want to be able to do unit testing with e.g. a Sqlite and production with e.g. a MsSQl. This is possible now...
 
 This should cover 97% of your needs. But i have also insured that the Session and UoW types extend the ADO base interfaces, so you can basically
  do anything you like with the session / uow, because they are IDbConnection and IDbTransaction. 
@@ -83,13 +86,23 @@ and/or IEntity interface. It includes an protected method to set the dialect whi
 # About Dapper and Dapper.FastCRUD
 I use Dapper and Dapper.FastCRUD for my sql work.  
 Dapper is a micro ORM data does only what you ask of it through queries. [Dapper](https://github.com/StackExchange/dapper-dot-net)  
-There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
+There is an extension to Dapper called Dapper.FastCRUD. This adds fluentness to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
 
 The drawback with Dapper.FastCRUD is it may fail if you don't give it the wrong SqlDialect.
 So i have extended FastDappers IDbConnection extensions so the projects own ISession and IUnitOfWork are extended. Then the FastCRUD IDbConnection extension method extended by ISession or IUnitOfWork extensions in
 the package. This insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type per ioc container / executing assembily. So you can also use a different databae for your tests than your production code.
 * This will only effect FastCRUD calls using ISession or IUnitOrWork instances. Not IDbConnection instances.
 * If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
+
+You can do a lot fluently with FastCRUD. Check out there wiki:
+- [Home](https://github.com/MoonStorm/Dapper.FastCRUD/wiki)
+- [Entity registration](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/Entity-registration)
+- [Default library conventions](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/Default-library-conventions)
+- [JOINS](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/JOINs)
+- [SQL statements and clauses](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/SQL-statements-and-clauses)
+
+Or as i have already menioned use dapper or any other extension utilizing IDbConnection And IDbTransaction...
+
 
 # Code Examples: Sessions, Repositories and UnitOfWork
 Below is examples of using the package with Sessions, UnitOfWork and repositories.
@@ -212,12 +225,12 @@ internal class AutofacDbFactory : IDbFactory
         _container = container;
     }
 
-    public T Create&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
 
-    public T CreateSession&lt;T&gt;() where T : ISession
+    public T CreateSession&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
@@ -443,11 +456,11 @@ class UnityDbFactory : IDbFactory
     {
         _container = container;
     }
-    public T Create&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
-    public T Create&lt;T&gt;() where T : ISession
+    public T Create&lt;T&gt;() where T : class, ISession
     {
         return _container.Resolve&lt;T&gt;();
     }
@@ -465,3 +478,20 @@ class UnityDbFactory : IDbFactory
         _container.Teardown(instance);
     }
 }</code></pre>
+
+
+# Version History
+- 0.0.x	
+	- Created Session, UnitOfWork, IDBFactory, Repository Getters and SaveOrUpdate 
+	- Castle Windsor integration
+- 0.1.x	
+	- Added examples and test for Autofac, Ninject, StructureMap, SimpleInjector and Unity. 
+	- Bug fixes. 
+	- Extended IUnitOFWork and Session for FastCRUD
+- 0.2.x	(Current) 
+	- Bug fix with transactions, 
+	- Add UnitOfWork Creation from Factory
+- 0.3.x (Future)
+	- Add more tests
+	- Add more FastCRUD standard calls in the repository	
+

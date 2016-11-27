@@ -1,16 +1,18 @@
-﻿using Dapper.FastCrud;
+using System;
+using System.Linq;
+using System.Reflection;
 using NUnit.Framework;
+using SimpleInjector;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using StructureMap;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC
 {
     [TestFixture]
-    public class StructureMapTests
+    public class SimpleInjectorTests
     {
-        private static IContainer _container;
+        private static Container _container;
 
         [SetUp]
         public void TestSetup()
@@ -20,18 +22,30 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 _container = new Container();
                 Assert.DoesNotThrow(() =>
                 {
-                    new StructureMapRegistration().Register(_container);
-                    _container.Configure(c =>
-                    {
-                        
-                        c.Scan(s =>
-                        {
-                            s.AssembliesFromApplicationBaseDirectory();
-                            s.WithDefaultConventions();
-                            s.ExcludeType<NoIoCFluentRegistration>();
-                        });
+                    new SimpleInjectorRegistrar().Register(_container);
+                    var registrations =
+                        (from type in Assembly.GetExecutingAssembly().GetTypes()
+                        where !type.IsAbstract && !type.IsInterface
+                        where type.GetInterfaces().Any(x=>x!=typeof(IDisposable))
+                        where type.GetCustomAttribute<NoIoCFluentRegistration>() == null
+                        select new { Services = type.GetInterfaces(), Implementation = type }).ToArray();
 
-                    });
+                    foreach (var reg in registrations)
+                    {
+                        foreach (var service in reg.Services)
+                        {
+                            if (string.CompareOrdinal(service.Name.Substring(1), reg.Implementation.Name) == 0)
+                            {
+                                if (reg.Implementation.GetInterfaces().Any(x => x == typeof(IDisposable)))
+                                {
+                                    SimpleInjectorRegistrar.RegisterDisposableTransient(_container, service, reg.Implementation);
+                                    continue;
+                                }
+                                _container.Register(service, reg.Implementation, Lifestyle.Transient);
+                            }
+                        }
+                    }
+                    _container.Verify();
                 });
             }
         }
