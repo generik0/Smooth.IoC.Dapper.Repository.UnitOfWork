@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Dapper.FastCrud;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
@@ -27,7 +26,5 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             var result = await uow.UpdateAsync(entity, statement => statement.AttachToTransaction(uow));
             return result ? entity.Id : default(TPk);
         }
-
-        
     }
 }
