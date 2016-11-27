@@ -1,59 +1,50 @@
-﻿using System;
-using System.Data;
+using System;
 using System.Linq;
 using System.Reflection;
-using Dapper.FastCrud;
-using Ninject;
-using Ninject.Extensions.Conventions;
+using Autofac;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC
 {
     [TestFixture]
-    public class NinjectTests
+    public class AutofacTests
     {
-        private static IKernel _kernel;
+        private static IContainer _container;
 
         [SetUp]
         public void TestSetup()
         {
-            if (_kernel == null)
+            if (_container == null)
             {
-                _kernel = new StandardKernel();
+                var builder = new ContainerBuilder();
                 Assert.DoesNotThrow(() =>
                 {
-                    _kernel.Bind(x =>
-                    {
-                        x.FromThisAssembly()
-                            .SelectAllClasses()
-                            .Where(t => t.GetInterfaces().Any(i => i != typeof(IDisposable)) && t.GetCustomAttribute<NoIoCFluentRegistration>() == null)
-                            .BindDefaultInterface()
-                            .Configure(c=>c.InTransientScope());
-
-                    });
-                    new NinjectBinder().Bind(_kernel);
+                    new AutofacRegistrar().Register(builder);
+                    builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces()
+                    .Where(t => t.GetInterfaces().Any(i=>i!=typeof(IDisposable)) && t.GetCustomAttribute<NoIoCFluentRegistration>() == null);
+                    _container = builder.Build();
                 });
+                Assert.That(_container.IsRegistered<ITestSession>(), Is.True);
             }
         }
 
         [Test, Category("Integration")]
         public static void Install_1_Resolves_ISession()
         {
-            var dbFactory = _kernel.Get<IDbFactory>();
+            var dbFactory = _container.Resolve<IDbFactory>();
             ITestSession session = null;
             Assert.DoesNotThrow(() => session = dbFactory.Create<ITestSession>());
-            Assert.DoesNotThrow(() => session.Dispose());
             Assert.That(session, Is.Not.Null);
         }
 
 
         [Test, Category("Integration")]
-        public static void Install_2a_Resolves_IUnitOfWork()
+        public static void Install_2_Resolves_IUnitOfWork()
         {
-            var dbFactory = _kernel.Get<IDbFactory>();
+            var dbFactory = _container.Resolve<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
                 IUnitOfWork uow = null;
@@ -61,22 +52,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
                 Assert.That(uow, Is.Not.Null);
             }
         }
-        [Test, Category("Integration")]
-        public static void Install_2b_Resolves_IUnitOfWorkWithIsolation()
-        {
-            var dbFactory = _kernel.Get<IDbFactory>();
-            using (var session = dbFactory.Create<ITestSession>())
-            {
-                IUnitOfWork uow = null;
-                Assert.DoesNotThrow(() => uow = session.UnitOfWork(IsolationLevel.Serializable));
-                Assert.That(uow, Is.Not.Null);
-            }
-        }
 
         [Test, Category("Integration")]
         public static void Install_4_Resolves_WithSameConnection()
         {
-            var dbFactory = _kernel.Get<IDbFactory>();
+            var dbFactory = _container.Resolve<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
                 using (var uow = session.UnitOfWork())
@@ -90,10 +70,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
         public static void Install_5_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
-            Assert.DoesNotThrow(() => repo = _kernel.Get<IBraveRepository>());
+            Assert.DoesNotThrow(() => repo = _container.Resolve<IBraveRepository>());
             Assert.That(repo, Is.Not.Null);
         }
     }
 }
-
-

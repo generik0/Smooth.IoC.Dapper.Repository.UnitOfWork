@@ -1,33 +1,28 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using Autofac;
+using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Registrations;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC
 {
     [TestFixture]
-    public class AutofacTests
+    public class UnityTests
     {
-        private static IContainer _container;
+        private static IUnityContainer _container;
 
         [SetUp]
         public void TestSetup()
         {
             if (_container == null)
             {
-                var builder = new ContainerBuilder();
+                _container = new UnityContainer();
                 Assert.DoesNotThrow(() =>
                 {
-                    new AutofacRegistrar().Register(builder);
-                    builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces()
-                    .Where(t => t.GetInterfaces().Any(i=>i!=typeof(IDisposable)) && t.GetCustomAttribute<NoIoCFluentRegistration>() == null);
-                    _container = builder.Build();
+                    new UnityRegistrar().Register(_container);
+                    new UnityConventionRegistrar(_container);
                 });
-                Assert.That(_container.IsRegistered<ITestSession>(), Is.True);
             }
         }
 
