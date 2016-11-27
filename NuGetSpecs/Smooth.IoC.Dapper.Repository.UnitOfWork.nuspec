@@ -10,9 +10,9 @@
     <projectUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <summary>Smoother IoC using Dapper Dapper.FastCRUD with Repository and UnitOfWork patterns.</summary>
+    <summary>Smooth IoC using Dapper Dapper.FastCRUD with Repository and UnitOfWork patterns.</summary>
     <description>
-The package  Providesøa solution for the Repository and UnitOfWork patterns together with using inversition of control / Dependancy Injection.  
+The package  Provides a solution for the Repository and UnitOfWork patterns together with inversition of control.
 On the project site there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity integration. The IoC framework is not an issue... It is ment to integrate nice and smooth like...
 
 Creation of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) by the injected factory automatically connection / begin transaction on creation, and disconnect/commit on disposal.
@@ -20,6 +20,8 @@ I have insured that the Session and UoW types extend the ADO base interfaces, so
 
 I have tried to insure it is as bare bones as possible. Only adding the system libraries needed and Dapper + Dapper.FASTCrud. The IoC of your choice is not included in the package, 
 but i have made example registrations for the "majors" look on the project site.  
+
+It is also possible to use on database for production, another for unit tests.
 
 Included interfaces with abstractions:
 
@@ -54,6 +56,7 @@ and/or IEntity interface. It includes an protected method to set the dialect whi
       </group>
 	   <group targetFramework=".NETStandard1.6">
        <dependency id="Dapper" version="[1.50.2, )" />
+       <dependency id="Dapper.FastCrud" version="[2.4.1, )" />
        <dependency id="System.ComponentModel.Annotations" version="[4.1.0, )" />
        <dependency id="System.ComponentModel.TypeConverter" version="[4.1.0, )" />
        <dependency id="System.Data.Common" version="[4.1.0, )" />
