@@ -86,13 +86,23 @@ and/or IEntity interface. It includes an protected method to set the dialect whi
 # About Dapper and Dapper.FastCRUD
 I use Dapper and Dapper.FastCRUD for my sql work.  
 Dapper is a micro ORM data does only what you ask of it through queries. [Dapper](https://github.com/StackExchange/dapper-dot-net)  
-There is an extension to Dapper called Dapper.FastCRUD. This adds ORM and fluent sql to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
+There is an extension to Dapper called Dapper.FastCRUD. This adds fluentness to dapper. [Dapper.FastCRUD](https://github.com/MoonStorm/Dapper.FastCRUD).  
 
 The drawback with Dapper.FastCRUD is it may fail if you don't give it the wrong SqlDialect.
 So i have extended FastDappers IDbConnection extensions so the projects own ISession and IUnitOfWork are extended. Then the FastCRUD IDbConnection extension method extended by ISession or IUnitOfWork extensions in
 the package. This insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type per ioc container / executing assembily. So you can also use a different databae for your tests than your production code.
 * This will only effect FastCRUD calls using ISession or IUnitOrWork instances. Not IDbConnection instances.
 * If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
+
+You can do a lot fluently with FastCRUD. Check out there wiki:
+- [Home](https://github.com/MoonStorm/Dapper.FastCRUD/wiki)
+- [Entity registration](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/Entity-registration)
+- [Default library conventions](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/Default-library-conventions)
+- [JOINS](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/JOINs)
+- [SQL statements and clauses](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/SQL-statements-and-clauses)
+
+Or as i have already menioned use dapper or any other extension utilizing IDbConnection And IDbTransaction...
+
 
 # Code Examples: Sessions, Repositories and UnitOfWork
 Below is examples of using the package with Sessions, UnitOfWork and repositories.
