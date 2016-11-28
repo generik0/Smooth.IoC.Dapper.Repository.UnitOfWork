@@ -435,7 +435,7 @@ You need to create a concrete factory and register it, passing the containter as
     }
 }</code></pre>
 
-
+ 
 ## Unity registration
 Unity does not appear to have a very good factory. So one has to wrap the factory in a concrete implementation. Luckely the concrete 
 implementation can be internal (or even private if you like).
@@ -489,8 +489,8 @@ class UnityDbFactory : IDbFactory
 	- Bug fixes. 
 	- Extended IUnitOFWork and Session for FastCRUD
 - 0.2.x	(Current) 
-	- Bug fix with transactions, 
-	- Add UnitOfWork Creation from Factory
+	- Bug fix with transactions and UoW extensions (0.2.69)
+	- Add UnitOfWork Creation from Factory (In Development)
 - 0.3.x (Future)
 	- Add more tests
 	- Add more FastCRUD standard calls in the repository	
