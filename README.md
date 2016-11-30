@@ -490,7 +490,7 @@ class UnityDbFactory : IDbFactory
 	- Extended IUnitOFWork and Session for FastCRUD
 - 0.2.x	(Current) 
 	- Bug fix with transactions and UoW extensions (0.2.69)
-	- Add UnitOfWork Creation from Factory (In Development)
+	- Add UnitOfWork Creation from Factory (In Progress)
 - 0.3.x (Future)
 	- Add more tests
 	- Add more FastCRUD standard calls in the repository	
