@@ -22,7 +22,7 @@
 	- [Autofac registration](#)  
 	- [Structure Map registration](#)  
 	- [Unity registration](#)  
-	- [Version History](#)
+- [Version History](#)
 
 # Why
 I made this project to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
