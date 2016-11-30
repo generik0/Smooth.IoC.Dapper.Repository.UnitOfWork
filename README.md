@@ -5,7 +5,6 @@
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-- [ Smooth.IoC.Dapper.Repository.UnitOfWork](#)
 - [Why](#)  
 	- [What are the features of the library?](#)  
 	- [The problem, why use this library?](#)  
