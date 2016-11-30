@@ -42,6 +42,16 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 return _factory.Create<T>();
             }
 
+            public TUnitOfWork Create<TUnitOfWork, TSession>() where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
+            {
+                return _factory.CreateUnitOwWork<TUnitOfWork>(this, Create<TSession>(), IsolationLevel.Serializable, true);
+            }
+
+            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
+            {
+                return _factory.CreateUnitOwWork<TUnitOfWork>(this, Create<TSession>(), isolationLevel, true);
+            }
+
             public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
             {
                 return _factory.CreateUnitOwWork<T>(factory, session);

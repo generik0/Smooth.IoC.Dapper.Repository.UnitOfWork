@@ -7,7 +7,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
     public interface INinjectDbFactory
     {
         T Create<T>() where T : ISession;
-        T CreateUnitOwWork<T>(IDbFactory factory, ISession connection) where T : IUnitOfWork;
-        T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel) where T : IUnitOfWork;
+        T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, bool sessionOnlyForThisUnitOfWork = false) where T : IUnitOfWork;
+        T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel, bool sessionOnlyForThisUnitOfWork = false) where T : IUnitOfWork;
     }
 }
