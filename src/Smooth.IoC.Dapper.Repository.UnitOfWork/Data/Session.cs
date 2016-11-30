@@ -25,19 +25,19 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         private void SetDialect()
         {
             var type = typeof(TConnection).FullName.ToLowerInvariant();
-            if (type.Contains(".sqlclient") || type.Contains(".mssql"))
+            if (type.Contains(".sqlconnection") || type.Contains(".sqlceconnection") || type.Contains(".sqlclient"))
             {
                 SqlDialect = SqlDialect.MsSql;
             }
-            else if (type.Contains(".sqlite"))
+            else if (type.Contains(".sqliteconnection"))
             {
                 SqlDialect = SqlDialect.SqLite;
             }
-            else if (type.Contains(".mysqlclient") || type.Contains(".mysql"))
+            else if (type.Contains(".mysqlconnection") || type.Contains(".mysqlclient"))
             {
                 SqlDialect = SqlDialect.MySql;
             }
-            else if (type.Contains(".pgsql")|| type.Contains(".postgresql"))
+            else if (type.Contains(".npgsqlconnection") || type.Contains(".pgsql") || type.Contains(".postgresql"))
             {
                 SqlDialect = SqlDialect.PostgreSql;
             }
