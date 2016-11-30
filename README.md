@@ -14,7 +14,6 @@
     - [Session and ISession](#)  
     - [Repository and IRepository](#)  
     - [Using Session and UnitOFWork in a class/method](#)  
-- [That simple. That smooth.](#)
 - [Code Examples: IoC registration](#)
 	- [Autofac registration](#)  
 	- [Castle Windsor Installer](#)  
