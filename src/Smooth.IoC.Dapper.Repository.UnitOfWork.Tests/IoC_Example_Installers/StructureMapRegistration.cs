@@ -11,8 +11,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
         public void Register(IContainer container)
         {
             container.Configure(c=>c.For<IDbFactory>()
-            .UseIfNone<StructureMapDbFactory>().Ctor<IContainer>()
-            .Is(container).Singleton());
+                .UseIfNone<StructureMapDbFactory>().Ctor<IContainer>()
+                .Is(container).Singleton());
         }
 
         [NoIoCFluentRegistration]
@@ -37,7 +37,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
 
             public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
             {
-                return _container.With(_container.GetInstance<IDbFactory>()).With(Create<TSession>())
+                return _container.With(_container.GetInstance<IDbFactory>()).With(Create<TSession>() as ISession)
                     .With(isolationLevel).With(true).GetInstance<TUnitOfWork>();
             }
 

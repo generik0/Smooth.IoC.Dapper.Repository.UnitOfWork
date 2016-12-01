@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
@@ -73,20 +74,24 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
         }
 
         [Test, Category("Integration")]
-        public static void Install_4_Resolves_WithSameConnection()
+        public static void Install_5_Resolves_WithCorrectConnectionString()
         {
             var dbFactory = _container.GetInstance<IDbFactory>();
-            using (var session = dbFactory.Create<ITestSession>())
+            using (var uow = dbFactory.Create<IUnitOfWork, ITestSession>())
             {
-                using (var uow = session.UnitOfWork())
-                {
-                    Assert.That(uow.Connection, Is.EqualTo(session.Connection));
-                }
+                Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
+                Assert.That(uow.Connection.ConnectionString.EndsWith("Tests.db;Version=3;New=True;BinaryGUID=False;"), Is.True);
+            }
+            using (var uow = dbFactory.Create<IUnitOfWork, ITestSessionMemory>())
+            {
+                Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
+                Assert.That(uow.Connection.ConnectionString.EndsWith("Data Source=:memory:;Version=3;New=True;"), Is.True);
             }
         }
 
+
         [Test, Category("Integration")]
-        public static void Install_5_Resolves_IBravoRepository()
+        public static void Install_99_Resolves_IBravoRepository()
         {
             IBraveRepository repo = null;
             Assert.DoesNotThrow(() => repo = _container.GetInstance<IBraveRepository>());
