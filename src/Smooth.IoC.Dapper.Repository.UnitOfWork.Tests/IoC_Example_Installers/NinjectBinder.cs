@@ -42,27 +42,16 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 return _factory.Create<T>();
             }
 
-            public TUnitOfWork Create<TUnitOfWork, TSession>() where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
-            {
-                return _factory.CreateUnitOwWork<TUnitOfWork>(this, Create<TSession>(), IsolationLevel.Serializable, true);
-            }
-
-            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
+            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
             {
                 return _factory.CreateUnitOwWork<TUnitOfWork>(this, Create<TSession>(), isolationLevel, true);
             }
 
-            public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork
             {
-                return _factory.CreateUnitOwWork<T>(factory, session);
+                return _factory.CreateUnitOwWork<T>(factory, session, isolationLevel);
             }
-
-            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel)
-                where T : class, IUnitOfWork
-            {
-                return _factory.CreateUnitOwWork<T>(factory, session);
-            }
-
+            
             public void Release(IDisposable instance)
             {
                 _resolutionRoot.Release(instance);

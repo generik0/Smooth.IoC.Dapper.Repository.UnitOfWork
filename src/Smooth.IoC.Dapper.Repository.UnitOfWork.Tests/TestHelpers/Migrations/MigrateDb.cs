@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System.Data;
+using System.Data.SQLite;
 using System.Reflection;
 using FakeItEasy;
 using FakeItEasy.Core;
@@ -18,7 +19,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Mig
             var factory = A.Fake<IDbFactory>();
             Connection = new TestSession(factory, "Data Source=:memory:;Version=3;New=True;");
 
-            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._))
+            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._, IsolationLevel.Serializable))
                 .ReturnsLazily(CreateUnitOrWork);
             var migrator = new SimpleMigrator(migrationsAssembly, Connection, versionProvider);
             migrator.Load();

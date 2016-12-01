@@ -35,24 +35,13 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 return _container.GetInstance<T>();
             }
 
-            public TUnitOfWork Create<TUnitOfWork, TSession>() where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
-            {
-                return _container.With(_container.GetInstance <IDbFactory>()).With(Create<TSession>())
-                    .With(IsolationLevel.Serializable).With(true).GetInstance<TUnitOfWork>();
-            }
-
-            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
+            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
             {
                 return _container.With(_container.GetInstance<IDbFactory>()).With(Create<TSession>())
                     .With(isolationLevel).With(true).GetInstance<TUnitOfWork>();
             }
 
-            public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
-            {
-                return _container.With(factory).With(session).GetInstance<T>();
-            }
-
-            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
+            public T Create<T>(IDbFactory factory, ISession session , IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork
             {
                 return _container.With(factory).With(session).With(isolationLevel).GetInstance<T>();
             }
