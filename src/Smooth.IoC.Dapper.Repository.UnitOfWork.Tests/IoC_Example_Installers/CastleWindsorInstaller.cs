@@ -23,19 +23,17 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             container.Register(Component.For<IUnitOfWork>()
                 .ImplementedBy<Dapper.Repository.UnitOfWork.Data.UnitOfWork>().IsFallback().LifestyleTransient());
 
-            container.Register(Component.For<UnitOfWorkComponentSelector, ITypedFactoryComponentSelector>());
-            container.Register(Component.For<SessionComponentSelector, ITypedFactoryComponentSelector>());
-            container.Register(Component.For<ISessionFactory>().AsFactory(c => c.SelectedWith<SessionComponentSelector>()));
-            container.Register(Component.For<IDbFactory>().AsFactory(c => c.SelectedWith<UnitOfWorkComponentSelector>()));
+            container.Register(Component.For<DbFactoryComponentSelector, ITypedFactoryComponentSelector>());
+            container.Register(Component.For<IDbFactory>().AsFactory(c => c.SelectedWith<DbFactoryComponentSelector>()));
         }
 
-        sealed class UnitOfWorkComponentSelector : DefaultTypedFactoryComponentSelector
+        sealed class DbFactoryComponentSelector : DefaultTypedFactoryComponentSelector
         {
-            private readonly ISessionFactory _factory;
+            private readonly IKernelInternal _kernel;
 
-            public UnitOfWorkComponentSelector(ISessionFactory factory)
+            public DbFactoryComponentSelector(IKernelInternal kernel)
             {
-                _factory = factory;
+                _kernel = kernel;
             }
 
             protected override IDictionary GetArguments(MethodInfo method, object[] arguments)
@@ -45,34 +43,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 {
                     return base.GetArguments(method, arguments);
                 }
-
                 var arguements = new Arguments
                 {
-                    {"session", _factory.Create(generics.Last())},
+                    {"session", _kernel.Resolve(generics.Last())},
                     {"isolationLevel", arguments[0]},
                     {"sessionOnlyForThisUnitOfWork", true}
                 };
                 return arguements;
             }
-        }
-
-        sealed class SessionComponentSelector : DefaultTypedFactoryComponentSelector
-        {
-            protected override string GetComponentName(MethodInfo method, object[] arguments)
-            {
-                var type = arguments[0] as Type;
-                if (type == null) return base.GetComponentName(method, arguments);
-                var name = type.Name;
-                if (type.IsInterface)
-                {
-                    name = name.Substring(1);
-                }
-                return $"{type.Namespace}.{name}";
-            }
-        }
-        public interface ISessionFactory
-        {
-            ISession Create(Type type);
         }
     }
     
