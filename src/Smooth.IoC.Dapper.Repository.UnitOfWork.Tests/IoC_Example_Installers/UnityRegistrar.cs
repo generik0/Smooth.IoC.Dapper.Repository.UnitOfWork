@@ -52,13 +52,16 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
             {
                 return _container.Resolve<T>(new ParameterOverride("factory", factory),
-                    new ParameterOverride("session", session));
+                    new ParameterOverride("session", session), 
+                    new ParameterOverride("isolationLevel", IsolationLevel.Serializable),
+                    new ParameterOverride("sessionOnlyForThisUnitOfWork", false));
             }
 
             public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel) where T : class, IUnitOfWork
             {
                 return _container.Resolve<T>(new ParameterOverride("factory", factory),
-                    new ParameterOverride("session", session), new ParameterOverride("isolationLevel", isolationLevel));
+                    new ParameterOverride("session", session), new ParameterOverride("isolationLevel", isolationLevel),
+                    new ParameterOverride("sessionOnlyForThisUnitOfWork", false));
             }
 
             public void Release(IDisposable instance)
