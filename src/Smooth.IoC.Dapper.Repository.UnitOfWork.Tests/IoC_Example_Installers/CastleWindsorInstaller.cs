@@ -70,7 +70,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 return $"{type.Namespace}.{name}";
             }
         }
-        interface ISessionFactory
+        public interface ISessionFactory
         {
             ISession Create(Type type);
         }
