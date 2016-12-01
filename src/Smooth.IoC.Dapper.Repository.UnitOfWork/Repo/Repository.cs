@@ -10,8 +10,6 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         protected readonly IDbFactory Factory;
         private EntityMapping<TEntity> _mapping;
-        private static readonly object LockSqlDialectUpdate = new object();
-
         protected Repository(IDbFactory factory)
         {
             Factory = factory;
