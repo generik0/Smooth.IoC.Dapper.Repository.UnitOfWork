@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Smooth.IoC.Dapper.Repository.UnitOfWork;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 {
-    public class New : IEntity<int>
+    public class New
     {
+        [Key]
         public int Id { get; set; }
         [ForeignKey("World")]
         public int? WorldId { get; set; }

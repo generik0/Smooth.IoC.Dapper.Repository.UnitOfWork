@@ -5,7 +5,7 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk> 
-        where TEntity : class, IEntity<TPk>
+        where TEntity : class
         where TSession : class, ISession
     {
         public TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
@@ -15,16 +15,18 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         public async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
         {
-            if (entity.Id.Equals(default(TPk)))
+            var allKeysDefault= TryAllKeysDefault(entity);
+
+            if (allKeysDefault)
             {
-                return await Task.Run(() =>
-                {
-                    uow.Insert(entity);
-                    return entity.Id;
-                });
+                uow.Insert(entity);
             }
-            var result = await uow.UpdateAsync(entity);
-            return result ? entity.Id : default(TPk);
+            else
+            {
+                await uow.UpdateAsync(entity);
+            }
+            var primaryKeyValue = GetPrimaryKeyValue(entity);
+            return primaryKeyValue != null ? primaryKeyValue : default(TPk);
         }
     }
 }

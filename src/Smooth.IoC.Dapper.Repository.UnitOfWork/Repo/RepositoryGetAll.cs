@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TSession, TEntity, TPk>
-        where TEntity : class, IEntity<TPk>
+        where TEntity : class
         where TSession : class, ISession
     {
         public IEnumerable<TEntity> GetAll(ISession session = null)
