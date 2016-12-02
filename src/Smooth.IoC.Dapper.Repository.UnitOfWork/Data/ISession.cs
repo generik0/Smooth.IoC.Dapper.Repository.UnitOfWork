@@ -4,7 +4,7 @@ using Dapper.FastCrud;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
-    public interface ISession : IDbConnection
+    public interface ISession : IDbConnection, ICreateConstraint
     {
         IDbConnection Connection { get; }
         IUnitOfWork UnitOfWork();

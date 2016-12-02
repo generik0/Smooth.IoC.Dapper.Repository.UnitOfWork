@@ -3,7 +3,7 @@ using Dapper.FastCrud;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
-    public interface IUnitOfWork : IDbTransaction
+    public interface IUnitOfWork : IDbTransaction, ICreateConstraint
     {
         SqlDialect SqlDialect { get; set; }
         IDbTransaction Transaction { get; set; }

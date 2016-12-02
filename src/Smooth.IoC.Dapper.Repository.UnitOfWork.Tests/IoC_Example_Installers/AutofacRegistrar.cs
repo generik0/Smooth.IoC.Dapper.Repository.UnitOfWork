@@ -22,7 +22,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 _container = container;
             }
 
-            public T Create<T>() where T : class, ISession
+            public T Create<T>() where T : class, ICreateConstraint
             {
                 return _container.Resolve<T>();
             }
@@ -33,7 +33,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             }
 
             
-            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
+            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork<TSession> where TSession : class, ISession
             {
                 return _container.Resolve<TUnitOfWork>(new NamedParameter("factory", _container.Resolve <IDbFactory>()),
                     new NamedParameter("session", Create<TSession>()), new NamedParameter("isolationLevel", isolationLevel)

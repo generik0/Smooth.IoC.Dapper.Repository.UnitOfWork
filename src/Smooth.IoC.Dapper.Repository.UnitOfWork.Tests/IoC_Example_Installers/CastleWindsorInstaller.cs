@@ -22,11 +22,10 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             }
             container.Register(Component.For<IUnitOfWork>()
                 .ImplementedBy<Dapper.Repository.UnitOfWork.Data.UnitOfWork>().IsFallback().LifestyleTransient());
+            container.Register(Component.For(typeof(IUnitOfWork<>))
+                .ImplementedBy(typeof(UnitOfWork<>)).IsFallback().LifestyleTransient());
 
-            container.Register(Component.For<UnitOfWorkComponentSelector, ITypedFactoryComponentSelector>());
-            container.Register(Component.For<SessionComponentSelector, ITypedFactoryComponentSelector>());
-            container.Register(Component.For<ISessionFactory>().AsFactory(c => c.SelectedWith<SessionComponentSelector>()));
-            container.Register(Component.For<IDbFactory>().AsFactory(c => c.SelectedWith<UnitOfWorkComponentSelector>()));
+            container.Register(Component.For<IDbFactory>().AsFactory());
         }
 
         sealed class UnitOfWorkComponentSelector : DefaultTypedFactoryComponentSelector

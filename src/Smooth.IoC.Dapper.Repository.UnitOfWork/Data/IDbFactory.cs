@@ -10,11 +10,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>ISession</returns>
-        T Create<T>() where T : class, ISession;
+        T Create<T>() where T : class, ICreateConstraint;
         [Obsolete]
         T CreateSession<T>() where T : class, ISession;
-        TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel= IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession;
-        T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork;
+        T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) 
+            where T : class, IUnitOfWork;
         void Release(IDisposable instance);
 
         

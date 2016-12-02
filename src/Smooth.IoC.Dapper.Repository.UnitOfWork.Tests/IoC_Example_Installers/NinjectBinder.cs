@@ -32,7 +32,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 _factory = resolutionRoot.Get<INinjectDbFactory>();
             }
 
-            public T Create<T>() where T : class, ISession
+            public T Create<T>() where T : class, ICreateConstraint
             {
                 return _factory.Create<T>();
             }
