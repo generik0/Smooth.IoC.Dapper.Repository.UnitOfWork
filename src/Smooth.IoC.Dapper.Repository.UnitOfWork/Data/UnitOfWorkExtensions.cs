@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Configuration.StatementOptions.Builders;
-using static Smooth.IoC.Dapper.Repository.UnitOfWork.Data.SessionExtensions;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public static class UnitOfWorkExtensions
     {
-        
-
         public static int BulkDelete<TEntity>(this IUnitOfWork uow,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
         {
@@ -161,7 +158,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         {
             var mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>();
             if (mapping.IsFrozen||mapping.Dialect == sqlDialect) return;
-            lock (LockSqlDialectUpdate)
+            lock (SessionExtensions.LockSqlDialectUpdate)
             {
                 mapping = OrmConfiguration.GetDefaultEntityMapping<TEntity>(); //reload to be sure
                 if (mapping.IsFrozen || mapping.Dialect == sqlDialect) return;

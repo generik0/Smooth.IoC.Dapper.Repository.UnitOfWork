@@ -4,9 +4,8 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Configuration.StatementOptions.Builders;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Extensions
+namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public static class SessionExtensions
     {
