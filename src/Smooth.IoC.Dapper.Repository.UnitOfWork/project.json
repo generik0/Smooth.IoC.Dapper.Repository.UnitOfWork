@@ -42,6 +42,7 @@
         "System.Data": ""
       },
       "dependencies": {
+
       }
     },
     "netstandard1.6": {
@@ -50,7 +51,6 @@
       },
       "dependencies": {
         "System.ComponentModel.Annotations": "4.3.0",
-        "System.ComponentModel.TypeConverter": "4.3.0"
       }
     }
   },
