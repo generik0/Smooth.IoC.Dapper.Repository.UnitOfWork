@@ -14,8 +14,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         [Test, Category("Integration")]
         public static void GetAll_Returns_CorrectAmountWithoutJoins()
         {
-            var factory = A.Fake<IDbFactory>();
-            var repo = new BraveRepository(factory);
+            var repo = new BraveRepository(Factory);
             IEnumerable<Brave> results =null;
             Assert.DoesNotThrow(()=>results = repo.GetAll(Connection));
             Assert.That(results, Is.Not.Null);
@@ -38,8 +37,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         [Test, Category("Integration")]
         public static void GetAll_Returns_CorrectAmount()
         {
-            var factory = A.Fake<IDbFactory>();
-            var repo = new BraveRepository(factory);
+            var repo = new BraveRepository(Factory);
             IEnumerable<Brave> results = null;
             Assert.DoesNotThrow(() => results = repo.GetAllJoins(Connection));
             Assert.That(results, Is.Not.Null);
