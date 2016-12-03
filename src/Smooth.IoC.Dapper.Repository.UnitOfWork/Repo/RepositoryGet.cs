@@ -4,36 +4,28 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk> where TEntity : class
-        where TSession : class, ISession
+    public abstract partial class Repository<TEntity, TPk> where TEntity : class
     {
-        public TEntity GetKey(TPk key, ISession session = null)
+        public TEntity GetKey(TPk key, ISession session)
         {
             return GetKeyAsync(key, session).Result;
         }
 
-        public async Task<TEntity> GetKeyAsync(TPk key, ISession session = null)
+        public async Task<TEntity> GetKeyAsync(TPk key, ISession session)
         {
              var entity = CreateInstanceHelper.Resolve<TEntity>();
             SetPrimaryKeyValue(entity, key) ;
             return await GetAsync(entity, session);
         }
 
-        public TEntity Get(TEntity entity, ISession session = null)
+        public TEntity Get(TEntity entity, ISession session)
         {
             return GetAsync(entity, session).Result;
         }
 
-        public async Task<TEntity> GetAsync(TEntity entity, ISession session = null)
+        public async Task<TEntity> GetAsync(TEntity entity, ISession session)
         {
-            if (session != null)
-            {
-                return await session.GetAsync(entity);
-            }
-            using (var connection = Factory.Create<TSession>())
-            {
-                return await connection.GetAsync(entity);
-            }
+            return await session.GetAsync(entity);
         }
     }
 }

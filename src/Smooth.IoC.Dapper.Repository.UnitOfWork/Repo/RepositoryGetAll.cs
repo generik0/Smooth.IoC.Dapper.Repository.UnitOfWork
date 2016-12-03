@@ -4,25 +4,17 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk>
+    public abstract partial class Repository<TEntity, TPk>
         where TEntity : class
-        where TSession : class, ISession
     {
-        public IEnumerable<TEntity> GetAll(ISession session = null)
+        public IEnumerable<TEntity> GetAll(ISession session)
         {
             return GetAllAsync(session).Result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session = null)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
         {
-            if (session != null)
-            {
-                return await session.FindAsync<TEntity>();
-            }
-            using (var connection = Factory.Create<TSession>())
-            {
-                return await connection.FindAsync<TEntity>();
-            }
+            return await session.FindAsync<TEntity>();
         }
     }
 }
