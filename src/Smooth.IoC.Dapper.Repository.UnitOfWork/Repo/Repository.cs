@@ -7,6 +7,7 @@ using Dapper.FastCrud.Mappings;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 using System.Reflection;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -67,6 +68,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
             var primarKeyValue = entity.GetType().GetProperties().FirstOrDefault(property => property.Name.Equals(primarKeyName, StringComparison.Ordinal));
             primarKeyValue.SetValue(entity, value);
+        }
+
+        protected TEntity CreateEntityAndSetKeyValue(TPk key)
+        {
+            var entity = CreateInstanceHelper.Resolve<TEntity>();
+            SetPrimaryKeyValue(entity, key);
+            return entity;
         }
 
         private static IEnumerable<PropertyInfo> GetKeyPropertyInfo(TEntity entity, PropertyMapping[] keys)

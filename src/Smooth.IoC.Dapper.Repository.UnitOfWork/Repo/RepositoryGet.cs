@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -81,13 +79,6 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             {
                 return GetAsync(entity, session);
             }
-        }
-
-        private TEntity CreateEntityAndSetKeyValue(TPk key)
-        {
-            var entity = CreateInstanceHelper.Resolve<TEntity>();
-            SetPrimaryKeyValue(entity, key);
-            return entity;
         }
     }
 }
