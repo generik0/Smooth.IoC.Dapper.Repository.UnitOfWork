@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.IO;
 using FakeItEasy;
 using FakeItEasy.Core;
@@ -18,7 +19,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
         public static void TestSetup()
         {
             if (Connection != null) return;
-            Factory = A.Fake<IDbFactory>();
+            Factory = A.Fake<IDbFactory>(x=>x.Strict());
             _settings = A.Fake<IMyDatabaseSettings>();
             var path = $@"{TestContext.CurrentContext.TestDirectory}\RepoTests.db";
             if (File.Exists(path))
@@ -27,10 +28,16 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
             }
             A.CallTo(() => _settings.ConnectionString).Returns($@"Data Source={path};Version=3;New=True;BinaryGUID=False;");
             Connection = CreateSession(null);
+
+            A.CallTo(() => Factory.Create<ITestSession>()).ReturnsLazily(CreateSession);
+            A.CallTo(() => Factory.Create<ISession>()).ReturnsLazily(CreateSession);
             A.CallTo(() => Factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._, IsolationLevel.Serializable))
                 .ReturnsLazily(CreateUnitOrWork);
-            A.CallTo(() => Factory.Create<ITestSession>()).ReturnsLazily(CreateSession);
-
+            A.CallTo(() => Factory.Create<IUnitOfWork, ITestSession>(A<IsolationLevel>._))
+                .ReturnsLazily(CreateUnitOrWork);
+            A.CallTo(() => Factory.Create<IUnitOfWork, ISession>(A<IsolationLevel>._))
+                .ReturnsLazily(CreateUnitOrWork);
+            A.CallTo(() => Factory.Release(A<IDisposable>._)).DoesNothing();
             new MigrateDb(Connection);
         }
 
