@@ -25,7 +25,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             });
         }
 
-        public Brave Get(int key, ISession connection)
+        public Brave GetWithJoins(int key, ISession connection)
         {
             var entity = CreateInstanceHelper.Resolve<Brave>();
             entity.Id = key;

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
@@ -14,12 +15,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             {
                 NewId = 1
             };
-            int result = 0;
-            using (var transaction = Connection.UnitOfWork())
+            var result = 0;
+            int maxId;
+            using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, transaction));
+                maxId = repo.GetAll(uow).Max(x => x.Id);
+                Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, uow));
             }
-            Assert.That(result, Is.EqualTo(4));
+            Assert.That(result, Is.EqualTo(++maxId));
         }
 
         [Test, Category("Integration")]
@@ -30,10 +33,10 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             {
                 NewId = 1
             };
-            int result = 0;
+            var result = 0;
+            var maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
             Assert.DoesNotThrow(() => result = repo.SaveOrUpdate<ITestSession>(expected));
-            
-            Assert.That(result, Is.EqualTo(5));
+            Assert.That(result, Is.EqualTo(++maxId));
         }
 
         [Test, Category("Integration")]
@@ -45,11 +48,13 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
                 NewId = 1
             };
             Brave result = null;
-            using (var transaction = Connection.UnitOfWork())
+            int maxId;
+            using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync(expected, transaction).Result);
+                maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
+                Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync(expected, uow).Result);
             }
-            Assert.That(result.Id, Is.EqualTo(6));
+            Assert.That(result.Id, Is.EqualTo(++maxId));
         }
 
 
@@ -62,26 +67,28 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
                 NewId = 1
             };
             Brave result = null;
+            var maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
             Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync<ITestSession>(expected).Result);
-            Assert.That(result.Id, Is.EqualTo(7));
+            Assert.That(result.Id, Is.EqualTo(++maxId));
         }
 
         [Test, Category("Integration")]
         public static void SaveOrUpdate_Returns_IdForUpdatedEnitiy()
         {
             var repo = new BraveRepository(Factory);
-            var expectedId = 1;
-            var expected = repo.Get(expectedId, Connection);
-            var original = expected.New;
-            expected.NewId = 2;
-            int resultId = 0;
+            const int expectedId = 1;
+            var resultId = 0;
 
-            using (var transaction = Connection.UnitOfWork())
+            New original=null;
+            using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, transaction));
+                var expected = repo.GetWithJoins(expectedId, Connection);
+                original = expected.New;
+                expected.NewId = 2;
+                Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, uow));
             }
             Assert.That(expectedId, Is.EqualTo(resultId));
-            var result = repo.Get(expectedId, Connection);
+            var result = repo.GetWithJoins(expectedId, Connection);
             Assert.That(result.New, Is.Not.EqualTo(original));
             Assert.That(result.NewId, Is.EqualTo(2));
         }
@@ -91,14 +98,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new BraveRepository(Factory);
             var expectedId = 2;
-            var expected = repo.Get(expectedId, Connection);
+            var expected = repo.GetWithJoins(expectedId, Connection);
             var original = expected.New;
             expected.NewId = 1;
             int resultId = 0;
 
             Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate<ITestSession>(expected));
             Assert.That(expectedId, Is.EqualTo(resultId));
-            var result = repo.Get(expectedId, Connection);
+            var result = repo.GetWithJoins(expectedId, Connection);
             Assert.That(result.New, Is.Not.EqualTo(original));
             Assert.That(result.NewId, Is.EqualTo(1));
         }
@@ -108,14 +115,15 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new NewRepository(Factory);
             const int expectedId = 3;
-            var expected = repo.GetKey(expectedId, Connection);
-            var oridinalId = expected.WorldId;
-            expected.WorldId = 3;
-            int resultId = 0;
+            var resultId = 0;
 
-            using (var transaction = Connection.UnitOfWork())
+            int? oridinalId;
+            using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, transaction));
+                var expected = repo.GetKey(expectedId, uow);
+                oridinalId = expected.WorldId;
+                expected.WorldId = 3;
+                Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, uow));
             }
             Assert.That(expectedId, Is.EqualTo(resultId));
             var result = repo.GetKey(expectedId, Connection);
@@ -127,18 +135,19 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         public static void SaveOrUpdateAsync_Returns_IdForUpdatedEnitiy()
         {
             var repo = new BraveRepository(Factory);
-            var expectedId = 3;
-            var expected = repo.Get(expectedId, Connection);
-            var original = expected.New;
-            expected.NewId = 1;
+            const int expectedId = 3;
             Brave result = null;
 
-            using (var transaction = Connection.UnitOfWork())
+            New original = null;
+            using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync(expected, transaction).Result);
+                var expected = repo.GetWithJoins(expectedId, Connection);
+                original = expected.New;
+                expected.NewId = 1;
+                Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync(expected, uow).Result);
             }
             Assert.That(expectedId, Is.EqualTo(result.Id));
-            result = repo.Get(expectedId, Connection);
+            result = repo.GetWithJoins(expectedId, Connection);
             Assert.That(result.New, Is.Not.EqualTo(original));
             Assert.That(result.NewId, Is.EqualTo(1));
         }
@@ -147,7 +156,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new BraveRepository(Factory);
             var expectedId = 1;
-            var expected = repo.Get(expectedId, Connection);
+            var expected = repo.GetWithJoins(expectedId, Connection);
             var original = expected.New;
             expected.NewId = 3;
             Brave result = null;
@@ -155,7 +164,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync<ITestSession>(expected).Result);
             
             Assert.That(expectedId, Is.EqualTo(result.Id));
-            result = repo.Get(expectedId, Connection);
+            result = repo.GetWithJoins(expectedId, Connection);
             Assert.That(result.New, Is.Not.EqualTo(original));
             Assert.That(result.NewId, Is.EqualTo(3));
         }
