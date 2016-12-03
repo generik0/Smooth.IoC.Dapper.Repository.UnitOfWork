@@ -17,6 +17,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.DoesNotThrow(() => result = repo.Get(1, Connection));
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.New.Id, Is.EqualTo(1));
+            Assert.That(result.New.World.Id, Is.EqualTo(1));
+            Assert.That(result.New.World.Guid, Is.Not.Null);
         }
 
         [Test, Category("Integration")]
