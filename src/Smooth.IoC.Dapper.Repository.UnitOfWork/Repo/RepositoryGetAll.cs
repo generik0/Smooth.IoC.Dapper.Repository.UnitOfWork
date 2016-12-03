@@ -9,12 +9,29 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {
-            return GetAllAsync(session).Result;
+            return session.Find<TEntity>();
+        }
+
+        public IEnumerable<TEntity> GetAll<TSesssion>() where TSesssion : class, ISession
+        {
+            using (var session = Factory.Create<TSesssion>())
+            {
+                return GetAll(session);
+            }
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
         {
             return await session.FindAsync<TEntity>();
+        }
+        
+
+        public Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
+        {
+            using (var session = Factory.Create<TSesssion>())
+            {
+                return GetAllAsync(session);
+            }
         }
     }
 }
