@@ -67,12 +67,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             IEnumerable<Brave> results = null;
             using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => results = repo.GetAll(uow));
+                Assert.DoesNotThrow(() => results = repo.GetAllAsync(uow).Result);
             }
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.First().New, Is.Not.Null);
-            Assert.That(results.First().New.World, Is.Not.Null);
+            Assert.That(results.Count(), Is.EqualTo(3));
         }
 
         [Test, Category("Integration")]
