@@ -1,28 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk>
-        where TEntity : class, IEntity<TPk>
-        where TSession : class, ISession
+    public abstract partial class Repository<TEntity, TPk>
+        where TEntity : class
     {
-        public IEnumerable<TEntity> GetAll(ISession session = null)
+        public IEnumerable<TEntity> GetAll(ISession session)
         {
-            return GetAllAsync(session).Result;
+            return session.Find<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session = null)
+        public IEnumerable<TEntity> GetAll<TSesssion>() where TSesssion : class, ISession
         {
-            if (session != null)
+            using (var session = Factory.Create<TSesssion>())
             {
-                return await session.FindAsync<TEntity>();
+                return GetAll(session);
             }
-            using (var connection = Factory.Create<TSession>())
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
+        {
+            return await session.FindAsync<TEntity>();
+        }
+        
+
+        public Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
+        {
+            using (var session = Factory.Create<TSesssion>())
             {
-                return await connection.FindAsync<TEntity>();
+                return GetAllAsync(session);
             }
         }
     }

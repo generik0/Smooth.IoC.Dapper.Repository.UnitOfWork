@@ -7,6 +7,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
     {
         private readonly IDbFactory _factory;
         protected bool Disposed;
+        protected ISession Session;
         public IDbTransaction Transaction { get; set; }
         public IDbConnection Connection => Transaction.Connection;
         public IsolationLevel IsolationLevel => Transaction?.IsolationLevel ?? IsolationLevel.Unspecified;
@@ -49,7 +50,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             if (Disposed) return;
             Disposed = true;
             if (!disposing) return;
+            DisposeTransaction();
+            DisposeSessionIfSessionIsNotNull();
+        }
 
+        private void DisposeTransaction()
+        {
             if (Transaction?.Connection == null) return;
             try
             {
@@ -66,6 +72,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
                 Transaction = null;
                 _factory.Release(this);
             }
+        }
+        private void DisposeSessionIfSessionIsNotNull()
+        {
+            Session?.Dispose();
+            Session = null;
         }
     }
 }

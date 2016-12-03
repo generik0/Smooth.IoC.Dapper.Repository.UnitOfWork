@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using Dapper.FastCrud;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Repo;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
 {
     public interface IBraveRepository : IRepository<Brave, int>
     {
     }
 
-    public class BraveRepository : Repository<ITestSession,Brave, int>, IBraveRepository
+    public class BraveRepository : Repository<Brave, int>, IBraveRepository
     {
         public BraveRepository(IDbFactory factory) : base(factory)
         {
@@ -19,7 +18,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 
         public IEnumerable<Brave> GetAllJoins(ISession connection)
         {
-            SetDialectIfNeeded(connection);
             return connection.Find<Brave>(statement =>
             {
                 statement.Include<New>(join => join.InnerJoin())
@@ -29,7 +27,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 
         public Brave Get(int key, ISession connection)
         {
-            SetDialectIfNeeded(connection);
             var entity = CreateInstanceHelper.Resolve<Brave>();
             entity.Id = key;
             return connection.Get(entity, statement =>

@@ -6,7 +6,7 @@ using Ninject.Syntax;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class NinjectBinder
     {
@@ -19,44 +19,40 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
                 .WithConstructorArgument(typeof(ISession))
                 .WithConstructorArgument(typeof(IsolationLevel));
         }
-
+        
         [NoIoCFluentRegistration]
-        internal sealed class DbFactory : IDbFactory
+        sealed class DbFactory : IDbFactory
         {
             private readonly IResolutionRoot _resolutionRoot;
             private readonly INinjectDbFactory _factory;
-
             public DbFactory(IResolutionRoot resolutionRoot)
             {
                 _resolutionRoot = resolutionRoot;
                 _factory = resolutionRoot.Get<INinjectDbFactory>();
             }
-
             public T Create<T>() where T : class, ISession
             {
                 return _factory.Create<T>();
             }
-
-            public T CreateSession<T>() where T : class, ISession
+            public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
             {
-                return _factory.Create<T>();
+                return _factory.CreateUnitOwWork<TUnitOfWork>(this, Create<TSession>(), isolationLevel, true);
             }
 
-            public T Create<T>(IDbFactory factory, ISession session) where T : class, IUnitOfWork
+            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork
             {
-                return _factory.CreateUnitOwWork<T>(factory, session);
+                return _factory.CreateUnitOwWork<T>(factory, session, isolationLevel);
             }
-
-            public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel)
-                where T : class, IUnitOfWork
-            {
-                return _factory.CreateUnitOwWork<T>(factory, session);
-            }
-
             public void Release(IDisposable instance)
             {
                 _resolutionRoot.Release(instance);
             }
+        }
+
+        public interface INinjectDbFactory
+        {
+            T Create<T>() where T : ISession;
+            T CreateUnitOwWork<T>(IDbFactory factory, ISession connection, IsolationLevel isolationLevel = IsolationLevel.Serializable, bool sessionOnlyForThisUnitOfWork = false) where T : IUnitOfWork;
         }
     }
 }

@@ -1,30 +1,52 @@
 ﻿using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TSession, TEntity, TPk> 
-        where TEntity : class, IEntity<TPk>
-        where TSession : class, ISession
+    public abstract partial class Repository< TEntity, TPk> 
+        where TEntity : class
     {
         public TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
         {
-            return SaveOrUpdateAsync(entity, uow).Result;
+            if (TryAllKeysDefault(entity))
+            {
+                uow.Insert(entity);
+            }
+            else
+            {
+                uow.Update(entity);
+            }
+            var primaryKeyValue = GetPrimaryKeyValue(entity);
+            return primaryKeyValue != null ? primaryKeyValue : default(TPk);
         }
 
-        public async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
+        public TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
-            if (entity.Id.Equals(default(TPk)))
+            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return await Task.Run(() =>
-                {
-                    uow.Insert(entity);
-                    return entity.Id;
-                });
+                return SaveOrUpdate(entity, uow);
             }
-            var result = await uow.UpdateAsync(entity);
-            return result ? entity.Id : default(TPk);
+        }
+
+        public async Task<TEntity> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
+        {
+            if (TryAllKeysDefault(entity))
+            {
+                await uow.InsertAsync(entity);
+            }
+            else
+            {
+                await uow.UpdateAsync(entity);
+            }
+            return entity;
+        }
+
+        public Task<TEntity> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        {
+            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            {
+                return SaveOrUpdateAsync(entity, uow);
+            }
         }
     }
 }
