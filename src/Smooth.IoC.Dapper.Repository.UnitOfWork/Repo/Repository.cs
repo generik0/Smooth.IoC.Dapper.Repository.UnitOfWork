@@ -13,13 +13,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     public abstract partial class Repository<TEntity, TPk> : RepositoryBase, IRepository<TEntity, TPk>
         where TEntity : class
     {
-        protected readonly IDbFactory Factory;
         private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys = new ConcurrentDictionary<TEntity, PropertyMapping[]>();
         private static readonly ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>> _properties = new ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>>();
 
-        protected Repository(IDbFactory factory)
+        protected Repository(IDbFactory factory) : base(factory)
         {
-            Factory = factory;
         }
 
         protected bool TryAllKeysDefault(TEntity entity)
