@@ -8,22 +8,45 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
         {
-            return SaveOrUpdateAsync(entity, uow).Result;
-        }
-
-        public async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
-        {
-            var allKeysDefault= TryAllKeysDefault(entity);
-            if (allKeysDefault)
+            if (TryAllKeysDefault(entity))
             {
                 uow.Insert(entity);
             }
             else
             {
-                await uow.UpdateAsync(entity);
+                uow.Update(entity);
             }
             var primaryKeyValue = GetPrimaryKeyValue(entity);
             return primaryKeyValue != null ? primaryKeyValue : default(TPk);
+        }
+
+        public TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        {
+            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            {
+                return SaveOrUpdate(entity, uow);
+            }
+        }
+
+        public async Task<TEntity> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
+        {
+            if (TryAllKeysDefault(entity))
+            {
+                await uow.InsertAsync(entity);
+            }
+            else
+            {
+                await uow.UpdateAsync(entity);
+            }
+            return entity;
+        }
+
+        public Task<TEntity> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        {
+            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            {
+                return SaveOrUpdateAsync(entity, uow);
+            }
         }
     }
 }
