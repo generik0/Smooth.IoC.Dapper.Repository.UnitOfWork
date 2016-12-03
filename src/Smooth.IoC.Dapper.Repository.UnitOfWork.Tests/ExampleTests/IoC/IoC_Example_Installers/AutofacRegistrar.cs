@@ -3,7 +3,7 @@ using System.Data;
 using Autofac;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class AutofacRegistrar
     {

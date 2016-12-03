@@ -3,14 +3,14 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using Castle.Facilities.TypedFactory;
+using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Castle.MicroKernel;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Installers
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class CastleWindsorInstaller : IWindsorInstaller
     {
