@@ -33,6 +33,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected TPk GetPrimaryKeyValue(TEntity entity)
         {
+            var entityInterface = entity as IEntity<TPk>;
+            if (entityInterface !=null)
+            {
+                return entityInterface.Id;
+            }
+
             var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
             var primarKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
             var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
@@ -45,6 +51,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         }
         protected void SetPrimaryKeyValue(TEntity entity, TPk value)
         {
+            var entityInterface = entity as IEntity<TPk>;
+            if (entityInterface != null)
+            {
+               entityInterface.Id = value;
+               return;
+            }
+
             var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
             var primarKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
             var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
