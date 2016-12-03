@@ -37,7 +37,7 @@ I also want to be able to do unit (integration) testing with e.g. a Sqlite but t
 The library gives you the building blocks to:
 * Create Sessions from the IDbFactory in your methods, IDbFactory should be injected into your class's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
 * Your Sessions can create UnitOfWork's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
-* If your logic just needs a session with a unit of work, you can create session, and UnitOfWork in a call the the factory.
+* If your logic just needs "just a" UnitOfWork with a session that has the same scope, the factory can create it for you.
 * The IRepository and abstract concrete class should be used on your individual repository classes to provide simple and basic calls. But ofcasue you can add all the queries you want into your 
 Repositories and use the dapper and dapper.FastCRUD (or any other extensions) functionality provided to you.
 * The repository abstract classes use Dapper.FastCRUD to give you a fluent ORM experience with the most common calls.
