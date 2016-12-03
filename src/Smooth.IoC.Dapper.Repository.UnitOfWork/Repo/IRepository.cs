@@ -20,8 +20,10 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession;
         Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow);
         IEnumerable<TEntity>  GetAll(ISession session);
+        IEnumerable<TEntity> GetAll(IUnitOfWork uow);
         IEnumerable<TEntity> GetAll<TSesssion>() where TSesssion : class, ISession;
         Task<IEnumerable<TEntity>> GetAllAsync(ISession session);
+        Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow);
         Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession;
         TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow);
         TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession;

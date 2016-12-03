@@ -24,6 +24,20 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         }
 
         [Test, Category("Integration")]
+        public static void GetAll_Returns_CorrectAmountWithoutJoinsWithUnitOfWork()
+        {
+            var repo = new BraveRepository(Factory);
+            IEnumerable<Brave> results = null;
+            using (var uow = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => results = repo.GetAll(uow));
+            }
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results, Is.Not.Empty);
+            Assert.That(results.Count(), Is.EqualTo(3));
+        }
+
+        [Test, Category("Integration")]
         public static void GetAllITestSession_Returns_CorrectAmountCreatingASessionItself()
         {
             var repo = new BraveRepository(Factory);
@@ -40,6 +54,21 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var repo = new BraveRepository(Factory);
             IEnumerable<Brave> results = null;
             Assert.DoesNotThrow(() => results = repo.GetAllJoins(Connection));
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results, Is.Not.Empty);
+            Assert.That(results.First().New, Is.Not.Null);
+            Assert.That(results.First().New.World, Is.Not.Null);
+        }
+
+        [Test, Category("Integration")]
+        public static void GetAll_Returns_CorrectAmountWithUnitOfWork()
+        {
+            var repo = new BraveRepository(Factory);
+            IEnumerable<Brave> results = null;
+            using (var uow = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => results = repo.GetAll(uow));
+            }
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
             Assert.That(results.First().New, Is.Not.Null);

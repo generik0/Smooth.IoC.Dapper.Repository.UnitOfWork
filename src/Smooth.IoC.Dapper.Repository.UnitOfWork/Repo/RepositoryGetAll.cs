@@ -11,6 +11,10 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             return session.Find<TEntity>();
         }
+        public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
+        {
+            return uow.Find<TEntity>();
+        }
 
         public IEnumerable<TEntity> GetAll<TSesssion>() where TSesssion : class, ISession
         {
@@ -24,7 +28,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             return await session.FindAsync<TEntity>();
         }
-        
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
+        {
+            return await uow.FindAsync<TEntity>();
+        }
 
         public Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
         {
