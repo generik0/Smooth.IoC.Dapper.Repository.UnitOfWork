@@ -66,8 +66,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.That(result.Id, Is.EqualTo(7));
         }
 
-
-
         [Test, Category("Integration")]
         public static void SaveOrUpdate_Returns_IdForUpdatedEnitiy()
         {
@@ -103,6 +101,26 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var result = repo.Get(expectedId, Connection);
             Assert.That(result.New, Is.Not.EqualTo(original));
             Assert.That(result.NewId, Is.EqualTo(1));
+        }
+
+        [Test, Category("Integration")]
+        public static void SaveOrUpdate_Returns_IdForUpdatedEnitityAndEntityWithoutIEntity()
+        {
+            var repo = new NewRepository(Factory);
+            const int expectedId = 3;
+            var expected = repo.GetKey(expectedId, Connection);
+            var oridinalId = expected.WorldId;
+            expected.WorldId = 3;
+            int resultId = 0;
+
+            using (var transaction = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => resultId = repo.SaveOrUpdate(expected, transaction));
+            }
+            Assert.That(expectedId, Is.EqualTo(resultId));
+            var result = repo.GetKey(expectedId, Connection);
+            Assert.That(result.WorldId, Is.Not.EqualTo(oridinalId));
+            Assert.That(result.WorldId, Is.EqualTo(3));
         }
 
         [Test, Category("Integration")]

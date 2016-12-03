@@ -80,6 +80,16 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         }
 
         [Test, Category("Integration")]
+        public static void GetKey_Returns_WithoutIEntityReturnsCorrecly()
+        {
+            var repo = new NewRepository(Factory);
+            New result = null;
+            Assert.DoesNotThrow(() => result = repo.GetKey(2, Connection));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(2));
+        }
+
+        [Test, Category("Integration")]
         public static void GetKeyAsync_Returns_WithoutJoins()
         {
             var repo = new BraveRepository(Factory);
