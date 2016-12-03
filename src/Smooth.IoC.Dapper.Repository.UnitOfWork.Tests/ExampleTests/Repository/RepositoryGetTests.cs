@@ -32,6 +32,19 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.That(result.Id, Is.EqualTo(1));
         }
 
+        [Test, Category("Integration")]
+        public static void Get_Returns_WithoutJoinsAndUnitOfWork()
+        {
+            var repo = new BraveRepository(Factory);
+            Brave result = null;
+            using (var uow = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => result = repo.Get(new Brave { Id = 1 }, uow));
+            }
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(1));
+        }
+
         public static void Get_Returns_WithoutJoinsCreatingASessionItself()
         {
             var repo = new BraveRepository(Factory);
@@ -46,6 +59,18 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var repo = new BraveRepository(Factory);
             Task<Brave> result = null;
             Assert.DoesNotThrow(() => result = repo.GetAsync(new Brave { Id = 1 }, Connection));
+            Assert.That(result.Result, Is.Not.Null);
+            Assert.That(result.Result.Id, Is.EqualTo(1));
+        }
+
+        public static void GetAsync_Returns_WithoutJoinsWithUnitOfWork()
+        {
+            var repo = new BraveRepository(Factory);
+            Task<Brave> result = null;
+            using (var uow = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => result = repo.GetAsync(new Brave { Id = 1 }, uow));
+            }
             Assert.That(result.Result, Is.Not.Null);
             Assert.That(result.Result.Id, Is.EqualTo(1));
         }
@@ -65,6 +90,19 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var repo = new BraveRepository(Factory);
             Brave result = null;
             Assert.DoesNotThrow(() => result = repo.GetKey(1, Connection));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(1));
+        }
+
+        [Test, Category("Integration")]
+        public static void GetKey_Returns_WithoutJoinsWithUnitOfWork()
+        {
+            var repo = new BraveRepository(Factory);
+            Brave result = null;
+            using (var uow = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => result = repo.GetKey(1, uow));
+            }
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(1));
         }
@@ -95,6 +133,19 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var repo = new BraveRepository(Factory);
             Task<Brave> result = null;
             Assert.DoesNotThrow(() => result = repo.GetKeyAsync(1, Connection));
+            Assert.That(result.Result, Is.Not.Null);
+            Assert.That(result.Result.Id, Is.EqualTo(1));
+        }
+
+        [Test, Category("Integration")]
+        public static void GetKeyAsync_Returns_WithoutJoinsWithUnitOrWork()
+        {
+            var repo = new BraveRepository(Factory);
+            Task<Brave> result = null;
+            using (var uow = Connection.UnitOfWork())
+            {
+                Assert.DoesNotThrow(() => result = repo.GetKeyAsync(1, uow));
+            }
             Assert.That(result.Result, Is.Not.Null);
             Assert.That(result.Result.Id, Is.EqualTo(1));
         }

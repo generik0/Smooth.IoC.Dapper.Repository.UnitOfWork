@@ -21,6 +21,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
+        public TEntity GetKey(TPk key, IUnitOfWork uow)
+        {
+            var entity = CreateEntityAndSetKeyValue(key);
+            return uow.Get(entity);
+        }
+
         public async Task<TEntity> GetKeyAsync(TPk key, ISession session)
         {
             var entity = CreateEntityAndSetKeyValue(key);
@@ -34,7 +40,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                 return GetKeyAsync(key, session);
             }
         }
-        
+
+        public async Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
+        {
+            var entity = CreateEntityAndSetKeyValue(key);
+            return await uow.GetAsync(entity);
+        }
+
         public TEntity Get(TEntity entity, ISession session)
         {
             return session.Get(entity);
@@ -48,9 +60,19 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
+        public TEntity Get(TEntity entity, IUnitOfWork uow)
+        {
+            return uow.Get(entity);
+        }
+
         public async Task<TEntity> GetAsync(TEntity entity, ISession session)
         {
             return await session.GetAsync(entity);
+        }
+
+        public async Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
+        {
+            return await uow.GetAsync(entity);
         }
 
         public Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
