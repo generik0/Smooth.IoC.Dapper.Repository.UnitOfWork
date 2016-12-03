@@ -13,7 +13,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.IoC_Example_Ins
             builder.RegisterType<Dapper.Repository.UnitOfWork.Data.UnitOfWork>().As<IUnitOfWork>();
 
         }
-        internal class AutofacDbFactory : IDbFactory
+        sealed class AutofacDbFactory : IDbFactory
         {
             private readonly IComponentContext _container;
 
