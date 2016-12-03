@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Repo;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
+namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
 {
     public interface IBraveRepository : IRepository<Brave, int>
     {
     }
 
-    public class BraveRepository : Repository<ITestSession,Brave, int>, IBraveRepository
+    public class BraveRepository : Repository<Brave, int>, IBraveRepository
     {
         public BraveRepository(IDbFactory factory) : base(factory)
         {
