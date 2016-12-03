@@ -4,28 +4,25 @@
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
-# Why
 This package it created to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
  / dependancy injection.  
  Also i wanted to make the creation of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) by the injected factory automatically 
- connection / begin transaction on creation, and disconnect/commit on disposal. Hence making database work become nice and smooth like.... 
- 
- I also want to be able to do unit (integration) testing with e.g. a Sqlite but the production database engine could be e.g. a MsSQl. This is possible now... 
+ connection / begin transaction on creation, and disconnect/commit on disposal. Hence making database work become nice and smooth like....   
+I also want to be able to do unit (integration) testing with e.g. a Sqlite but the production database engine could be e.g. a MsSQl. This is possible now... 
 
 *So far there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity.*
 
 **WARNING: Until Smooth.IoC.Dapper.Repository.UnitOfWork reaches version 1.0, I reserve the right to make minor backwards-incompatible changes to the API.**
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-- [Why](#)  
-	- [What are the features of the library?](#)  
-	- [The problem, why use this library?](#)  
-	- [What this the package include?](#)  
+- [What are the features of the library?](#)
 - [About Dapper and Dapper.FastCRUD](#)
-- [Code Examples: Sessions, Repositories and UnitOfWork](#)  
-    - [Session and ISession](#)  
-    - [Repository and IRepository](#)  
-    - [Using Session and UnitOFWork in a class/method](#)  
+- [What does this libray do?](#)
+	- [What this the package include?](#)
+- [Code Examples: Sessions, Repositories and UnitOfWork](#)
+		- [Session and ISession](#)
+		- [Repository and IRepository](#)
+		- [Using Session and UnitOFWork in a class/method](#)
 - [Code Examples: IoC registration](#)
 	- [Autofac registration](#Autofac-registration)  
 	- [Castle Windsor Installer](#Castle-Windsor-Installer)  
