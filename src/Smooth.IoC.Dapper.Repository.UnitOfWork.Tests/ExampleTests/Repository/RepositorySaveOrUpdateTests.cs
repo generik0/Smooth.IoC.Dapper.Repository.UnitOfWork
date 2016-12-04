@@ -52,7 +52,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             using (var uow = Connection.UnitOfWork())
             {
                 maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
-                Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync(expected, uow).Result);
+                Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync(expected, uow));
             }
             Assert.That(result.Id, Is.EqualTo(++maxId));
         }
@@ -68,7 +68,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             };
             Brave result = null;
             var maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
-            Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync<ITestSession>(expected).Result);
+            Assert.DoesNotThrow(async () => result = await repo.SaveOrUpdateAsync<ITestSession>(expected));
             Assert.That(result.Id, Is.EqualTo(++maxId));
         }
 
@@ -144,7 +144,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
                 var expected = repo.GetWithJoins(expectedId, Connection);
                 original = expected.New;
                 expected.NewId = 1;
-                Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync(expected, uow).Result);
+                Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync(expected, uow));
             }
             Assert.That(expectedId, Is.EqualTo(result.Id));
             result = repo.GetWithJoins(expectedId, Connection);
@@ -161,7 +161,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             expected.NewId = 3;
             Brave result = null;
 
-            Assert.DoesNotThrow(() => result = repo.SaveOrUpdateAsync<ITestSession>(expected).Result);
+            Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync<ITestSession>(expected));
             
             Assert.That(expectedId, Is.EqualTo(result.Id));
             result = repo.GetWithJoins(expectedId, Connection);

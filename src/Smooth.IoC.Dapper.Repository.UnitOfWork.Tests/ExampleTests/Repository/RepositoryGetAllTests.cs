@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using FakeItEasy;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
 {
@@ -91,7 +88,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             IEnumerable<Brave> results = null;
             using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => results = repo.GetAllAsync(uow).Result);
+                Assert.DoesNotThrowAsync(async () => results = await repo.GetAllAsync(uow));
             }
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
@@ -102,11 +99,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         public static void GetAllAsyncITestSession_Returns_CorrectAmountCreatingASessionItself()
         {
             var repo = new BraveRepository(Factory);
-            Task<IEnumerable<Brave>> results = null;
-            Assert.DoesNotThrow(() => results = repo.GetAllAsync<ITestSession>());
-            Assert.That(results.Result, Is.Not.Null);
-            Assert.That(results.Result, Is.Not.Empty);
-            Assert.That(results.Result.Count(), Is.EqualTo(3));
+            IEnumerable<Brave> results = null;
+            Assert.DoesNotThrowAsync(async () => results = await repo.GetAllAsync<ITestSession>());
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results, Is.Not.Empty);
+            Assert.That(results.Count(), Is.EqualTo(3));
         }
 
     }
