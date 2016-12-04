@@ -80,7 +80,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected bool IsIEntity()
         {
-            return _isIEntity.GetOrAdd(typeof(TEntity), typeof(TEntity).IsAssignableFrom(typeof(IEntity<TPk>)));
+            return _isIEntity.GetOrAdd(typeof(TEntity), typeof(TEntity).GetInterfaces().Any(x => x == typeof(IEntity<TPk>)));
         }
 
         private static IEnumerable<PropertyInfo> GetKeyPropertyInfo(TEntity entity, PropertyMapping[] keys)
