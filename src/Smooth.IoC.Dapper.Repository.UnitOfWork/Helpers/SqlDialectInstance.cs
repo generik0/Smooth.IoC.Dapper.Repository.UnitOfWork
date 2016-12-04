@@ -4,17 +4,16 @@ using Dapper.FastCrud;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
 {
-    public class SqlDialectHelper
+    public class SqlDialectInstance
     {
-        private static volatile SqlDialectHelper _instance;
-        private static readonly object SyncRoot = new Object();
-
         private readonly object _lockSqlDialectUpdate = new object();
         private readonly ConcurrentDictionary<Type, bool> _entityIsFroozenOrDialogueCorrect = new ConcurrentDictionary<Type, bool>();
 
-        private SqlDialectHelper() { }
+        private static volatile SqlDialectInstance _instance;
+        private static readonly object SyncRoot = new object();
+        private SqlDialectInstance() { }
 
-        public static SqlDialectHelper Instance
+        public static SqlDialectInstance Instance
         {
             get
             {
@@ -22,7 +21,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
                 lock (SyncRoot)
                 {
                     if (_instance == null)
-                        _instance = new SqlDialectHelper();
+                        _instance = new SqlDialectInstance();
                 }
                 return _instance;
             }
@@ -59,6 +58,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
             bool isFroozen;
             _entityIsFroozenOrDialogueCorrect.TryGetValue(typeof(TEntity), out isFroozen);
             return isFroozen;
+        }
+
+        public void Reset()
+        {
+            _entityIsFroozenOrDialogueCorrect.Clear();
         }
     }
 }

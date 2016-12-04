@@ -61,6 +61,8 @@ So i have extended FastDappers IDbConnection extensions so the projects own ISes
 the package. This insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type per ioc container / executing assembily. So you can also use a different databae for your tests than your production code.
 * This will only effect FastCRUD calls using ISession or IUnitOrWork instances. Not IDbConnection instances.
 * If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
+* I have created a SqlDialectInstance (Singleton) expert that can help you set the dialogue. Please use it if you have issues with your session and sql dialect.
+* I have created a SqlHelper, that insures FastCRUD's SqlDialect is set if you decide you need a FastCRUD "Sql" helper method. Please use my SqlHelper otherwise your SqlDialect might be frozen. It is available for Repositories as "Sql" a proctected property
 
 You can do a lot fluently with FastCRUD. Check out there wiki:
 - [Home](https://github.com/MoonStorm/Dapper.FastCRUD/wiki)

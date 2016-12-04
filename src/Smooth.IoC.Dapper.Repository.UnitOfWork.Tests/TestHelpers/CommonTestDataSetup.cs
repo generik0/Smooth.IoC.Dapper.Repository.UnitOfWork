@@ -41,7 +41,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
             new MigrateDb(Connection);
         }
 
-        private static ITestSession CreateSession(IFakeObjectCall arg)
+        internal static ITestSession CreateSession(IFakeObjectCall arg)
         {
             return new TestSession(Factory, _settings);
         }

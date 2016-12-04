@@ -2,17 +2,17 @@
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Dapper;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
-using static Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers.Sql;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TEntity, TPk> where TEntity : class
     {
+        
         public TEntity GetKey(TPk key, ISession session)
         {
             if (IsIEntity())
             {
-                return session.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return session.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new {Id=key});
             } 
             var entity = CreateEntityAndSetKeyValue(key);
@@ -31,7 +31,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return uow.Connection.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return uow.Connection.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { Id = key }, uow.Transaction);
             }
             var entity = CreateEntityAndSetKeyValue(key);
@@ -42,7 +42,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new { Id = key });
             }
             var entity = CreateEntityAndSetKeyValue(key);
@@ -61,7 +61,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { Id = key }, uow.Transaction);
             }
             var entity = CreateEntityAndSetKeyValue(key);
@@ -72,7 +72,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return session.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return session.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new {((IEntity<TPk>)entity).Id });
             }
             return session.Get(entity);
@@ -90,7 +90,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return uow.Connection.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return uow.Connection.QuerySingleOrDefault<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id }, uow.Transaction);
             }
             return uow.Get(entity);
@@ -100,7 +100,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id });
             }
             return await session.GetAsync(entity);
@@ -110,7 +110,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         {
             if (IsIEntity())
             {
-                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id }, uow.Transaction);
             }
             return await uow.GetAsync(entity);

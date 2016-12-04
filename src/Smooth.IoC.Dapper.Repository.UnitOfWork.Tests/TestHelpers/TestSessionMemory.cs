@@ -9,8 +9,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 
     public class TestSessionMemory : Session<SQLiteConnection>, ITestSessionMemory
     {
-        public TestSessionMemory(IDbFactory session)
-            : base(session, "Data Source=:memory:;Version=3;New=True;")
+        public TestSessionMemory(IDbFactory factory)
+            : base(factory, "Data Source=:memory:;Version=3;New=True;")
         {
         }
     }

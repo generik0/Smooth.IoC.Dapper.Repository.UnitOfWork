@@ -17,6 +17,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys = new ConcurrentDictionary<TEntity, PropertyMapping[]>();
         private static readonly ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>> _properties = new ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>>();
         private static readonly ConcurrentDictionary<Type, bool> _isIEntity = new ConcurrentDictionary<Type, bool>();
+        protected SqlInstance Sql { get; } = SqlInstance.Instance;
 
         protected Repository(IDbFactory factory) : base(factory)
         {

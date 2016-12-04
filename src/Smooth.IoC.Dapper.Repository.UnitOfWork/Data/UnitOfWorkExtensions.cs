@@ -9,7 +9,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public static class UnitOfWorkExtensions
     {
-        private static readonly SqlDialectHelper DialogueHelper = SqlDialectHelper.Instance;
+        private static readonly SqlDialectInstance DialogueHelper = SqlDialectInstance.Instance;
 
         public static int BulkDelete<TEntity>(this IUnitOfWork uow,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
