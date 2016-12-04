@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
-using Dapper.FastCrud;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using static Dapper.FastCrud.Sql;
+using static Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers.Sql;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -12,15 +11,14 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {
-            var enumerable = session.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}");
             return IsIEntity() ? 
-                enumerable 
+                session.Query<TEntity>($"SELECT * FROM {Table<TEntity>(session.SqlDialect)}") 
                 : session.Find<TEntity>();
         }
         public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
         {
             return IsIEntity() ?
-                uow.Connection.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}", transaction: uow.Transaction)
+                uow.Connection.Query<TEntity>($"SELECT * FROM {Table<TEntity>(uow.SqlDialect)}", transaction: uow.Transaction)
                 : uow.Find<TEntity>();
         }
 
@@ -35,14 +33,14 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
         {
             return IsIEntity() ?
-                await session.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>()}")
+                await session.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>(session.SqlDialect)}")
                 : await session.FindAsync<TEntity>();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
         {
             return IsIEntity() ?
-                await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>()}",transaction: uow.Transaction) 
+                await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>(uow.SqlDialect)}",transaction: uow.Transaction) 
                 : await uow.FindAsync<TEntity>();
         }
 

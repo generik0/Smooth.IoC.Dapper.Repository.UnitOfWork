@@ -67,8 +67,8 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
                 NewId = 1
             };
             Brave result = null;
-            var maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
-            Assert.DoesNotThrow(async () => result = await repo.SaveOrUpdateAsync<ITestSession>(expected));
+            var maxId =  repo.GetAll<ITestSession>().Max(x => x.Id);
+            Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync<ITestSession>(expected));
             Assert.That(result.Id, Is.EqualTo(++maxId));
         }
 

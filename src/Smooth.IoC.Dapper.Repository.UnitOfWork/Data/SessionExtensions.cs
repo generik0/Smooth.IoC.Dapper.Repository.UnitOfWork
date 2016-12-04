@@ -10,7 +10,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public static class SessionExtensions
     {
-        private static readonly SqlDialogueHelper DialogueHelper = SqlDialogueHelper.Instance;
+        private static readonly SqlDialectHelper DialogueHelper = SqlDialectHelper.Instance;
 
         public static int BulkDelete<TEntity>(this ISession connection,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)

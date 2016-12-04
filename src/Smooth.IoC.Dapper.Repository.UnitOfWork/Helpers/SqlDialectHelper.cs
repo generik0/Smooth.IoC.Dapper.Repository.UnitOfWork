@@ -4,17 +4,17 @@ using Dapper.FastCrud;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
 {
-    public class SqlDialogueHelper
+    public class SqlDialectHelper
     {
-        private static volatile SqlDialogueHelper _instance;
+        private static volatile SqlDialectHelper _instance;
         private static readonly object SyncRoot = new Object();
 
         private readonly object _lockSqlDialectUpdate = new object();
         private readonly ConcurrentDictionary<Type, bool> _entityIsFroozenOrDialogueCorrect = new ConcurrentDictionary<Type, bool>();
 
-        private SqlDialogueHelper() { }
+        private SqlDialectHelper() { }
 
-        public static SqlDialogueHelper Instance
+        public static SqlDialectHelper Instance
         {
             get
             {
@@ -22,7 +22,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
                 lock (SyncRoot)
                 {
                     if (_instance == null)
-                        _instance = new SqlDialogueHelper();
+                        _instance = new SqlDialectHelper();
                 }
                 return _instance;
             }

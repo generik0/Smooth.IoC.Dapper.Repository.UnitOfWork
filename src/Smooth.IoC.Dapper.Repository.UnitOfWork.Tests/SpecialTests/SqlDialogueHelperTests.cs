@@ -12,7 +12,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         [Test]
         public static void SetDialogueIfNeeded_AddsMappedIsFroozenToDictionary()
         {
-            var target = SqlDialogueHelper.Instance;
+            var target = SqlDialectHelper.Instance;
             target.SetDialogueIfNeeded<Brave>(SqlDialect.SqLite);
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
@@ -23,7 +23,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         {
             var repo = new BraveRepository(Factory);
             repo.GetKey<ITestSession>(1);
-            var target = SqlDialogueHelper.Instance;
+            var target = SqlDialectHelper.Instance;
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.True);
