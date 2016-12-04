@@ -16,13 +16,38 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
                 uow.Connection.BulkDelete(statementOptions) : 
                 uow.Connection.BulkDelete<TEntity>(statement=>statement.AttachToTransaction(uow.Transaction));
         }
+
+        public static int BulkDelete<TEntity>(this IUnitOfWork uow, FormattableString whereClause, object parameters)
+        {
+            SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
+            return uow.Connection.BulkDelete<TEntity>(statement =>
+            {
+                statement.AttachToTransaction(uow.Transaction);
+                statement.Where(whereClause);
+                statement.WithParameters(parameters);
+            });
+        }
+
         public static Task<int> BulkDeleteAsync<TEntity>(this IUnitOfWork uow,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
         {
             SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
+
             return statementOptions != null ?
                 uow.Connection.BulkDeleteAsync(statementOptions) :
                 uow.Connection.BulkDeleteAsync<TEntity>(statement => statement.AttachToTransaction(uow.Transaction));
+        }
+
+        public static Task<int> BulkDeleteAsync<TEntity>(this IUnitOfWork uow, FormattableString whereClause, object parameters)
+        {
+            SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
+
+            return uow.Connection.BulkDeleteAsync<TEntity>(statement =>
+            {
+                statement.AttachToTransaction(uow.Transaction);
+                statement.Where(whereClause);
+                statement.WithParameters(parameters);
+            });
         }
 
         public static int BulkUpdate<TEntity>(this IUnitOfWork uow, TEntity updateData,
