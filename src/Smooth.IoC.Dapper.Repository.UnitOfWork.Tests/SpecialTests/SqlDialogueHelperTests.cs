@@ -18,7 +18,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             Assert.That(result.HasValue, Is.True);
         }
 
-        [Test]
+        [Test, Category("Integration")]
         public static void SetDialogueIfNeeded_SetsIsFroozenInDictionary()
         {
             var repo = new BraveRepository(Factory);
