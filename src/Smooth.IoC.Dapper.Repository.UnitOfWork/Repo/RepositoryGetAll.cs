@@ -12,14 +12,15 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {
+            var enumerable = session.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}");
             return IsIEntity() ? 
-                session.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}") 
+                enumerable 
                 : session.Find<TEntity>();
         }
         public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
         {
             return IsIEntity() ?
-                uow.Connection.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}", transaction: uow)
+                uow.Connection.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}", transaction: uow.Transaction)
                 : uow.Find<TEntity>();
         }
 
@@ -41,7 +42,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
         {
             return IsIEntity() ?
-                await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>()}",transaction: uow) 
+                await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>()}",transaction: uow.Transaction) 
                 : await uow.FindAsync<TEntity>();
         }
 
