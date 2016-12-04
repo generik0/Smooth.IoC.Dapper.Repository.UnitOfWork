@@ -5,7 +5,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public interface IUnitOfWork : IDbTransaction
     {
-        SqlDialect SqlDialect { get; set; }
+        SqlDialect SqlDialect { get; }
         IDbTransaction Transaction { get; set; }
     }
 }

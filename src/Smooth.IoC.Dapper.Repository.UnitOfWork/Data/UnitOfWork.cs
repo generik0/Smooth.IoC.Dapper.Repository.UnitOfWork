@@ -7,7 +7,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public class UnitOfWork : DbTransaction, IUnitOfWork
     {
-        public SqlDialect SqlDialect { get; set; }
+        public SqlDialect SqlDialect { get; }
         private readonly Guid _guid = Guid.NewGuid();
         
         public UnitOfWork(IDbFactory factory, ISession session, 
@@ -18,6 +18,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
                 Session = session;
             }
             Transaction = session.BeginTransaction(isolationLevel);
+            SqlDialect = session.SqlDialect;
         }
 
         protected bool Equals(UnitOfWork other)
