@@ -521,6 +521,7 @@ Constructor with 3 parameters is always called.
 	- Change so it isn't allows async methods being called in repo (also for sync (Done)
 	- Add more FastCRUD standard calls with tests in the repository (No Progress)
 	- Change all async tests to use AssetDoesNotThrowAsync (ToDo)
+	- Fixed issue where factory.Create<IUnitOFWork, ISession>() did not set the sql dialect.
 - 0.4.x (Future)
     - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder?
     - Add dictionaries to minimise reflections.
