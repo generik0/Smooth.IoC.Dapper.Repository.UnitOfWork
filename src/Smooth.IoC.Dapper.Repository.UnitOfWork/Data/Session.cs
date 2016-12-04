@@ -60,14 +60,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         public IUnitOfWork UnitOfWork()
         {
             var uow= _factory.Create<IUnitOfWork>(_factory, this);
-            uow.SqlDialect = SqlDialect;
             return uow;
         }
 
         public IUnitOfWork UnitOfWork(IsolationLevel isolationLevel)
         {
             var uow = _factory.Create<IUnitOfWork>(_factory, this, isolationLevel);
-            uow.SqlDialect = SqlDialect;
             return uow;
         }
 

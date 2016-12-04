@@ -10,5 +10,5 @@ using System.Runtime.InteropServices;
 
 public static class VersionInfo
 {
-    public const string Version = "0.1.0";
+    public const string Version = "0.3.4";
 }

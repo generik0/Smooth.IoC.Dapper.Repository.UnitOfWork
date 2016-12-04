@@ -11,6 +11,7 @@ obj
 /Thumbs.db
 /src/Smooth.IoC.Dapper.Repository.UnitOfWork/project.lock.json
 src/**/*TestResult.xml
+NugetPuller/*
 
 !*/.nuget/*.*
 !MyGet.include.ps1

@@ -1,7 +1,9 @@
-﻿using System.Data.SqlClient;
+﻿using System.Data;
+using System.Data.SqlClient;
 using System.Data.SQLite;
 using Dapper.FastCrud;
 using Devart.Data.PostgreSql;
+using FakeItEasy;
 using MySql.Data.MySqlClient;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
@@ -18,11 +20,30 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             var target = new TestSqlite(null,null);
             Assert.That(target.SqlDialect == SqlDialect.SqLite);
         }
+
+        [Test]
+        public void UnitOfWorkSqlDialect_Equals_SqLite()
+        {
+            var factory = A.Fake< IDbFactory >();
+            var target = new TestSqlite(factory, null);
+            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._, A<IsolationLevel>._))
+                .Returns(new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, target));
+            Assert.That(target.UnitOfWork().SqlDialect == SqlDialect.SqLite);
+        }
         [Test]
         public void SqlDialect_Equals_MySql()
         {
             var target = new TestMySql(null, null);
             Assert.That(target.SqlDialect == SqlDialect.MySql);
+        }
+        [Test]
+        public void UnitOfWorkSqlDialect_Equals_MySql()
+        {
+            var factory = A.Fake<IDbFactory>();
+            var target = new TestMySql(factory, null);
+            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._, A<IsolationLevel>._))
+                .Returns(new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, target));
+            Assert.That(target.UnitOfWork().SqlDialect == SqlDialect.MySql);
         }
         [Test]
         public void SqlDialect_Equals_MsSql()
@@ -31,10 +52,28 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             Assert.That(target.SqlDialect == SqlDialect.MsSql);
         }
         [Test]
+        public void UnitOfWorkSqlDialect_Equals_MsSql()
+        {
+            var factory = A.Fake<IDbFactory>();
+            var target = new TestMsSql(factory, null);
+            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._, A<IsolationLevel>._))
+                .Returns(new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, target));
+            Assert.That(target.UnitOfWork().SqlDialect == SqlDialect.MsSql);
+        }
+        [Test]
         public void SqlDialect_Equals_PostgreSql()
         {
             var target = new TestPostgreSql(null, null);
             Assert.That(target.SqlDialect == SqlDialect.PostgreSql);
+        }
+        [Test]
+        public void UnitOfWorkSqlDialect_Equals_PostgreSql()
+        {
+            var factory = A.Fake<IDbFactory>();
+            var target = new TestPostgreSql(factory, null);
+            A.CallTo(() => factory.Create<IUnitOfWork>(A<IDbFactory>._, A<ISession>._, A<IsolationLevel>._))
+                .Returns(new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, target));
+            Assert.That(target.UnitOfWork().SqlDialect == SqlDialect.PostgreSql);
         }
     }
     [NoIoCFluentRegistration]

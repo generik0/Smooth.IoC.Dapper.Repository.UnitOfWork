@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyProduct("Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork")]
-[assembly: AssemblyVersion("0.1.*")]
+[assembly: AssemblyVersion("0.3.*")]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 #if NET_46_OR_GREATER

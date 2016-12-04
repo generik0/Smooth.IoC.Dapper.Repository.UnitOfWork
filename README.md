@@ -61,6 +61,10 @@ So i have extended FastDappers IDbConnection extensions so the projects own ISes
 the package. This insures that the dialogue is set correct, if needed. This means that your Entity can only be used for one database type per ioc container / executing assembily. So you can also use a different databae for your tests than your production code.
 * This will only effect FastCRUD calls using ISession or IUnitOrWork instances. Not IDbConnection instances.
 * If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
+* I have created a SqlDialectInstance (Singleton) expert that can help you set the dialogue. Please use it if you have issues with your session and sql dialect.
+* I have created a SqlHelper, that insures FastCRUD's SqlDialect is set if you decide you need a FastCRUD "Sql" helper method. Please use my SqlHelper otherwise your SqlDialect might be frozen. It is available for Repositories as "Sql" a proctected property.
+(Hint: if your dialogue gets stuck in the wrong state you can "reset" the FastCRUD mapping using OrmConfiguration.RegisterEntity<YouEnity>();)
+
 
 You can do a lot fluently with FastCRUD. Check out there wiki:
 - [Home](https://github.com/MoonStorm/Dapper.FastCRUD/wiki)
@@ -510,13 +514,23 @@ Constructor with 3 parameters is always called.
 	- Added examples and test for Autofac, Ninject, StructureMap, SimpleInjector and Unity. 
 	- Bug fixes. 
 	- Extended IUnitOFWork and Session for FastCRUD
-- 0.2.x	(Current) 
+- 0.2.x
 	- Bug fix with transactions and UoW extensions (0.2.69)
 	- Add UnitOfWork Creation from Factory  (0.2.73)	
     - Change so DbConnection does not have to be passed to the repo. Instead an adhoc session made by repo has the ISession as generic (0.2.73)	
     - Seperate Async and Sync calls (0.2.73)	
     - Remove need for IEntity to get and set key value (0.2.73)	
-- 0.3.x (Future)
-	- Add more tests
-	- Add more FastCRUD standard calls in the repository	
-
+- 0.3.x (Done)
+	- Add more tests for repository calls (0.3.4)
+	- Change so it isn't allows async methods being called in repo (also for sync)  (0.3.4)
+	- Add more FastCRUD standard calls (Delete and Count) with tests in the repository  (0.3.4)
+	- Change all async tests to use AssetDoesNotThrowAsync  (0.3.4)
+	- Fixed issue where factory.Create<IUnitOFWork, ISession>() did not set the sql dialect.(0.3.0)
+	- Minimise the use of reflections in session and uow extensions  (0.3.4)
+- 0.4.x (In Progres)
+	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
+    - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (In Progress)
+    - Add dictionaries to minimise reflections. (In Progress)
+- 0.5.x (Future)
+    - Add FastCRUD bulk methods with tests to repo.
+    
