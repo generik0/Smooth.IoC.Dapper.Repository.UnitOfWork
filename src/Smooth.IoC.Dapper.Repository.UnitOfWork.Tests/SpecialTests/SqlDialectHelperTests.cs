@@ -1,8 +1,11 @@
 ﻿using Dapper;
 using Dapper.FastCrud;
+using FakeItEasy;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
@@ -46,12 +49,15 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         [Test, Category("Integration")]
         public static void Query_Wont_MakeFrozen()
         {
-            var connection = CreateSession(null);
-            connection.Query("SELECT * FROM Braves");
+            var connection = new TestSessionMemory(A.Fake<IDbFactory>());
+            new MigrateDb(connection);
             var target = SqlDialectInstance.Instance;
+            target.Reset();
+            OrmConfiguration.RegisterEntity<Brave>();
+            connection.Query("SELECT * FROM Braves");
             var result = target.GetEntityState<Brave>();
-            Assert.That(result.HasValue, Is.False);
             Assert.That(OrmConfiguration.GetDefaultEntityMapping<Brave>().IsFrozen, Is.False);
+            Assert.That(result.HasValue, Is.False);
         }
 
         [Test, Category("Integration")]
