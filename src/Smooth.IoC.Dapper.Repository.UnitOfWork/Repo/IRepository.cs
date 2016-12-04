@@ -7,6 +7,20 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     public interface IRepository<TEntity, TPk>
         where TEntity : class
     {
+
+        bool DeleteKey(TPk key, ISession session);
+        bool DeleteKey(TPk key, IUnitOfWork uow);
+        bool DeleteKey<TSesssion>(TPk key) where TSesssion : class, ISession;
+        Task<bool> DeleteKeyAsync(TPk key, ISession session);
+        Task<bool> DeleteKeyAsync(TPk key, IUnitOfWork uow);
+        Task<bool> DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession;
+        bool Delete(TEntity entity, ISession session);
+        bool Delete(TEntity entity, IUnitOfWork uow);
+        bool Delete<TSesssion>(TEntity entity) where TSesssion : class, ISession;
+        Task<bool> DeleteAsync(TEntity entity, ISession session);
+        Task<bool> DeleteAsync(TEntity entity, IUnitOfWork uow);
+        Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession;
+
         TEntity GetKey(TPk key, ISession session);
         TEntity GetKey(TPk key, IUnitOfWork uow);
         TEntity GetKey<TSesssion>(TPk key) where TSesssion : class, ISession;
@@ -26,19 +40,6 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         Task<IEnumerable<TEntity>> GetAllAsync(ISession session);
         Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow);
         Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession;
-
-        bool DeleteKey(TPk key, ISession session);
-        bool DeleteKey(TPk key, IUnitOfWork uow);
-        bool DeleteKey<TSesssion>(TPk key) where TSesssion : class, ISession;
-        Task<bool> DeleteKeyAsync(TPk key, ISession session);
-        Task<bool> DeleteKeyAsync(TPk key, IUnitOfWork uow);
-        Task<bool> DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession;
-        bool Delete(TEntity entity, ISession session);
-        bool Delete(TEntity entity, IUnitOfWork uow);
-        bool Delete<TSesssion>(TEntity entity) where TSesssion : class, ISession;
-        Task<bool> DeleteAsync(TEntity entity, ISession session);
-        Task<bool> DeleteAsync(TEntity entity, IUnitOfWork uow);
-        Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession;
 
         TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow);
         TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession;
