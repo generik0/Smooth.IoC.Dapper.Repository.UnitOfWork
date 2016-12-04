@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
+using Dapper.FastCrud;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using static Dapper.FastCrud.Sql;
 
@@ -17,7 +18,9 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         }
         public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
         {
-            return uow.Find<TEntity>();
+            return IsIEntity() ?
+                uow.Connection.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}", transaction: uow)
+                : uow.Find<TEntity>();
         }
 
         public IEnumerable<TEntity> GetAll<TSesssion>() where TSesssion : class, ISession
@@ -30,12 +33,16 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
         {
-            return await session.FindAsync<TEntity>();
+            return IsIEntity() ?
+                await session.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>()}")
+                : await session.FindAsync<TEntity>();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
         {
-            return await uow.FindAsync<TEntity>();
+            return IsIEntity() ?
+                await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Table<TEntity>()}",transaction: uow) 
+                : await uow.FindAsync<TEntity>();
         }
 
         public Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
