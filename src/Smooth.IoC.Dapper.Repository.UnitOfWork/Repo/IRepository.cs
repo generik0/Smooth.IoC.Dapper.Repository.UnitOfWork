@@ -7,6 +7,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     public interface IRepository<TEntity, TPk>
         where TEntity : class
     {
+        int Count(ISession session);
+        int Count(IUnitOfWork uow);
+        int Count<TSesssion>() where TSesssion : class, ISession;
+        Task<int> CountAsync(ISession session);
+        Task<int> CountAsync(IUnitOfWork uow);
+        Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession;
 
         bool DeleteKey(TPk key, ISession session);
         bool DeleteKey(TPk key, IUnitOfWork uow);

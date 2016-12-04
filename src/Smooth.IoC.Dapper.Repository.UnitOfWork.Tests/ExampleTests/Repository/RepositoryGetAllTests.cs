@@ -20,7 +20,6 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
             Assert.That(results.Count(), Is.EqualTo(3));
-
         }
 
         [Test, Category("Integration")]
