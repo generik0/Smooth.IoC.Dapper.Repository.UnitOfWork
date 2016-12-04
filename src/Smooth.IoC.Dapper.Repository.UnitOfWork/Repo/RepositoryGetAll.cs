@@ -11,7 +11,9 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {
-            return IsIEntity() ? session.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}") : session.Find<TEntity>();
+            return IsIEntity() ? 
+                session.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}") 
+                : session.Find<TEntity>();
         }
         public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
         {
