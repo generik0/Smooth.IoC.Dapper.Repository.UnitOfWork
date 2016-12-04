@@ -510,13 +510,16 @@ Constructor with 3 parameters is always called.
 	- Added examples and test for Autofac, Ninject, StructureMap, SimpleInjector and Unity. 
 	- Bug fixes. 
 	- Extended IUnitOFWork and Session for FastCRUD
-- 0.2.x	(Current) 
+- 0.2.x
 	- Bug fix with transactions and UoW extensions (0.2.69)
 	- Add UnitOfWork Creation from Factory  (0.2.73)	
     - Change so DbConnection does not have to be passed to the repo. Instead an adhoc session made by repo has the ISession as generic (0.2.73)	
     - Seperate Async and Sync calls (0.2.73)	
     - Remove need for IEntity to get and set key value (0.2.73)	
-- 0.3.x (Future)
-	- Add more tests
-	- Add more FastCRUD standard calls in the repository	
+- 0.3.x (No Progress)
+	- Add more tests (No Progress)
+	- Add more FastCRUD standard calls in the repository (No Progress)
+- 0.4.x (Future)
+    - Make plan IEntity queries use pure dapper
+    - Add dictionaries to minimise reflections.
 
