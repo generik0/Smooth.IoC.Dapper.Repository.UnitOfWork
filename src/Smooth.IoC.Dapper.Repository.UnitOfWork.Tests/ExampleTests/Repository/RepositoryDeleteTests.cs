@@ -8,7 +8,47 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
     [TestFixture]
     public class RepositoryDeleteTests : CommonTestDataSetup
     {
-        
+        [Test]
+        public static void DeleteKeyAsync_Removes_EntityOnKey()
+        {
+            var repo = new BraveRepository(Factory);
+            var result = false;
+            var expected = 2;
+            Brave resultBrave=new Brave();
+
+            Assert.DoesNotThrowAsync(async () =>
+                {
+                    using (var uow = Connection.UnitOfWork())
+                    {
+                        result = await repo.DeleteKeyAsync(expected, uow);
+                        resultBrave = await repo.GetKeyAsync(expected, uow);
+                        uow.Rollback();
+                    }
+                }
+            );
+            Assert.That(result, Is.True);
+            Assert.That(resultBrave, Is.Null);
+        }
+
+        [Test]
+        public static void DeleteKeyAsync_Removes_EntityOnKeyWithSessionGeneric()
+        {
+            var repo = new BraveRepository(Factory);
+            var result = false;
+            var expected = new Brave { NewId = 2};
+            Brave resultBrave=new Brave();
+
+            Assert.DoesNotThrowAsync(async () =>
+                {
+                    repo.SaveOrUpdate<ITestSession>(expected);
+                    result = await repo.DeleteKeyAsync<ITestSession>(expected.Id);
+                    resultBrave = await repo.GetAsync<ITestSession>(expected);
+                }
+            );
+            Assert.That(result, Is.True);
+            Assert.That(resultBrave, Is.Null);
+        }
+
         [Test]
         public static void DeleteAsync_Removes_EntityOnKey()
         {
@@ -30,5 +70,25 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.That(result, Is.True);
             Assert.That(resultBrave, Is.Null);
         }
+
+        [Test]
+        public static void DeleteAsync_Removes_EntityOnKeyWithSessionGeneric()
+        {
+            var repo = new BraveRepository(Factory);
+            var result = false;
+            var expected = new Brave { NewId = 2};
+            Brave resultBrave=new Brave();
+
+            Assert.DoesNotThrowAsync(async () =>
+                {
+                    repo.SaveOrUpdate<ITestSession>(expected);
+                    result = await repo.DeleteAsync<ITestSession>(expected);
+                    resultBrave = await repo.GetAsync<ITestSession>(expected);
+                }
+            );
+            Assert.That(result, Is.True);
+            Assert.That(resultBrave, Is.Null);
+        }
+
     }
 }
