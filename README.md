@@ -517,9 +517,13 @@ Constructor with 3 parameters is always called.
     - Seperate Async and Sync calls (0.2.73)	
     - Remove need for IEntity to get and set key value (0.2.73)	
 - 0.3.x (No Progress)
-	- Add more tests (No Progress)
-	- Add more FastCRUD standard calls in the repository (No Progress)
+	- Add more tests for repositry calls (Done)
+	- Change so it isn't allows async methods being called in repo (also for sync (Done)
+	- Add more FastCRUD standard calls with tests in the repository (No Progress)
+	- Change all async tests to use AssetDoesNotThrowAsync (ToDo)
 - 0.4.x (Future)
-    - Make plan IEntity queries use pure dapper
+    - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder?
     - Add dictionaries to minimise reflections.
-
+- 0.5.x (Future)
+    - Add FastCRUD bulk methods with tests to repo.
+    -
