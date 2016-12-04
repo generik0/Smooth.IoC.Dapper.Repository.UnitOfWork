@@ -23,6 +23,17 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         }
 
         [Test, Category("Integration")]
+        public static void GetAll_Returns_CorrectAmountWithoutJoinsAndIsNotIEntity()
+        {
+            var repo = new NewRepository(Factory);
+            IEnumerable<New> results = null;
+            Assert.DoesNotThrow(() => results = repo.GetAll(Connection));
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results, Is.Not.Empty);
+            Assert.That(results.Count(), Is.EqualTo(3));
+        }
+
+        [Test, Category("Integration")]
         public static void GetAll_Returns_CorrectAmountWithoutJoinsWithUnitOfWork()
         {
             var repo = new BraveRepository(Factory);

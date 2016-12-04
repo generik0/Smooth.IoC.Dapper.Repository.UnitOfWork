@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dapper;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using static Dapper.FastCrud.Sql;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
@@ -9,7 +11,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {
-            return session.Find<TEntity>();
+            return IsIEntity() ? session.Query<TEntity>($"SELECT * FROM {Table<TEntity>()}") : session.Find<TEntity>();
         }
         public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
         {

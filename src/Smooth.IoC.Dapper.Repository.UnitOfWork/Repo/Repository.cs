@@ -16,6 +16,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys = new ConcurrentDictionary<TEntity, PropertyMapping[]>();
         private static readonly ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>> _properties = new ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>>();
+        private static readonly ConcurrentDictionary<Type, bool> _isIEntity = new ConcurrentDictionary<Type, bool>();
 
         protected Repository(IDbFactory factory) : base(factory)
         {
@@ -34,9 +35,9 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected TPk GetPrimaryKeyValue(TEntity entity)
         {
-            var entityInterface = entity as IEntity<TPk>;
-            if (entityInterface !=null)
+            if (IsIEntity())
             {
+                var entityInterface = (IEntity <TPk>) entity;
                 return entityInterface.Id;
             }
 
@@ -75,6 +76,11 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             var entity = CreateInstanceHelper.Resolve<TEntity>();
             SetPrimaryKeyValue(entity, key);
             return entity;
+        }
+
+        protected bool IsIEntity()
+        {
+            return _isIEntity.GetOrAdd(typeof(TEntity), typeof(TEntity).IsAssignableFrom(typeof(IEntity<TPk>)));
         }
 
         private static IEnumerable<PropertyInfo> GetKeyPropertyInfo(TEntity entity, PropertyMapping[] keys)
