@@ -520,17 +520,17 @@ Constructor with 3 parameters is always called.
     - Change so DbConnection does not have to be passed to the repo. Instead an adhoc session made by repo has the ISession as generic (0.2.73)	
     - Seperate Async and Sync calls (0.2.73)	
     - Remove need for IEntity to get and set key value (0.2.73)	
-- 0.3.x (No Progress)
-	- Add more tests for repositry calls (Done)
-	- Change so it isn't allows async methods being called in repo (also for sync (Done)
-	- Add more FastCRUD standard calls (Delete and Count) with tests in the repository (Done)
-	- Change all async tests to use AssetDoesNotThrowAsync (ToDo)
-	- Fixed issue where factory.Create<IUnitOFWork, ISession>() did not set the sql dialect. (Done)
-	- Minimise the use of reflections in session and uow extensions (Done)
-- 0.4.x (Future)
-	- Add where and parameter paramateres into uow and session  extensions. And expand Repository.
-    - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder?
-    - Add dictionaries to minimise reflections.
+- 0.3.x (Done)
+	- Add more tests for repository calls (0.3.4)
+	- Change so it isn't allows async methods being called in repo (also for sync)  (0.3.4)
+	- Add more FastCRUD standard calls (Delete and Count) with tests in the repository  (0.3.4)
+	- Change all async tests to use AssetDoesNotThrowAsync  (0.3.4)
+	- Fixed issue where factory.Create<IUnitOFWork, ISession>() did not set the sql dialect.(0.3.0)
+	- Minimise the use of reflections in session and uow extensions  (0.3.4)
+- 0.4.x (In Progres)
+	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
+    - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (In Progress)
+    - Add dictionaries to minimise reflections. (In Progress)
 - 0.5.x (Future)
     - Add FastCRUD bulk methods with tests to repo.
     
