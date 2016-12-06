@@ -7,7 +7,7 @@ using Dapper.FastCrud;
 using Dapper.FastCrud.Mappings;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Containers
 {
     internal sealed class RepositoryContainer
     {
