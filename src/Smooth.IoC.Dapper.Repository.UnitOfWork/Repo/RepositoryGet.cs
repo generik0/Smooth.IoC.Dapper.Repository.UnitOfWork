@@ -1,11 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Dapper;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public abstract partial class Repository<TEntity, TPk> where TEntity : class
+    public abstract partial class Repository<TEntity, TPk> 
+        where TEntity : class
+        where TPk : IComparable 
     {
         
         public TEntity GetKey(TPk key, ISession session)

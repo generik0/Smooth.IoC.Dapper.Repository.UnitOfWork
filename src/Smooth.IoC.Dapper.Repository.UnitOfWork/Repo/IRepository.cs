@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
@@ -6,6 +7,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public interface IRepository<TEntity, TPk>
         where TEntity : class
+        where TPk : IComparable
     {
         int Count(ISession session);
         int Count(IUnitOfWork uow);

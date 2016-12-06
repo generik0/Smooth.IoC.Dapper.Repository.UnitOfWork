@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
@@ -7,6 +8,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TEntity, TPk>
         where TEntity : class
+        where TPk : IComparable 
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {

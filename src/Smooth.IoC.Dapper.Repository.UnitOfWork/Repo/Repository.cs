@@ -13,6 +13,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository<TEntity, TPk> : RepositoryBase, IRepository<TEntity, TPk>
         where TEntity : class
+        where TPk : IComparable 
     {
         private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys =
             new ConcurrentDictionary<TEntity, PropertyMapping[]>();

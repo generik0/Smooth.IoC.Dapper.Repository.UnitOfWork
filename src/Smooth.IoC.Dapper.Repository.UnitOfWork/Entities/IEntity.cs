@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Dapper.FastCrud;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Entities
 {
-    public interface IEntity<TPk>
+    public interface IEntity<TPk> where TPk : IComparable 
     {
         [Key]
         [DatabaseGeneratedDefaultValue]

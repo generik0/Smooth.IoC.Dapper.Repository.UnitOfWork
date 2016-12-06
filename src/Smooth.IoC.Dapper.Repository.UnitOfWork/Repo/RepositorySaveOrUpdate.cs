@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
     public abstract partial class Repository< TEntity, TPk> 
         where TEntity : class
+        where TPk : IComparable 
     {
         public TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
         {
