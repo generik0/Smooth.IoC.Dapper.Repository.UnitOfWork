@@ -16,7 +16,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Assert.DoesNotThrow(() => result = repo.GetWithJoins(1, Connection));
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(1));
-            Assert.That(result.New.Id, Is.EqualTo(3));
+            Assert.That(result.New.Key, Is.EqualTo(3));
             Assert.That(result.New.World.Id, Is.EqualTo(1));
             Assert.That(result.New.World.Guid, Is.Not.Null);
         }
@@ -35,9 +35,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new NewRepository(Factory);
             New result = null;
-            Assert.DoesNotThrow(() => result = repo.Get(new New { Id = 1 }, Connection));
+            Assert.DoesNotThrow(() => result = repo.Get(new New { Key = 1 }, Connection));
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         [Test, Category("Integration")]
@@ -60,10 +60,10 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             New result = null;
             using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrow(() => result = repo.Get(new New { Id = 1 }, uow));
+                Assert.DoesNotThrow(() => result = repo.Get(new New { Key = 1 }, uow));
             }
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         public static void Get_Returns_WithoutJoinsCreatingASessionItself()
@@ -87,9 +87,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new NewRepository(Factory);
             New result = null;
-            Assert.DoesNotThrowAsync(async () => result = await repo.GetAsync(new New { Id = 1 }, Connection));
+            Assert.DoesNotThrowAsync(async () => result = await repo.GetAsync(new New { Key = 1 }, Connection));
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         public static void GetAsync_Returns_WithoutJoinsWithUnitOfWork()
@@ -110,10 +110,10 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             New result = null;
             using (var uow = Connection.UnitOfWork())
             {
-                Assert.DoesNotThrowAsync(async () => result = await repo.GetAsync(new New { Id = 1 }, uow));
+                Assert.DoesNotThrowAsync(async () => result = await repo.GetAsync(new New { Key = 1 }, uow));
             }
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         public static void GetAsync_Returns_WithoutJoinsCreatingASessionItself()
@@ -142,7 +142,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             New result = null;
             Assert.DoesNotThrow(() => result = repo.GetKey(1, Connection));
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         [Test, Category("Integration")]
@@ -168,7 +168,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
                 Assert.DoesNotThrow(() => result = repo.GetKey(1, uow));
             }
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         [Test, Category("Integration")]
@@ -198,7 +198,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             New result = null;
             Assert.DoesNotThrowAsync(async () => result = await repo.GetKeyAsync(1, Connection));
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         [Test, Category("Integration")]
@@ -224,7 +224,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
                 Assert.DoesNotThrowAsync(async () => result = await repo.GetKeyAsync(1, uow));
             }
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(1));
+            Assert.That(result.Key, Is.EqualTo(1));
         }
 
         [Test, Category("Integration")]
