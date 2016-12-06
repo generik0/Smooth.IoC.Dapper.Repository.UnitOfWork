@@ -76,7 +76,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         public static void SaveOrUpdate_Returns_IdForUpdatedEnitiy()
         {
             var repo = new BraveRepository(Factory);
-            const int expectedId = 1;
+            const int expectedId = 2;
             var resultId = 0;
 
             New original=null;

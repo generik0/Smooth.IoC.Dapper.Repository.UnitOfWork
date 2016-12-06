@@ -14,8 +14,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     public abstract partial class Repository<TEntity, TPk> : RepositoryBase, IRepository<TEntity, TPk>
         where TEntity : class
     {
-        private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys = new ConcurrentDictionary<TEntity, PropertyMapping[]>();
-        private static readonly ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>> _properties = new ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>>();
+        private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys =
+            new ConcurrentDictionary<TEntity, PropertyMapping[]>();
+
+        private static readonly ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>> _properties =
+            new ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>>();
+
         private static readonly ConcurrentDictionary<Type, bool> _isIEntity = new ConcurrentDictionary<Type, bool>();
         protected SqlInstance Sql { get; } = SqlInstance.Instance;
 
@@ -29,17 +33,22 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
             if (keys == null || properies == null)
             {
-                throw new NoPkException("There is no keys for this entity, please create your logic or add a key attribute to the entity");
+                throw new NoPkException(
+                    "There is no keys for this entity, please create your logic or add a key attribute to the entity");
             }
-            return properies.Select(property => property.GetValue(entity)).All(value => value == null || value.Equals(0));
+            return properies.Select(property => property.GetValue(entity))
+                .All(value => value == null || value.Equals(0));
         }
 
         protected TPk GetPrimaryKeyValue(TEntity entity)
         {
             if (IsIEntity())
             {
-                var entityInterface = (IEntity <TPk>) entity;
-                return entityInterface.Id;
+                var entityInterface = entity as IEntity<TPk>;
+                if (entityInterface != null)
+                {
+                    return entityInterface.Id;
+                }
             }
 
             var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
