@@ -30,6 +30,15 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected bool TryAllKeysDefault(TEntity entity)
         {
+            if (IsIEntity())
+            {
+                var entityInterface = entity as IEntity<TPk>;
+                if (entityInterface != null)
+                {
+                    return entityInterface.Id.CompareTo(default(TPk)) == 0;
+                }
+            }
+
             var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
             var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
             if (keys == null || properies == null)
