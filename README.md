@@ -317,7 +317,7 @@ to use the "_dbFactory.Create&lt;IUnitOFWork, ISession&gt;()" call, you can leav
             return uow;
         }
     }
-}</code&gt;</pre&gt;
+}</code></pre>
 
 ## Ninject registration
 Ninject like Castle has a good factory. Unfortunately the factory does not have a Release. 
