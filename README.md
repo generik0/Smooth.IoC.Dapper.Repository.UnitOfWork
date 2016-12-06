@@ -534,4 +534,5 @@ Constructor with 3 parameters is always called.
     - Add dictionaries to minimise reflections. (In Progress)
 - 0.5.x (Future)
     - Add FastCRUD bulk methods with tests to repo.
-    
+- 0.6.x (Future)
+    - Split nuspec up so Dapper and FastDapper are not resolved with Session, UnitOfWork, etc.
