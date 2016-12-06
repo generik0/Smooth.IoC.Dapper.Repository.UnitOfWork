@@ -527,6 +527,7 @@ Constructor with 3 parameters is always called.
 	- Change all async tests to use AssetDoesNotThrowAsync  (0.3.4)
 	- Fixed issue where factory.Create<IUnitOFWork, ISession>() did not set the sql dialect.(0.3.0)
 	- Minimise the use of reflections in session and uow extensions  (0.3.4)
+	- Add IComparable constraint to TPk (0.3.5)
 - 0.4.x (In Progres)
 	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
     - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (In Progress)
