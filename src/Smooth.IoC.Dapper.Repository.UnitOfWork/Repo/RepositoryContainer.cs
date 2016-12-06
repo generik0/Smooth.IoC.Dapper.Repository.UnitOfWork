@@ -9,7 +9,7 @@ using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 {
-    public class RepositoryContainer
+    internal sealed class RepositoryContainer
     {
         private static volatile RepositoryContainer _instance;
         private static readonly object SyncRoot = new object();
