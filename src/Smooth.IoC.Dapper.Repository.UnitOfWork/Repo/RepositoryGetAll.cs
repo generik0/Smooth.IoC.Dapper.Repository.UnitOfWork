@@ -12,13 +12,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
     {
         public IEnumerable<TEntity> GetAll(ISession session)
         {
-            return IsIEntity() ? 
+            return _container.IsIEntity<TEntity, TPk>() ? 
                 session.Query<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)}") 
                 : session.Find<TEntity>();
         }
         public IEnumerable<TEntity> GetAll(IUnitOfWork uow)
         {
-            return IsIEntity() ?
+            return _container.IsIEntity<TEntity, TPk>() ?
                 uow.Connection.Query<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)}", transaction: uow.Transaction)
                 : uow.Find<TEntity>();
         }
@@ -33,14 +33,14 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
         {
-            return IsIEntity() ?
+            return _container.IsIEntity<TEntity, TPk>() ?
                 await session.QueryAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)}")
                 : await session.FindAsync<TEntity>();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
         {
-            return IsIEntity() ?
+            return _container.IsIEntity<TEntity, TPk>() ?
                 await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)}",transaction: uow.Transaction) 
                 : await uow.FindAsync<TEntity>();
         }

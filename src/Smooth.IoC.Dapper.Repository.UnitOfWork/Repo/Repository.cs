@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using Dapper.FastCrud;
-using Dapper.FastCrud.Mappings;
+using System.Reflection;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
-using System.Reflection;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
@@ -15,13 +11,8 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class
         where TPk : IComparable 
     {
-        private static readonly ConcurrentDictionary<TEntity, PropertyMapping[]> _keys =
-            new ConcurrentDictionary<TEntity, PropertyMapping[]>();
+        private readonly RepositoryContainer _container = RepositoryContainer.Instance;
 
-        private static readonly ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>> _properties =
-            new ConcurrentDictionary<TEntity, IEnumerable<PropertyInfo>>();
-
-        private static readonly ConcurrentDictionary<Type, bool> _isIEntity = new ConcurrentDictionary<Type, bool>();
         protected SqlInstance Sql { get; } = SqlInstance.Instance;
 
         protected Repository(IDbFactory factory) : base(factory)
@@ -30,7 +21,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected bool TryAllKeysDefault(TEntity entity)
         {
-            if (IsIEntity())
+            if (_container.IsIEntity<TEntity, TPk>())
             {
                 var entityInterface = entity as IEntity<TPk>;
                 if (entityInterface != null)
@@ -39,8 +30,8 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                 }
             }
 
-            var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
-            var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
+            var keys = _container.GetKeys<TEntity>();
+            var properies = _container.GetProperties<TEntity>();
             if (keys == null || properies == null)
             {
                 throw new NoPkException(
@@ -52,7 +43,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected TPk GetPrimaryKeyValue(TEntity entity)
         {
-            if (IsIEntity())
+            if (_container.IsIEntity<TEntity, TPk>())
             {
                 var entityInterface = entity as IEntity<TPk>;
                 if (entityInterface != null)
@@ -60,20 +51,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                     return entityInterface.Id;
                 }
             }
-
-            var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
-            var primarKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
-            var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
-            if (keys == null || primarKeyName ==null || properies == null)
-            {
-                throw new NoPkException("There is no primary ket for this entity, please create your logic or add a key attribute to the entity");
-            }
-            var primarKeyValue=  entity.GetType().GetProperties().FirstOrDefault(property => property.Name.Equals(primarKeyName, StringComparison.Ordinal));
+            var primarKeyValue = GetPrimaryKeyPropertyInfo();
             return (TPk) primarKeyValue.GetValue(entity);
         }
         protected void SetPrimaryKeyValue(TEntity entity, TPk value)
         {
-            if (IsIEntity())
+            if (_container.IsIEntity<TEntity, TPk>())
             {
                 var entityInterface = entity as IEntity<TPk>;
                 if (entityInterface != null)
@@ -82,17 +65,23 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                     return;
                 }
             }
+            var primarKeyValue = GetPrimaryKeyPropertyInfo();
+            primarKeyValue.SetValue(entity, value);
+        }
 
-
-            var keys = _keys.GetOrAdd(entity, GetKeyPropertyMembers());
+        private PropertyInfo GetPrimaryKeyPropertyInfo()
+        {
+            var keys = _container.GetKeys<TEntity>();
             var primarKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
-            var properies = _properties.GetOrAdd(entity, GetKeyPropertyInfo(entity, keys));
+            var properies = _container.GetProperties<TEntity>();
             if (keys == null || primarKeyName == null || properies == null)
             {
-                throw new NoPkException("There is no primary ket for this entity, please create your logic or add a key attribute to the entity");
+                throw new NoPkException(
+                    "There is no primary ket for this entity, please create your logic or add a key attribute to the entity");
             }
-            var primarKeyValue = entity.GetType().GetProperties().FirstOrDefault(property => property.Name.Equals(primarKeyName, StringComparison.Ordinal));
-            primarKeyValue.SetValue(entity, value);
+            var primarKeyValue =
+                properies.FirstOrDefault(property => property.Name.Equals(primarKeyName, StringComparison.Ordinal));
+            return primarKeyValue;
         }
 
         protected TEntity CreateEntityAndSetKeyValue(TPk key)
@@ -100,21 +89,6 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             var entity = CreateInstanceHelper.Resolve<TEntity>();
             SetPrimaryKeyValue(entity, key);
             return entity;
-        }
-
-        protected bool IsIEntity()
-        {
-            return _isIEntity.GetOrAdd(typeof(TEntity), typeof(TEntity).GetInterfaces().Any(x => x == typeof(IEntity<TPk>)));
-        }
-
-        private static IEnumerable<PropertyInfo> GetKeyPropertyInfo(TEntity entity, PropertyMapping[] keys)
-        {
-            return entity.GetType().GetProperties().Where(property => keys.Any(key => property.Name.Equals(key.PropertyName, StringComparison.Ordinal)));
-        }
-
-        private static PropertyMapping[] GetKeyPropertyMembers()
-        {
-            return OrmConfiguration.GetDefaultEntityMapping<TEntity>().GetProperties(PropertyMappingOptions.KeyProperty);
         }
     }
 }
