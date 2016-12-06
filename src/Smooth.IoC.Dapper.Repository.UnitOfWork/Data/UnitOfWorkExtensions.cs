@@ -9,10 +9,10 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
     public static class UnitOfWorkExtensions
     {
-        private static readonly SqlDialectInstance DialogueHelper = SqlDialectInstance.Instance;
+        private static readonly SqlDialectHelper DialogueHelper = new SqlDialectHelper();
 
         public static int BulkDelete<TEntity>(this IUnitOfWork uow,
-            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class 
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ? 
@@ -20,7 +20,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
                 uow.Connection.BulkDelete<TEntity>(statement=>statement.AttachToTransaction(uow.Transaction));
         }
 
-        public static int BulkDelete<TEntity>(this IUnitOfWork uow, FormattableString whereClause, object parameters)
+        public static int BulkDelete<TEntity>(this IUnitOfWork uow, FormattableString whereClause, object parameters) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return uow.Connection.BulkDelete<TEntity>(statement =>
@@ -32,7 +32,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<int> BulkDeleteAsync<TEntity>(this IUnitOfWork uow,
-            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -40,7 +40,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
                 uow.Connection.BulkDeleteAsync<TEntity>(statement => statement.AttachToTransaction(uow.Transaction));
         }
 
-        public static Task<int> BulkDeleteAsync<TEntity>(this IUnitOfWork uow, FormattableString whereClause, object parameters)
+        public static Task<int> BulkDeleteAsync<TEntity>(this IUnitOfWork uow, FormattableString whereClause, object parameters) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return uow.Connection.BulkDeleteAsync<TEntity>(statement =>
@@ -52,7 +52,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static int BulkUpdate<TEntity>(this IUnitOfWork uow, TEntity updateData,
-            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -61,7 +61,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<int> BulkUpdateAsync<TEntity>(this IUnitOfWork uow, TEntity updateData,
-            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -70,7 +70,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static int Count<TEntity>(this IUnitOfWork uow,
-            Action<IConditionalSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IConditionalSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -79,7 +79,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<int> CountAsync<TEntity>(this IUnitOfWork uow,
-            Action<IConditionalSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IConditionalSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -88,7 +88,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static bool Delete<TEntity>(this IUnitOfWork uow, TEntity entityToDelete,
-            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -97,7 +97,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<bool> DeleteAsync<TEntity>(this IUnitOfWork uow, TEntity entityToDelete,
-            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -106,7 +106,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static IEnumerable<TEntity> Find<TEntity>(this IUnitOfWork uow,
-            Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -115,7 +115,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<IEnumerable<TEntity>> FindAsync<TEntity>(this IUnitOfWork uow,
-            Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -124,7 +124,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static TEntity Get<TEntity>(this IUnitOfWork uow, TEntity entityKeys,
-            Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -133,7 +133,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<TEntity> GetAsync<TEntity>(this IUnitOfWork uow, TEntity entityKeys,
-            Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -142,7 +142,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static void Insert<TEntity>(this IUnitOfWork uow, TEntity entityToInsert,
-            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             if (statementOptions != null)
@@ -154,7 +154,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task InsertAsync<TEntity>(this IUnitOfWork uow, TEntity entityToInsert,
-            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ? 
@@ -163,7 +163,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static bool Update<TEntity>(this IUnitOfWork uow, TEntity entityToUpdate,
-            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?
@@ -172,7 +172,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
 
         public static Task<bool> UpdateAsync<TEntity>(this IUnitOfWork uow, TEntity entityToUpdate,
-            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null)
+            Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(uow.SqlDialect);
             return statementOptions != null ?

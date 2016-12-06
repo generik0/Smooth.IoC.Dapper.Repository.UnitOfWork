@@ -16,7 +16,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         [Test]
         public static void SetDialogueIfNeeded_AddsMappedIsFroozenToDictionary()
         {
-            var target = SqlDialectInstance.Instance;
+            var target = new SqlDialectHelper();
             target.SetDialogueIfNeeded<Brave>(SqlDialect.SqLite);
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
@@ -28,7 +28,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         {
             var repo = new BraveRepository(Factory);
             repo.GetKey<ITestSession>(1);
-            var target = SqlDialectInstance.Instance;
+            var target = new SqlDialectHelper();
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.True);
@@ -40,7 +40,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         {
             var repo = new BraveRepository(Factory);
             repo.GetKey<ITestSession>(1);
-            var target = SqlDialectInstance.Instance;
+            var target = new SqlDialectHelper();
             target.Reset();
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.False);
@@ -51,7 +51,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         {
             var connection = new TestSessionMemory(A.Fake<IDbFactory>());
             new MigrateDb(connection);
-            var target = SqlDialectInstance.Instance;
+            var target = new SqlDialectHelper();
             target.Reset();
             OrmConfiguration.RegisterEntity<Brave>();
             connection.Query("SELECT * FROM Braves");
@@ -66,7 +66,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             var connection = CreateSession(null);
             var sql = SqlInstance.Instance;
             connection.Query($"SELECT * FROM {sql.Table<Brave>(connection.SqlDialect)}");
-            var target = SqlDialectInstance.Instance;
+            var target = new SqlDialectHelper();
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.True);

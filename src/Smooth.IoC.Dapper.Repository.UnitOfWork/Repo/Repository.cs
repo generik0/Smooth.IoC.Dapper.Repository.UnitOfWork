@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Containers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;

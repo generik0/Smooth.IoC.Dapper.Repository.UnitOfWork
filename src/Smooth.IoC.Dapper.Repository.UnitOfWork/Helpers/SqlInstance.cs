@@ -11,6 +11,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
     {
         private static volatile SqlInstance _instance;
         private static readonly object SyncRoot = new object();
+        private readonly SqlDialectHelper _sqlDialectHelper = new SqlDialectHelper();
         private SqlInstance() { }
 
         public static SqlInstance Instance
@@ -27,22 +28,22 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
             }
         }
 
-        public IFormattable Column<TEntity>(SqlDialect sqlDialect, string propertyName, EntityMapping entityMappingOverride = null)
+        public IFormattable Column<TEntity>(SqlDialect sqlDialect, string propertyName, EntityMapping entityMappingOverride = null) where TEntity : class
         {
-            SqlDialectInstance.Instance.SetDialogueIfNeeded<TEntity>(sqlDialect);
+            _sqlDialectHelper.SetDialogueIfNeeded<TEntity>(sqlDialect);
             return Sql.Column<TEntity>(propertyName, entityMappingOverride);
         }
 
-        public IFormattable Table<TEntity>(SqlDialect sqlDialect, EntityMapping entityMappingOverride = null)
+        public IFormattable Table<TEntity>(SqlDialect sqlDialect, EntityMapping entityMappingOverride = null) where TEntity : class
         {
-            SqlDialectInstance.Instance.SetDialogueIfNeeded<TEntity>(sqlDialect);
+            _sqlDialectHelper.SetDialogueIfNeeded<TEntity>(sqlDialect);
             return Sql.Table<TEntity>(entityMappingOverride);
         }
 
         public IFormattable TableAndColumn<TEntity>(SqlDialect sqlDialect, string propertyName,
-            EntityMapping entityMappingOverride = null)
+            EntityMapping entityMappingOverride = null) where TEntity : class
         {
-            SqlDialectInstance.Instance.SetDialogueIfNeeded<TEntity>(sqlDialect);
+            _sqlDialectHelper.SetDialogueIfNeeded<TEntity>(sqlDialect);
             return Sql.TableAndColumn<TEntity>(propertyName, entityMappingOverride);
         }
 
