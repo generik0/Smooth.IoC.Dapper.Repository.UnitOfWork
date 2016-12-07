@@ -17,6 +17,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             _factory = factory;
         }
 
+        [Obsolete("Use will commit on disposal")]
         public void Commit()
         {
             if (Connection?.State == ConnectionState.Open)
