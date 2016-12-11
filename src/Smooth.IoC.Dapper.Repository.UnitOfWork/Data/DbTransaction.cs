@@ -8,6 +8,8 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         private readonly IDbFactory _factory;
         protected bool Disposed;
         protected ISession Session;
+        private bool _hasRolledBack;
+        private bool _hasCommitted;
         public IDbTransaction Transaction { get; set; }
         public IDbConnection Connection => Transaction.Connection;
         public IsolationLevel IsolationLevel => Transaction?.IsolationLevel ?? IsolationLevel.Unspecified;
@@ -20,17 +22,19 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         [Obsolete("Use will commit on disposal")]
         public void Commit()
         {
-            if (Connection?.State == ConnectionState.Open)
+            if (Connection?.State == ConnectionState.Open && !_transactionCompleted)
             {
                 Transaction?.Commit();
+                _hasCommitted = true;
             }
         }
 
         public void Rollback()
         {
-            if (Connection?.State == ConnectionState.Open)
+            if (Connection?.State == ConnectionState.Open && !_transactionCompleted)
             {
                 Transaction?.Rollback();
+                _hasRolledBack = true;
             }
         }
 
@@ -79,5 +83,6 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             Session?.Dispose();
             Session = null;
         }
+        private bool _transactionCompleted => _hasCommitted || _hasRolledBack;
     }
 }
