@@ -46,6 +46,7 @@
     "dotConnect.Express.for.PostgreSQL": "7.6.763",
     "dotnet-test-nunit": "3.4.0-beta-3",
     "FakeItEasy": "2.3.1",
+    "FluentAssertions": "4.18.0",
     "Microsoft.CodeAnalysis.CSharp": "1.3.2",
     "MySql.Data": "6.9.9",
     "Ninject.Extensions.Conventions": "3.2.0",
