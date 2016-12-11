@@ -49,12 +49,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         public IDbCommand CreateCommand()
         {
+            InsureConnection();
             return Connection.CreateCommand();
         }
 
         public void Open()
         {
-            if (Connection?.State != ConnectionState.Open)
+            if (!Disposed && Connection?.State != ConnectionState.Open)
             {
                 Connection?.Open();
             }
