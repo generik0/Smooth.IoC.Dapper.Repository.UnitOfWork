@@ -11,7 +11,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         public IsolationLevel IsolationLevel { get; }
         protected bool Disposed;
 
-        public DbConnection(IDbFactory factory)
+        protected DbConnection(IDbFactory factory)
         {
             _factory = factory;
         }
@@ -31,10 +31,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         }
         private void InsureConnection()
         {
-            if (Connection.State != ConnectionState.Open)
-            {
-                Connection.Open();
-            }
+            Open();
         }
 
         public void Close()
