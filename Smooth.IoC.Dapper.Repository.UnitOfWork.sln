@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C08F9BD6-CCD6-4BC3-955F-6EE14DE3C8E5}"
 	ProjectSection(SolutionItems) = preProject
 		build\Build.Locally.ps1 = build\Build.Locally.ps1
+		global.json = global.json
 		build\MyGet.Build.ps1 = build\MyGet.Build.ps1
 		build\MyGet.include.ps1 = build\MyGet.include.ps1
 		build\MyGet.ps1 = build\MyGet.ps1

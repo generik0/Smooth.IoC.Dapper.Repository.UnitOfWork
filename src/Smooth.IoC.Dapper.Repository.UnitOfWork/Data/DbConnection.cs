@@ -16,14 +16,25 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
             _factory = factory;
         }
 
+        [Obsolete("Please use UnitOfWork")]
         public IDbTransaction BeginTransaction()
         {
+            InsureConnection();
             return BeginTransaction(IsolationLevel.Serializable);
         }
 
+        [Obsolete("Please use UnitOfWork")]
         public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
+            InsureConnection();
             return   Connection?.BeginTransaction(isolationLevel);
+        }
+        private void InsureConnection()
+        {
+            if (Connection.State != ConnectionState.Open)
+            {
+                Connection.Open();
+            }
         }
 
         public void Close()
