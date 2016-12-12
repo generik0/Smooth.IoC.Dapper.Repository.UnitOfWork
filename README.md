@@ -80,7 +80,8 @@ All of the repository and UoW pattern examples i could find online did not inclu
 Basically something didn't seam to fix with the typical UoW and Repository patterns together with IoC.  
 I also found that injecting a simple factory that could create simple IDbConnections and IDbTransactions was not good enough. Because more intelegence/help was needed.
 Hence the IDbFactory, ISession, IUnitOfWork, IRepository interfaces and logic was born...  
-At the same time it is very important that it be possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).
+At the same time it is very important that it be possible to use one connection for production code and another for unit testing (e.g. MsSql for production and Sqlite for testing).  
+* Please note, that SqlLite only accepts IsolationLevel.Serializable for the uow. You will need to override the default IsolationLevel.RepeatableRead.
 This design allows for this. As your custom session interface is used as the generic for the repository, not the session class allowing for different connection strings. 
 You can even use the same database migrations if you have done code first. I have used [SimpleMigrations](https://github.com/canton7/Simple.Migrations) as it allows both console running for the production code / installer and inproc for unit testing.
 
