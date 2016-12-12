@@ -531,6 +531,8 @@ Constructor with 3 parameters is always called.
 	- Add IComparable constraint to TPk (0.3.5)
 	- Bug fixes and improved the collections not to be static (0.3.8)
 	- For Asp.Net constructor injection of session insured that a uow in session or command reopened the connection if it is closed. (0.3.9)
+	- Made UnitofWork default to IsolationLevel.RepeatableRead instead of IsolationLevel.Serializable (0.3.15)
+	- Made all repository methods be virtual so the can be overriden. (0.3.15)
 - 0.4.x (In Progres)
 	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
     - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (In Progress)
