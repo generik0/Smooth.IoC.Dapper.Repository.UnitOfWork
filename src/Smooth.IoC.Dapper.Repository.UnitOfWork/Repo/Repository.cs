@@ -13,7 +13,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TPk : IComparable 
     {
         private readonly RepositoryContainer _container = RepositoryContainer.Instance;
-
+        
         protected SqlInstance Sql { get; } = SqlInstance.Instance;
 
         protected Repository(IDbFactory factory) : base(factory)
@@ -90,6 +90,18 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             var entity = CreateInstanceHelper.Resolve<TEntity>();
             SetPrimaryKeyValue(entity, key);
             return entity;
+        }
+
+        protected void SetDialogue<T>(IUnitOfWork uow) where T : class
+        {
+            var helper = new SqlDialectHelper();
+            helper.SetDialogueIfNeeded<T>(uow.SqlDialect);
+        }
+
+        protected void SetDialogue<T>(ISession session) where T : class
+        {
+            var helper = new SqlDialectHelper();
+            helper.SetDialogueIfNeeded<T>(session.SqlDialect);
         }
     }
 }
