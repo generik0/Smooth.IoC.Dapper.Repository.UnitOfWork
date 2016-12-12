@@ -92,13 +92,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return entity;
         }
 
-        protected void SetDialogue<T>(IUnitOfWork uow) where T : class
+        protected void SetDialogueOnce<T>(IUnitOfWork uow) where T : class
         {
             var helper = new SqlDialectHelper();
             helper.SetDialogueIfNeeded<T>(uow.SqlDialect);
         }
 
-        protected void SetDialogue<T>(ISession session) where T : class
+        protected void SetDialogueOnce<T>(ISession session) where T : class
         {
             var helper = new SqlDialectHelper();
             helper.SetDialogueIfNeeded<T>(session.SqlDialect);
