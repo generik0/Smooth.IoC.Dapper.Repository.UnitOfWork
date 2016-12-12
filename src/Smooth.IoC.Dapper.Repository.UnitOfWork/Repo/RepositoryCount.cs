@@ -8,16 +8,16 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class
         where TPk : IComparable 
     {
-        public int Count(ISession session)
+        public virtual int Count(ISession session)
         {
             return session.Count<TEntity>();
         }
-        public int Count(IUnitOfWork uow)
+        public virtual int Count(IUnitOfWork uow)
         {
             return uow.Count<TEntity>();
         }
 
-        public int Count<TSesssion>() where TSesssion : class, ISession
+        public virtual int Count<TSesssion>() where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
@@ -25,17 +25,17 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public async Task<int> CountAsync(ISession session)
+        public virtual async Task<int> CountAsync(ISession session)
         {
             return await session.CountAsync<TEntity>();
         }
 
-        public async Task<int> CountAsync(IUnitOfWork uow)
+        public virtual async Task<int> CountAsync(IUnitOfWork uow)
         {
             return await uow.CountAsync<TEntity>();
         }
 
-        public Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession
+        public virtual Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {

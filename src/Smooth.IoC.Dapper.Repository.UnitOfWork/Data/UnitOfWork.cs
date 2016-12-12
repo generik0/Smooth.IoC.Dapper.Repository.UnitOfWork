@@ -11,7 +11,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         private readonly Guid _guid = Guid.NewGuid();
         
         public UnitOfWork(IDbFactory factory, ISession session, 
-            IsolationLevel isolationLevel = IsolationLevel.Serializable, bool sessionOnlyForThisUnitOfWork = false) : base(factory)
+            IsolationLevel isolationLevel = IsolationLevel.RepeatableRead, bool sessionOnlyForThisUnitOfWork = false) : base(factory)
         {
             if (sessionOnlyForThisUnitOfWork)
             {

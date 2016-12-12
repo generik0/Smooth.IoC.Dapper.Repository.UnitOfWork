@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Data;
+using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
@@ -16,7 +17,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
 
             Assert.DoesNotThrow(() =>
             {
-                using (var uow = Connection.UnitOfWork())
+                using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
                 {
                     result = repo.DeleteKey(expected, uow);
                     resultBrave = repo.GetKey(expected, uow);
@@ -38,7 +39,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
 
             Assert.DoesNotThrowAsync(async () =>
                 {
-                    using (var uow = Connection.UnitOfWork())
+                    using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
                     {
                         result = await repo.DeleteKeyAsync(expected, uow);
                         resultBrave = await repo.GetKeyAsync(expected, uow);
@@ -97,7 +98,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
 
             Assert.DoesNotThrow( () =>
             {
-                using (var uow = Connection.UnitOfWork())
+                using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
                 {
                     result = repo.Delete(expected, uow);
                     resultBrave = repo.Get(expected, uow);
@@ -119,7 +120,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
 
             Assert.DoesNotThrowAsync(async () =>
                 {
-                    using (var uow = Connection.UnitOfWork())
+                    using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
                     {
                         result = await repo.DeleteAsync(expected, uow);
                         resultBrave = await repo.GetAsync(expected, uow);

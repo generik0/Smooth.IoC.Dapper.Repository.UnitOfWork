@@ -22,7 +22,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return primaryKeyValue != null ? primaryKeyValue : default(TPk);
         }
 
-        public TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
@@ -30,7 +30,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public async Task<TEntity> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
+        public virtual async Task<TEntity> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
         {
             if (TryAllKeysDefault(entity))
             {
@@ -43,7 +43,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return entity;
         }
 
-        public Task<TEntity> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual Task<TEntity> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {

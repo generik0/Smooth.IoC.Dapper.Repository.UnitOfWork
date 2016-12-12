@@ -8,19 +8,19 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TEntity : class
         where TPk : IComparable 
     {
-        public bool DeleteKey(TPk key, ISession session)
+        public virtual bool DeleteKey(TPk key, ISession session)
         {
             var entity = CreateEntityAndSetKeyValue(key);
             return session.Delete(entity);
         }
 
-        public bool DeleteKey(TPk key, IUnitOfWork uow)
+        public virtual bool DeleteKey(TPk key, IUnitOfWork uow)
         {
             var entity = CreateEntityAndSetKeyValue(key);
             return uow.Delete(entity);
         }
 
-        public bool DeleteKey<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual bool DeleteKey<TSesssion>(TPk key) where TSesssion : class, ISession
         {
             var entity = CreateEntityAndSetKeyValue(key);
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
@@ -29,19 +29,19 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public Task<bool>  DeleteKeyAsync(TPk key, ISession session)
+        public virtual Task<bool>  DeleteKeyAsync(TPk key, ISession session)
         {
             var entity = CreateEntityAndSetKeyValue(key);
             return session.DeleteAsync(entity);
         }
 
-        public Task<bool>  DeleteKeyAsync(TPk key, IUnitOfWork uow)
+        public virtual Task<bool>  DeleteKeyAsync(TPk key, IUnitOfWork uow)
         {
             var entity = CreateEntityAndSetKeyValue(key);
             return uow.DeleteAsync(entity);
         }
 
-        public Task<bool>  DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual Task<bool>  DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
         {
             var entity = CreateEntityAndSetKeyValue(key);
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
@@ -50,17 +50,17 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public bool Delete(TEntity entity, ISession session)
+        public virtual bool Delete(TEntity entity, ISession session)
         {
             return session.Delete(entity);
         }
 
-        public bool Delete(TEntity entity, IUnitOfWork uow)
+        public virtual bool Delete(TEntity entity, IUnitOfWork uow)
         {
             return uow.Delete(entity);
         }
 
-        public bool Delete<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual bool Delete<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
@@ -68,17 +68,17 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public Task<bool> DeleteAsync(TEntity entity, ISession session)
+        public virtual Task<bool> DeleteAsync(TEntity entity, ISession session)
         {
             return session.DeleteAsync(entity);
         }
 
-        public Task<bool> DeleteAsync(TEntity entity, IUnitOfWork uow)
+        public virtual Task<bool> DeleteAsync(TEntity entity, IUnitOfWork uow)
         {
             return uow.DeleteAsync(entity);
         }
 
-        public Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {

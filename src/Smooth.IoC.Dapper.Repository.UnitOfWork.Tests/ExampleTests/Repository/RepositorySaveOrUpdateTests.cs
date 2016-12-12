@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data;
+using System.Linq;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 
@@ -17,7 +18,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             };
             var result = 0;
             int maxId;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 maxId = repo.GetAll(uow).Max(x => x.Id);
                 Assert.DoesNotThrow(() => result = repo.SaveOrUpdate(expected, uow));
@@ -49,7 +50,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             };
             Brave result = null;
             int maxId;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
                 Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync(expected, uow));
@@ -80,7 +81,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var resultId = 0;
 
             New original=null;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 var expected = repo.GetWithJoins(expectedId, Connection);
                 original = expected.New;
@@ -118,7 +119,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var resultId = 0;
 
             int? oridinalId;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 var expected = repo.GetKey(expectedId, uow);
                 oridinalId = expected.WorldId;
@@ -139,7 +140,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             Brave result = null;
 
             New original = null;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 var expected = repo.GetWithJoins(expectedId, Connection);
                 original = expected.New;
