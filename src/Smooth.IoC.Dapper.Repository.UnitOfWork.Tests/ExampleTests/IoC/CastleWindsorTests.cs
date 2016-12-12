@@ -58,7 +58,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
             using (var session = dbFactory.Create<ITestSession>())
             {
                 IUnitOfWork uow = null;
-                Assert.DoesNotThrow(()=> uow = session.UnitOfWork());
+                Assert.DoesNotThrow(()=> uow = session.UnitOfWork(IsolationLevel.Serializable));
                 Assert.That(uow, Is.Not.Null);
             }
         }
@@ -70,7 +70,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
             using (var session = dbFactory.Create<ITestSession>())
             {
                 Assert.That(session.SqlDialect== SqlDialect.SqLite);
-                var uow = session.UnitOfWork();
+                var uow = session.UnitOfWork(IsolationLevel.Serializable);
                 Assert.That(uow.SqlDialect == SqlDialect.SqLite);
             }
         }
@@ -81,7 +81,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
             var dbFactory = _container.Resolve<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
-                using (var uow = session.UnitOfWork())
+                using (var uow = session.UnitOfWork(IsolationLevel.Serializable))
                 {
                     Assert.That(uow.Connection, Is.EqualTo(session.Connection));
                 }

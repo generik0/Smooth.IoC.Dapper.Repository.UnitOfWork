@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Data;
+using FluentAssertions;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
@@ -14,7 +15,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             var repo = new BraveRepository(Factory);
             Assert.DoesNotThrow(() =>
             {
-                using (var uow = Connection.UnitOfWork())
+                using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
                 {
                     var result = repo.SaveOrUpdate(new Brave {NewId = 3}, uow);
                     result.Should().BePositive();

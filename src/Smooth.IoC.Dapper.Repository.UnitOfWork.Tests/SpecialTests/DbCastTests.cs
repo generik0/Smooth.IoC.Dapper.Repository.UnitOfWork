@@ -30,14 +30,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             var factory = A.Fake<IDbFactory>();
             var session = new TestSessionMemory(factory);
 
-            using (var uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session))
+            using (var uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session, IsolationLevel.Serializable))
             {
                 Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
                 var transaction = (IDbTransaction)uow;
                 Assert.That(transaction.Connection.State, Is.EqualTo(ConnectionState.Open));
             }
 
-            using (IDbTransaction uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session))
+            using (IDbTransaction uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session, IsolationLevel.Serializable))
             {
                 Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
             }

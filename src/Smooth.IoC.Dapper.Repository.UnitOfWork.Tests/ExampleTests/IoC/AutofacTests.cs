@@ -50,7 +50,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
             using (var session = dbFactory.Create<ITestSession>())
             {
                 IUnitOfWork uow = null;
-                Assert.DoesNotThrow(()=> uow = session.UnitOfWork());
+                Assert.DoesNotThrow(()=> uow = session.UnitOfWork(IsolationLevel.Serializable));
                 Assert.That(uow, Is.Not.Null);
             }
         }

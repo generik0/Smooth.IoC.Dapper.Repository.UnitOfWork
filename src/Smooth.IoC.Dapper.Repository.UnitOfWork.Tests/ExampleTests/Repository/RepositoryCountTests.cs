@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Data;
+using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
@@ -19,7 +20,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new BraveRepository(Factory);
             var result = 0;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 Assert.DoesNotThrow(() => result = repo.Count(uow));
                 Assert.That(result, Is.Positive);
@@ -48,7 +49,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new BraveRepository(Factory);
             var result = 0;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 Assert.DoesNotThrowAsync(async () => result = await repo.CountAsync(uow));
                 Assert.That(result, Is.Positive);

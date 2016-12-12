@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using NUnit.Framework;
 using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
@@ -35,7 +36,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new BraveRepository(Factory);
             IEnumerable<Brave> results = null;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 Assert.DoesNotThrow(() => results = repo.GetAll(uow));
             }
@@ -49,7 +50,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new NewRepository(Factory);
             IEnumerable<New> results = null;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 Assert.DoesNotThrow(() => results = repo.GetAll(uow));
             }
@@ -86,7 +87,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
         {
             var repo = new BraveRepository(Factory);
             IEnumerable<Brave> results = null;
-            using (var uow = Connection.UnitOfWork())
+            using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 Assert.DoesNotThrowAsync(async () => results = await repo.GetAllAsync(uow));
             }

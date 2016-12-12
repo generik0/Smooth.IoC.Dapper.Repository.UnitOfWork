@@ -48,7 +48,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 
         private static IUnitOfWork CreateUnitOrWork(IFakeObjectCall arg)
         {
-            return new Dapper.Repository.UnitOfWork.Data.UnitOfWork((IDbFactory)arg.FakedObject, CreateSession(null));
+            return new Dapper.Repository.UnitOfWork.Data.UnitOfWork((IDbFactory)arg.FakedObject, CreateSession(null), IsolationLevel.Serializable);
         }
     }
 }
