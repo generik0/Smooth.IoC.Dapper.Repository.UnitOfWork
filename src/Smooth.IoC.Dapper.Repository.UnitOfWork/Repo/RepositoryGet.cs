@@ -11,7 +11,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TPk : IComparable 
     {
         
-        public TEntity GetKey(TPk key, ISession session)
+        public virtual TEntity GetKey(TPk key, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -22,7 +22,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return session.Get(entity);
         }
 
-        public TEntity GetKey<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual TEntity GetKey<TSesssion>(TPk key) where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
@@ -30,7 +30,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public TEntity GetKey(TPk key, IUnitOfWork uow)
+        public virtual TEntity GetKey(TPk key, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -41,7 +41,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return uow.Get(entity);
         }
 
-        public async Task<TEntity> GetKeyAsync(TPk key, ISession session)
+        public virtual async Task<TEntity> GetKeyAsync(TPk key, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -52,7 +52,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return await GetAsync(entity, session);
         }
 
-        public Task<TEntity> GetKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual Task<TEntity> GetKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
@@ -60,7 +60,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public async Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
+        public virtual async Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -71,7 +71,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return await uow.GetAsync(entity);
         }
 
-        public TEntity Get(TEntity entity, ISession session) 
+        public virtual TEntity Get(TEntity entity, ISession session) 
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -81,7 +81,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return session.Get(entity);
         }
 
-        public TEntity Get<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual TEntity Get<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
@@ -89,7 +89,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public TEntity Get(TEntity entity, IUnitOfWork uow)
+        public virtual TEntity Get(TEntity entity, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -99,7 +99,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return uow.Get(entity);
         }
 
-        public async Task<TEntity> GetAsync(TEntity entity, ISession session)
+        public virtual async Task<TEntity> GetAsync(TEntity entity, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -109,7 +109,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return await session.GetAsync(entity);
         }
 
-        public async Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
+        public virtual async Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
@@ -119,7 +119,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return await uow.GetAsync(entity);
         }
 
-        public Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
