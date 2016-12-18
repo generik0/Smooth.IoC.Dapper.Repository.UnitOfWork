@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using System.Data;
+using System.Data.SQLite;
+using System.Reflection;
 using SimpleMigrations;
-using SimpleMigrations.VersionProvider;
+using SimpleMigrations.DatabaseProvider;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations
@@ -10,10 +12,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Mig
         public MigrateDb(ISession connection)
         {
             var migrationsAssembly = Assembly.GetExecutingAssembly();
-            var versionProvider = new SqliteVersionProvider();
-            var migrator = new SimpleMigrator(migrationsAssembly, connection, versionProvider);
+            var migrator = new SimpleMigrator(migrationsAssembly, new SqliteDatabaseProvider(connection.Connection as SQLiteConnection));
             migrator.Load();
             migrator.MigrateToLatest();
         }
     }
+
+
 }
