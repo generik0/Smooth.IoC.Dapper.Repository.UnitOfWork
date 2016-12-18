@@ -8,7 +8,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Mig
     {
         public override void Up()
         {
-            if (!DB.ConnectionString.Contains("RepoTests.db")) return;
+            if (!DB.ConnectionString.Contains("RepoTests.db") && !DB.ConnectionString.Contains(":memory:;")) return;
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");

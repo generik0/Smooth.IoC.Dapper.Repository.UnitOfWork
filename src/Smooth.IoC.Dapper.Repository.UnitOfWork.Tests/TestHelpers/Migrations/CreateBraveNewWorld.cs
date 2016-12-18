@@ -7,7 +7,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Mig
     {
         public override void Up()
         {
-            if (!DB.ConnectionString.Contains("RepoTests.db") || !DB.ConnectionString.Contains(":memory:;")) return;
+            if (!DB.ConnectionString.Contains("RepoTests.db") && !DB.ConnectionString.Contains(":memory:;")) return;
             Execute(@"CREATE TABLE Braves (Id INTEGER NOT NULL PRIMARY KEY, NewId INTEGER NOT NULL);");
             Execute(@"CREATE TABLE News (Key INTEGER NOT NULL PRIMARY KEY, WorldId INTEGER NOT NULL);");
             Execute(@"CREATE TABLE Worlds (Id INTEGER NOT NULL PRIMARY KEY, Guid TEXT NOT NULL);");
