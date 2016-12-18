@@ -35,7 +35,7 @@
   },
   "scripts": {
     "postcompile": [
-    ] /* not working properly on myget: "dotnet pack --no-build --output ..\\Releases" */
+    ] 
   },
   "description": "The smoothest IoC Dapper Repository and UnitOfWork factory using Castle. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
@@ -43,21 +43,22 @@
   },
   "dependencies": {
     "Autofac": "4.2.1",
-    "dotConnect.Express.for.PostgreSQL": "7.6.763",
+    "dotConnect.Express.for.PostgreSQL": "7.7.794",
     "dotnet-test-nunit": "3.4.0-beta-3",
-    "FakeItEasy": "2.3.1",
+    "FakeItEasy": "2.3.2",
     "FluentAssertions": "4.18.0",
     "Microsoft.CodeAnalysis.CSharp": "1.3.2",
+    "Microsoft.SqlServer.Compact": "4.0.8876.1",
     "MySql.Data": "6.9.9",
     "Ninject.Extensions.Conventions": "3.2.0",
     "Ninject.Extensions.Factory": "3.2.1",
     "Ninject.Extensions.Interception": "3.2.0",
     "NUnit": "3.5.0",
-    "Simple.Migrations": "0.9.6",
-    "SimpleInjector": "3.3.1",
+    "Simple.Migrations": "0.9.8",
+    "SimpleInjector": "3.3.2",
     "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0-*",
     "StructureMap": "4.4.2",
-    "System.Data.SQLite.Core": "1.0.103",
+    "System.Data.SQLite.Core": "1.0.104",
     "Unity": "4.0.1"
   }
 }
