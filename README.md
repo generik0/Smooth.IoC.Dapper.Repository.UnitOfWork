@@ -63,6 +63,7 @@ the package. This insures that the dialogue is set correct, if needed. This mean
 * If you want your entity to span across more than one database, you can use the RepositoryBase to extend from bypassing the Repository abstraction.
 * I have created a SqlDialectInstance (Singleton) expert that can help you set the dialogue. Please use it if you have issues with your session and sql dialect.
 * I have created a SqlHelper, that insures FastCRUD's SqlDialect is set if you decide you need a FastCRUD "Sql" helper method. Please use my SqlHelper otherwise your SqlDialect might be frozen. It is available for Repositories as "Sql" a proctected property.
+* **TA dialogue helper is also available in your repository through "SetDialogueOnce" method. You will need to use it for joins..** 
 (Hint: if your dialogue gets stuck in the wrong state you can "reset" the FastCRUD mapping using OrmConfiguration.RegisterEntity<YouEnity>();)
 
 
