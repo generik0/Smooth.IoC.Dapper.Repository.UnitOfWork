@@ -13,11 +13,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TPk : IComparable 
     {
         private readonly RepositoryContainer _container = RepositoryContainer.Instance;
-        
+        private readonly SqlDialectHelper _helper;
+
         protected SqlInstance Sql { get; } = SqlInstance.Instance;
 
         protected Repository(IDbFactory factory) : base(factory)
         {
+            _helper = new SqlDialectHelper();
         }
 
         protected bool TryAllKeysDefault(TEntity entity)
@@ -39,7 +41,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                     "There is no keys for this entity, please create your logic or add a key attribute to the entity");
             }
             return properies.Select(property => property.GetValue(entity))
-                .All(value => value == null || value.Equals(0));
+                .All(value => value == null ||  value.Equals(default(TPk)));
         }
 
         protected TPk GetPrimaryKeyValue(TEntity entity)
@@ -92,16 +94,14 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return entity;
         }
 
-        protected void SetDialogue<T>(IUnitOfWork uow) where T : class
+        protected void SetDialogueOnce<T>(IUnitOfWork uow) where T : class
         {
-            var helper = new SqlDialectHelper();
-            helper.SetDialogueIfNeeded<T>(uow.SqlDialect);
+            _helper.SetDialogueIfNeeded<T>(uow.SqlDialect);
         }
 
-        protected void SetDialogue<T>(ISession session) where T : class
+        protected void SetDialogueOnce<T>(ISession session) where T : class
         {
-            var helper = new SqlDialectHelper();
-            helper.SetDialogueIfNeeded<T>(session.SqlDialect);
+            _helper.SetDialogueIfNeeded<T>(session.SqlDialect);
         }
     }
 }

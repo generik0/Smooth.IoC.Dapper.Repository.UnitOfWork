@@ -56,7 +56,7 @@
   },
   "scripts": {
     "postcompile": [
-    ] /* not working properly on myget: "dotnet pack --no-build --output ..\\Releases" */
+    ] 
   },
   "description": "The smoothest IoC Dapper Repository and UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
