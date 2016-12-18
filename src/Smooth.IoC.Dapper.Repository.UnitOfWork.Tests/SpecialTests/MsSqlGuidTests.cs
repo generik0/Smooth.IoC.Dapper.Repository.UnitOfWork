@@ -12,6 +12,7 @@ using System.Linq;
 using Dapper;
 using FluentAssertions;
 using SimpleMigrations.DatabaseProvider;
+using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Repo;
 
 namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
@@ -43,11 +44,11 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             TestSession.Insert(foo);
             var actual = TestSession.Find<FooGuidTest>();
             actual.Should().HaveCount(x => x > 0);
-            actual.First().id.Should().NotBe(new Guid());
+            actual.First().Id.Should().NotBe(new Guid());
         }
 
         [Test, Category("IntegrationMssqlCe"), Explicit]
-        public void SaveAndUpdate_Returns_dAsGuid()
+        public void SaveAndUpdate_Returns_AsGuid()
         {
             var foo = new FooGuidTest { Something = "bar 1" };
             TestSession.Execute("DELETE FROM FooGuidTest");
@@ -59,7 +60,23 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             }
             var actual = repo.GetAll(TestSession);
             actual.Should().HaveCount(x => x > 0);
-            actual.First().id.Should().NotBe(new Guid());
+            actual.First().Id.Should().NotBe(new Guid());
+        }
+
+        [Test, Category("IntegrationMssqlCe"), Explicit]
+        public void SaveAndUpdate_Returns_dAsGuidWhereEntityIsIEntity()
+        {
+            var foo = new FooGuidTestWithIEntiy { Something = "bar 1" };
+            TestSession.Execute("DELETE FROM FooGuidTestWithIEntiy");
+            var repo = new FooRepo2(A.Fake<IDbFactory>());
+
+            using (var uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(A.Fake<IDbFactory>(), TestSession))
+            {
+                repo.SaveOrUpdate(foo, uow);
+            }
+            var actual = repo.GetAll(TestSession);
+            actual.Should().HaveCount(x => x > 0);
+            actual.First().Id.Should().NotBe(new Guid());
         }
 
 
@@ -71,6 +88,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             {
                 if (!DB.ConnectionString.Contains(DbName)) return;
                 Execute(@"CREATE TABLE FooGuidTest (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
+                Execute(@"CREATE TABLE FooGuidTestWithIEntiy (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
             }
 
             public override void Down()
@@ -92,12 +110,29 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         {
             [Key]
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public Guid id { get; set; }
+            public Guid Id { get; set; }
 
             public string Something { get; set; }
-
         }
 
+
+        class FooRepo2 : Repository<FooGuidTestWithIEntiy, Guid>, IRepository<FooGuidTestWithIEntiy, Guid>
+        {
+            public FooRepo2(IDbFactory factory) : base(factory)
+            {
+            }
+        }
+
+        [Table("FooGuidTestWithIEntiy")]
+        class FooGuidTestWithIEntiy : IEntity<Guid>
+        {
+            [Key]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public Guid Id { get; set; }
+
+            public string Something { get; set; }
+            
+        }
 
         class TestSqlCeForGuid : Session<SqlConnection>, ITestSqlCeForGuid
         {
