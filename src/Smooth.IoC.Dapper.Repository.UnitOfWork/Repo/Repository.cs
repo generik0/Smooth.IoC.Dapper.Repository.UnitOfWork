@@ -41,7 +41,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
                     "There is no keys for this entity, please create your logic or add a key attribute to the entity");
             }
             return properies.Select(property => property.GetValue(entity))
-                .All(value => value == null || value.Equals(0));
+                .All(value => value == null ||  value.Equals(default(TPk)));
         }
 
         protected TPk GetPrimaryKeyValue(TEntity entity)
