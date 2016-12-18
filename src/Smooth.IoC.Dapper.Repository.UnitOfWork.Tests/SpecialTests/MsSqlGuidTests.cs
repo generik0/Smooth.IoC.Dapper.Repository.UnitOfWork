@@ -36,7 +36,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             
         }
 
-        [Test, Category("IntegrationMssqlCe"), Explicit]
+        [Test, Category("IntegrationMssqlCe"), Ignore("Needs SQL")]
         public void Insert_Returns_IdAsGuid()
         {
             var foo = new FooGuidTest {Something = "bar 1"};
@@ -47,7 +47,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             actual.First().Id.Should().NotBe(new Guid());
         }
 
-        [Test, Category("IntegrationMssqlCe"), Explicit]
+        [Test, Category("IntegrationMssqlCe"), Ignore("Needs SQL")]
         public void SaveAndUpdate_Returns_AsGuid()
         {
             var foo = new FooGuidTest { Something = "bar 1" };
@@ -63,7 +63,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             actual.First().Id.Should().NotBe(new Guid());
         }
 
-        [Test, Category("IntegrationMssqlCe"), Explicit]
+        [Test, Category("IntegrationMssqlCe"), Ignore("Needs SQL")]
         public void SaveAndUpdate_Returns_dAsGuidWhereEntityIsIEntity()
         {
             var foo = new FooGuidTestWithIEntiy { Something = "bar 1" };
