@@ -13,11 +13,13 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
         where TPk : IComparable 
     {
         private readonly RepositoryContainer _container = RepositoryContainer.Instance;
-        
+        private readonly SqlDialectHelper _helper;
+
         protected SqlInstance Sql { get; } = SqlInstance.Instance;
 
         protected Repository(IDbFactory factory) : base(factory)
         {
+            _helper = new SqlDialectHelper();
         }
 
         protected bool TryAllKeysDefault(TEntity entity)
@@ -94,14 +96,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
 
         protected void SetDialogueOnce<T>(IUnitOfWork uow) where T : class
         {
-            var helper = new SqlDialectHelper();
-            helper.SetDialogueIfNeeded<T>(uow.SqlDialect);
+            _helper.SetDialogueIfNeeded<T>(uow.SqlDialect);
         }
 
         protected void SetDialogueOnce<T>(ISession session) where T : class
         {
-            var helper = new SqlDialectHelper();
-            helper.SetDialogueIfNeeded<T>(session.SqlDialect);
+            _helper.SetDialogueIfNeeded<T>(session.SqlDialect);
         }
     }
 }
