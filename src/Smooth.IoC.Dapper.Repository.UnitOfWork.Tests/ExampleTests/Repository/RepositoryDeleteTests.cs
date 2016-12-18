@@ -35,7 +35,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Re
             var repo = new BraveRepository(Factory);
             var result = false;
             var expected = 2;
-            Brave resultBrave=new Brave();
+            var resultBrave=new Brave();
 
             Assert.DoesNotThrowAsync(async () =>
                 {
