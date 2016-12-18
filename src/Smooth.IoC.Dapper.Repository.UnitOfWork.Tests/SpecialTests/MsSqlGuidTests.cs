@@ -12,6 +12,7 @@ using System.Linq;
 using Dapper;
 using FluentAssertions;
 using SimpleMigrations.DatabaseProvider;
+using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
 using Smooth.IoC.Dapper.Repository.UnitOfWork.Repo;
 
@@ -134,6 +135,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             
         }
 
+        [NoIoCFluentRegistration]
         class TestSqlCeForGuid : Session<SqlConnection>, ITestSqlCeForGuid
         {
             public TestSqlCeForGuid(IDbFactory session)
