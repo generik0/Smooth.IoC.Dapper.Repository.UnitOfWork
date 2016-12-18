@@ -73,7 +73,7 @@
           "lib/net45/Dapper.FastCrud.dll": {}
         }
       },
-      "dotConnect.Express.for.PostgreSQL/7.6.763": {
+      "dotConnect.Express.for.PostgreSQL/7.7.794": {
         "type": "package",
         "compile": {
           "lib/Devart.Data.PostgreSql.dll": {},
@@ -99,7 +99,7 @@
           "lib/net451/dotnet-test-nunit.exe": {}
         }
       },
-      "FakeItEasy/2.3.1": {
+      "FakeItEasy/2.3.2": {
         "type": "package",
         "compile": {
           "lib/net40/FakeItEasy.dll": {}
@@ -258,6 +258,15 @@
         },
         "runtime": {
           "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.SqlServer.Compact/4.0.8876.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40/System.Data.SqlServerCe.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Data.SqlServerCe.dll": {}
         }
       },
       "MySql.Data/6.9.9": {
@@ -453,7 +462,7 @@
           "lib/net45/NUnit.Portable.Agent.dll": {}
         }
       },
-      "Simple.Migrations/0.9.6": {
+      "Simple.Migrations/0.9.8": {
         "type": "package",
         "frameworkAssemblies": [
           "System.Data"
@@ -465,7 +474,7 @@
           "lib/net45/Simple.Migrations.dll": {}
         }
       },
-      "SimpleInjector/3.3.1": {
+      "SimpleInjector/3.3.2": {
         "type": "package",
         "compile": {
           "lib/net45/SimpleInjector.dll": {}
@@ -514,7 +523,7 @@
           "lib/net451/System.Data.Common.dll": {}
         }
       },
-      "System.Data.SQLite.Core/1.0.103": {
+      "System.Data.SQLite.Core/1.0.104": {
         "type": "package",
         "compile": {
           "lib/net451/System.Data.SQLite.dll": {}
@@ -717,14 +726,14 @@
         "lib/netstandard1.6/Dapper.FastCrud.xml"
       ]
     },
-    "dotConnect.Express.for.PostgreSQL/7.6.763": {
-      "sha512": "8+wHL9BY6me9O01FFs+w/5tYkQD0bFhDnDacHi4zB8FBHIjjWsZ/oexwXEW7zX3XFe3BW6cVj7FSSph+KzJhbQ==",
+    "dotConnect.Express.for.PostgreSQL/7.7.794": {
+      "sha512": "BKjI001NT7UrBo1/xdUMa0+WZvMSxMD7jthBZ1GlITsKP1n8g4YJKVz4L/s6wJIE35j/T/W92pueD6MeYoDddw==",
       "type": "package",
-      "path": "dotConnect.Express.for.PostgreSQL/7.6.763",
+      "path": "dotConnect.Express.for.PostgreSQL/7.7.794",
       "files": [
         "content/app.config.transform",
         "content/web.config.transform",
-        "dotConnect.Express.for.PostgreSQL.7.6.763.nupkg.sha512",
+        "dotConnect.Express.for.PostgreSQL.7.7.794.nupkg.sha512",
         "dotConnect.Express.for.PostgreSQL.nuspec",
         "lib/Devart.Data.PostgreSql.dll",
         "lib/Devart.Data.dll"
@@ -742,12 +751,12 @@
         "lib/netcoreapp1.0/dotnet-test-nunit.runtimeconfig.json"
       ]
     },
-    "FakeItEasy/2.3.1": {
-      "sha512": "AcSzJDC2inc+uAicZCecVV0oQz5OUlzryBVndZnwE9ADNhMHfVqc56M+RIVdYnaeLtGPtgZYCPyZ8jbdeWPYmA==",
+    "FakeItEasy/2.3.2": {
+      "sha512": "fQZIfTHR7tAPfrrlPPZB//YIjQm298QrigcVQzZmAanj5DoK5tHHOeu9WCNlIgh/FeFY+355wqKu+RK2K3w/ZA==",
       "type": "package",
-      "path": "FakeItEasy/2.3.1",
+      "path": "FakeItEasy/2.3.2",
       "files": [
-        "FakeItEasy.2.3.1.nupkg.sha512",
+        "FakeItEasy.2.3.2.nupkg.sha512",
         "FakeItEasy.nuspec",
         "lib/net40/FakeItEasy.dll",
         "lib/net40/FakeItEasy.pdb",
@@ -983,6 +992,40 @@
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
         "runtime.json"
+      ]
+    },
+    "Microsoft.SqlServer.Compact/4.0.8876.1": {
+      "sha512": "CKh6YxPd7/FApB3y5/mZyqkTVKDkbYFUf/tbDAwHlKLrIKRlJ7/VPLMqHX0izl4B0Yey+qMIVo7izGTSi/9ang==",
+      "type": "package",
+      "path": "Microsoft.SqlServer.Compact/4.0.8876.1",
+      "files": [
+        "Content/web.config.transform",
+        "Microsoft.SqlServer.Compact.4.0.8876.1.nupkg.sha512",
+        "Microsoft.SqlServer.Compact.nuspec",
+        "NativeBinaries/amd64/Microsoft.VC90.CRT/Microsoft.VC90.CRT.manifest",
+        "NativeBinaries/amd64/Microsoft.VC90.CRT/README_ENU.txt",
+        "NativeBinaries/amd64/Microsoft.VC90.CRT/msvcr90.dll",
+        "NativeBinaries/amd64/sqlceca40.dll",
+        "NativeBinaries/amd64/sqlcecompact40.dll",
+        "NativeBinaries/amd64/sqlceer40EN.dll",
+        "NativeBinaries/amd64/sqlceme40.dll",
+        "NativeBinaries/amd64/sqlceqp40.dll",
+        "NativeBinaries/amd64/sqlcese40.dll",
+        "NativeBinaries/x86/Microsoft.VC90.CRT/Microsoft.VC90.CRT.manifest",
+        "NativeBinaries/x86/Microsoft.VC90.CRT/README_ENU.txt",
+        "NativeBinaries/x86/Microsoft.VC90.CRT/msvcr90.dll",
+        "NativeBinaries/x86/sqlceca40.dll",
+        "NativeBinaries/x86/sqlcecompact40.dll",
+        "NativeBinaries/x86/sqlceer40EN.dll",
+        "NativeBinaries/x86/sqlceme40.dll",
+        "NativeBinaries/x86/sqlceqp40.dll",
+        "NativeBinaries/x86/sqlcese40.dll",
+        "SQLCE_EULA_ENU.rtf",
+        "lib/net40/System.Data.SqlServerCe.dll",
+        "tools/Install.ps1",
+        "tools/Uninstall.ps1",
+        "tools/VS.psd1",
+        "tools/VS.psm1"
       ]
     },
     "MySql.Data/6.9.9": {
@@ -1255,13 +1298,15 @@
         "lib/netstandard1.3/NUnit.Portable.Agent.dll"
       ]
     },
-    "Simple.Migrations/0.9.6": {
-      "sha512": "gkV1QSZ4XkkgfAR6igOfwnF7xZabQo8TjjZHbXXgYiOjhHRcUO1hhCCJsWAksF66ipiI+E0Pn1bWsNfIwsLzDg==",
+    "Simple.Migrations/0.9.8": {
+      "sha512": "OBUe8TtDrbIFmDbv5ER0lF/OBQGpVN0RQXniMFBaGIiVsphVeUDSTBNqFc+nvFxxMFSXM1c+eKR9R7MeRQWNsA==",
       "type": "package",
-      "path": "Simple.Migrations/0.9.6",
+      "path": "Simple.Migrations/0.9.8",
       "files": [
-        "Simple.Migrations.0.9.6.nupkg.sha512",
+        "Simple.Migrations.0.9.8.nupkg.sha512",
         "Simple.Migrations.nuspec",
+        "lib/net40/Simple.Migrations.dll",
+        "lib/net40/Simple.Migrations.xml",
         "lib/net45/Simple.Migrations.dll",
         "lib/net45/Simple.Migrations.xml",
         "lib/netstandard1.2/Simple.Migrations.dll",
@@ -1270,12 +1315,12 @@
         "lib/netstandard1.3/Simple.Migrations.xml"
       ]
     },
-    "SimpleInjector/3.3.1": {
-      "sha512": "QuuLoIrmKvMlz3Lwnk6Ma5fCwc3PVXD1DCbMXAfaDQ2YOQkWlDEHyxNBEJPck7o4gfRYbFgHqs4SpgJDd/kGHg==",
+    "SimpleInjector/3.3.2": {
+      "sha512": "V7CPIh44KpkevYg93o+yAnQN/fNmvQnnEx/Y1aFGQ4cmU0evsU3qpw2ONEAdC9Av0i08twS730JL2MJgl02+Eg==",
       "type": "package",
-      "path": "SimpleInjector/3.3.1",
+      "path": "SimpleInjector/3.3.2",
       "files": [
-        "SimpleInjector.3.3.1.nupkg.sha512",
+        "SimpleInjector.3.3.2.nupkg.sha512",
         "SimpleInjector.nuspec",
         "lib/net40-client/SimpleInjector.dll",
         "lib/net40-client/SimpleInjector.xml",
@@ -1374,12 +1419,12 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.Data.SQLite.Core/1.0.103": {
-      "sha512": "m5IO4QvtNUQd7yAKVBzHrILEDF2lWo3V1U7Dc2WL7omntOiE/YD/E/SjtFO74vsC6tyTS/wFy62tSFA1Wa+uhA==",
+    "System.Data.SQLite.Core/1.0.104": {
+      "sha512": "PHOHhdY7vLy7J3GaNgFr6C42O3v4iKygp3On/7D1zO1TV9ag48rN0D2zYCtPc+gDpFEGXm28vA2OXsFbplFTVg==",
       "type": "package",
-      "path": "System.Data.SQLite.Core/1.0.103",
+      "path": "System.Data.SQLite.Core/1.0.104",
       "files": [
-        "System.Data.SQLite.Core.1.0.103.nupkg.sha512",
+        "System.Data.SQLite.Core.1.0.104.nupkg.sha512",
         "System.Data.SQLite.Core.nuspec",
         "build/net20/System.Data.SQLite.Core.targets",
         "build/net20/x64/SQLite.Interop.dll",
@@ -1397,14 +1442,19 @@
         "build/net46/x64/SQLite.Interop.dll",
         "build/net46/x86/SQLite.Interop.dll",
         "lib/net20/System.Data.SQLite.dll",
+        "lib/net20/System.Data.SQLite.dll.config",
         "lib/net20/System.Data.SQLite.xml",
         "lib/net40/System.Data.SQLite.dll",
+        "lib/net40/System.Data.SQLite.dll.config",
         "lib/net40/System.Data.SQLite.xml",
         "lib/net45/System.Data.SQLite.dll",
+        "lib/net45/System.Data.SQLite.dll.config",
         "lib/net45/System.Data.SQLite.xml",
         "lib/net451/System.Data.SQLite.dll",
+        "lib/net451/System.Data.SQLite.dll.config",
         "lib/net451/System.Data.SQLite.xml",
         "lib/net46/System.Data.SQLite.dll",
+        "lib/net46/System.Data.SQLite.dll.config",
         "lib/net46/System.Data.SQLite.xml"
       ]
     },
@@ -1703,21 +1753,22 @@
   "projectFileDependencyGroups": {
     "": [
       "Autofac >= 4.2.1",
-      "FakeItEasy >= 2.3.1",
+      "FakeItEasy >= 2.3.2",
       "FluentAssertions >= 4.18.0",
       "Microsoft.CodeAnalysis.CSharp >= 1.3.2",
+      "Microsoft.SqlServer.Compact >= 4.0.8876.1",
       "MySql.Data >= 6.9.9",
       "NUnit >= 3.5.0",
       "Ninject.Extensions.Conventions >= 3.2.0",
       "Ninject.Extensions.Factory >= 3.2.1",
       "Ninject.Extensions.Interception >= 3.2.0",
-      "Simple.Migrations >= 0.9.6",
-      "SimpleInjector >= 3.3.1",
+      "Simple.Migrations >= 0.9.8",
+      "SimpleInjector >= 3.3.2",
       "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.1.0-*",
       "StructureMap >= 4.4.2",
-      "System.Data.SQLite.Core >= 1.0.103",
+      "System.Data.SQLite.Core >= 1.0.104",
       "Unity >= 4.0.1",
-      "dotConnect.Express.for.PostgreSQL >= 7.6.763",
+      "dotConnect.Express.for.PostgreSQL >= 7.7.794",
       "dotnet-test-nunit >= 3.4.0-beta-3"
     ],
     ".NETFramework,Version=v4.5.2": [
