@@ -49,12 +49,12 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
         protected void Connect(string connectionString)
         {
-            if (Connection != null)
+            if (DB != null)
             {
                 return;
             }
-            Connection = CreateInstanceHelper.Resolve<TConnection>(connectionString);
-            Connection?.Open();
+            DB = CreateInstanceHelper.Resolve<TConnection>(connectionString);
+            DB?.Open();
         }
 
         public IUnitOfWork UnitOfWork()

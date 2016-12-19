@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 {
-    public abstract class DbConnection : IDbConnection
+    public abstract class DbConnection : System.Data.Common.DbConnection
     {
         private readonly IDbFactory _factory;
-        public IDbConnection Connection { get; protected set; }
+        protected System.Data.Common.DbConnection DB;
+        public IDbConnection Connection => DB;
 
         public IsolationLevel IsolationLevel { get; }
         protected bool Disposed;
@@ -14,59 +18,95 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         protected DbConnection(IDbFactory factory)
         {
             _factory = factory;
+            DB.StateChange += StateChange;
         }
 
-        [Obsolete("Please use UnitOfWork")]
-        public IDbTransaction BeginTransaction()
+        public override string ConnectionString
+        {
+            get { return DB?.ConnectionString; }
+            set { DB.ConnectionString = value; }
+        }
+        public override int ConnectionTimeout => DB?.ConnectionTimeout ?? 0;
+        public override string Database => DB?.Database;
+        public override string DataSource => DB?.DataSource;
+        public override string ServerVersion => DB?.ServerVersion;
+        public override ConnectionState State => DB?.State ?? ConnectionState.Closed;
+
+        public event StateChangeEventHandler StateChange; 
+
+       [Obsolete("Please use UnitOfWork")]
+        public DbTransaction BeginTransaction()
         {
             InsureConnection();
             return BeginTransaction(IsolationLevel.Serializable);
         }
 
         [Obsolete("Please use UnitOfWork")]
-        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        public DbTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
             InsureConnection();
-            return   Connection?.BeginTransaction(isolationLevel);
+            return   DB?.BeginTransaction(isolationLevel);
         }
+        public override void ChangeDatabase(string databaseName)
+        {
+            DB?.ChangeDatabase(databaseName);
+        }
+        public override void Close()
+        {
+            DB?.Close();
+        }
+        public IDbCommand CreateCommand()
+        {
+            InsureConnection();
+            return DB.CreateCommand();
+        }
+
+        public virtual DataTable GetSchema() => DB?.GetSchema();
+
+        public virtual DataTable GetSchema(string collectionName)
+        {
+            return DB?.GetSchema(collectionName);
+        }
+
+        public virtual DataTable GetSchema(string collectionName, string[] restrictionValues)
+        {
+            return DB?.GetSchema(collectionName);
+        } 
+        public override void Open()
+        {
+            if (!Disposed && DB?.State != ConnectionState.Open)
+            {
+                DB?.Open();
+            }
+        }
+        public Task OpenAsync() => DB?.OpenAsync();
+
+        public override Task OpenAsync(CancellationToken cancellationToken)
+        {
+            return DB?.OpenAsync(cancellationToken);
+        }
+
+        protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
+        {
+            return DB?.BeginTransaction(isolationLevel);
+        }
+            
+        protected override DbCommand CreateDbCommand() => DB.CreateCommand();
+
+        protected override void OnStateChange(StateChangeEventArgs stateChange)
+        {
+            
+        }
+
+
         private void InsureConnection()
         {
             Open();
         }
+        
 
-        public void Close()
-        {
-            Connection?.Close();
-        }
 
-        public void ChangeDatabase(string databaseName)
-        {
-            Connection?.ChangeDatabase(databaseName);
-        }
-
-        public IDbCommand CreateCommand()
-        {
-            InsureConnection();
-            return Connection.CreateCommand();
-        }
-
-        public void Open()
-        {
-            if (!Disposed && Connection?.State != ConnectionState.Open)
-            {
-                Connection?.Open();
-            }
-        }
-
-        public string ConnectionString
-        {
-            get { return Connection?.ConnectionString; }
-            set { Connection.ConnectionString = value; }
-        }
-
-        public int ConnectionTimeout => Connection?.ConnectionTimeout ?? 0;
-        public string Database => Connection?.Database;
-        public ConnectionState State => Connection?.State ?? ConnectionState.Closed;
+        
 
         ~DbConnection()
         {
@@ -87,7 +127,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
 
             try
             {
-                Connection?.Dispose();
+                DB?.Dispose();
             }
             finally
             {

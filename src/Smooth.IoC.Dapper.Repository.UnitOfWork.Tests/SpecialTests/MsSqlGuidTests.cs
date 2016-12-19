@@ -30,7 +30,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             if(TestSession!=null) return;
             if (!File.Exists(DbName)) using (File.Create(DbName)) { }
             TestSession = new TestSqlCeForGuid(A.Fake<IDbFactory>());
-            var migrator = new SimpleMigrator(Assembly.GetExecutingAssembly(), new MssqlDatabaseProvider(TestSession.Connection as SqlConnection));
+            var migrator = new SimpleMigrator(Assembly.GetExecutingAssembly(), new MssqlDatabaseProvider(TestSession));
             migrator.Load();
             migrator.MigrateToLatest();
             

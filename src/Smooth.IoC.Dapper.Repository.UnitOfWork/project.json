@@ -27,8 +27,7 @@
     "net452": {
       "frameworkAssemblies": {
         "System.ComponentModel.DataAnnotations": "",
-        "System.Data": ""
-
+        "System.Data": "",
       },
       "dependencies": {
       }
@@ -39,7 +38,7 @@
       },
       "frameworkAssemblies": {
         "System.ComponentModel.DataAnnotations": "",
-        "System.Data": ""
+        "System.Data": "",
       },
       "dependencies": {
 
