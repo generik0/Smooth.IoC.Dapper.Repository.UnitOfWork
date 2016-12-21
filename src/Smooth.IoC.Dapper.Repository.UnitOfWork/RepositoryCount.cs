@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Dapper;
-using Smooth.IoC.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Extensions;
 using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork

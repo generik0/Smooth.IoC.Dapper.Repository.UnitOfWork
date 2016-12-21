@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Smooth.IoC.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Extensions;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
 using Smooth.IoC.UnitOfWork.Helpers;

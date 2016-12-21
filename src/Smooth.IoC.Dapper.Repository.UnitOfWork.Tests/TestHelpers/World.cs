@@ -1,4 +1,5 @@
-﻿using Smooth.IoC.Repository.UnitOfWork.Entities;
+﻿using Smooth.IoC.UnitOfWork;
+
 #pragma warning disable 1591
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers

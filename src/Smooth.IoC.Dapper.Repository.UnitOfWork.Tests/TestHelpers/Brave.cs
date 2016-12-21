@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers
 {

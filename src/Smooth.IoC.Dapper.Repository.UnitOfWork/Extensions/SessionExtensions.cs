@@ -7,7 +7,7 @@ using Dapper.FastCrud.Configuration.StatementOptions.Builders;
 using Smooth.IoC.Repository.UnitOfWork.Helpers;
 using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Repository.UnitOfWork.Data
+namespace Smooth.IoC.Repository.UnitOfWork.Extensions
 {
     public static class SessionExtensions
     {
