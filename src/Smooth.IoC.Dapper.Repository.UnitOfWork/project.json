@@ -60,7 +60,8 @@
   },
   "description": "The smoothest IoC Dapper Repository and UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
-    "xmlDoc": true
+    "xmlDoc": true,
+    "nowarn": [ "CS1591" ]
   },
   "dependencies": {
     "Dapper.FastCrud": "2.4.1",

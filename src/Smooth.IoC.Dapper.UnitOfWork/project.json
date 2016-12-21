@@ -58,7 +58,8 @@
   },
   "description": "The smoothest IoC Dapper UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
-    "xmlDoc": true
+    "xmlDoc": true,
+    "nowarn": [ "CS1591" ]
   },
   "dependencies": {
     "System.Data.Common": "4.3.0",

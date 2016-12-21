@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+#pragma warning disable 1591
 
 [assembly: AssemblyCompany("Generic Automation and IT")]
 [assembly: AssemblyCopyright("Copyright ©GAIT  2016")]

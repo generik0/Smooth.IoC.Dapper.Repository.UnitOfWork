@@ -39,7 +39,8 @@
   },
   "description": "The smoothest IoC Dapper Repository and UnitOfWork factory using Castle. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
-    "xmlDoc": true
+    "xmlDoc": true,
+    "nowarn": [ "CS1591" ]
   },
   "dependencies": {
     "Autofac": "4.2.1",
@@ -56,7 +57,7 @@
     "NUnit": "3.5.0",
     "Simple.Migrations": "0.9.8",
     "SimpleInjector": "3.3.2",
-    "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.1.0-*",
+    "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.4.0-*",
     "StructureMap": "4.4.2",
     "System.Data.SQLite.Core": "1.0.104",
     "Unity": "4.0.1"

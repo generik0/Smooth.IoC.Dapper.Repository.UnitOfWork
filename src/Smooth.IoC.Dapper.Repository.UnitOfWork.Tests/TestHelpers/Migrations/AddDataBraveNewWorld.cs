@@ -8,7 +8,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations
     {
         public override void Up()
         {
-            if (!DB.ConnectionString.Contains("RepoTests.db") && !DB.ConnectionString.Contains(":memory:;")) return;
+            if (!Connection.ConnectionString.Contains("RepoTests.db") && !Connection.ConnectionString.Contains(":memory:;")) return;
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");

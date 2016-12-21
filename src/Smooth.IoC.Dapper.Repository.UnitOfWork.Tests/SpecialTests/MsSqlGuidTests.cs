@@ -87,7 +87,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
         {
             public override void Up()
             {
-                if (!DB.ConnectionString.Contains(DbName)) return;
+                if (!Connection.ConnectionString.Contains(DbName)) return;
                 Execute(@"CREATE TABLE FooGuidTest (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
                 Execute(@"CREATE TABLE FooGuidTestWithIEntiy (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
             }
