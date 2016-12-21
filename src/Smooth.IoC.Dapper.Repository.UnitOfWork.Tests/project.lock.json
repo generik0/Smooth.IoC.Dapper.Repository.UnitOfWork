@@ -627,13 +627,7 @@
         },
         "frameworkAssemblies": [
           "System.Data"
-        ],
-        "compile": {
-          "net452/Smooth.IoC.Dapper.UnitOfWork.dll": {}
-        },
-        "runtime": {
-          "net452/Smooth.IoC.Dapper.UnitOfWork.dll": {}
-        }
+        ]
       }
     }
   },
@@ -1768,8 +1762,7 @@
     },
     "Smooth.IoC.Dapper.UnitOfWork/0.4.0": {
       "type": "project",
-      "path": "../Smooth.IoC.Dapper.UnitOfWork/project.json",
-      "msbuildProject": "../Smooth.IoC.Dapper.UnitOfWork/Smooth.IoC.Dapper.UnitOfWork.xproj"
+      "path": "../Smooth.IoC.Dapper.UnitOfWork/project.json"
     }
   },
   "projectFileDependencyGroups": {
