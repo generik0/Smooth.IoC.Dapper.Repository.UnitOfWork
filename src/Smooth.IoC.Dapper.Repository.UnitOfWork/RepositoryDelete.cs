@@ -33,13 +33,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                if (_container.IsIEntity<TEntity, TPk>())
-                {
-                    return uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                        new { Id = key }, uow.Transaction) ==1;
-                }
-                var entity = CreateEntityAndSetKeyValue(key);
-                return uow.Delete(entity);    
+                return DeleteKey(key, uow);
             }
         }
 
@@ -69,22 +63,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
         public virtual Task<bool>  DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
         {
 
-            if (_container.IsIEntity<TEntity, TPk>())
-            {
-                return Task.Run(() =>
-                {
-                    using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
-                    {
-                        return uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                                   new {Id = key}, uow.Transaction) == 1;
-                    }
-                });
-            }
-
-            var entity = CreateEntityAndSetKeyValue(key);
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return uow.DeleteAsync(entity);    
+                return DeleteKeyAsync(key, uow);    
             }
         }
 
@@ -145,21 +126,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
 
         public virtual Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
-            if (_container.IsIEntity<TEntity, TPk>())
-            {
-                return Task.Run(() =>
-                {
-                    using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
-                    {
-                        return uow.Connection.Execute(
-                                   $"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                                   new {((IEntity<TPk>) entity).Id}, uow.Transaction) == 1;
-                    }
-                });
-            }
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return uow.DeleteAsync(entity);    
+                return DeleteAsync(entity, uow);    
             }
         }
     }
