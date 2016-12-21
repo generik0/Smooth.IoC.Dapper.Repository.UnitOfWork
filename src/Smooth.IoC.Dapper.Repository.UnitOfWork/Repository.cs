@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Smooth.IoC.Repository.UnitOfWork.Containers;
-using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Exceptions;
 using Smooth.IoC.Repository.UnitOfWork.Helpers;
 using Smooth.IoC.UnitOfWork;
 using Smooth.IoC.UnitOfWork.Helpers;

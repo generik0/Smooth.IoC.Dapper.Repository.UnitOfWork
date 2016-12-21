@@ -11,8 +11,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using SimpleMigrations;
 using SimpleMigrations.DatabaseProvider;
-using Smooth.IoC.Repository.UnitOfWork.Data;
-using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Extensions;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Mappings;
-using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Containers
 {
