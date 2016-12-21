@@ -6,7 +6,7 @@
 
 This package it created to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
  / dependancy injection.  
- Also i wanted to make the creation of sessions (IDbConnection) and UnitOFWork's (IDbTransaction) by the injected factory automatically 
+ Also i wanted to make the creation of sessions (IDbConnection) and UnitOFWork's (a Transaction) by the injected factory automatically 
  connection / begin transaction on creation, and disconnect/commit on disposal. Hence making database work become nice and smooth like....   
 I also want to be able to do unit (integration) testing with e.g. a Sqlite but the production database engine could be e.g. a MsSQl. This is possible now... 
 
@@ -74,7 +74,7 @@ You can do a lot fluently with FastCRUD. Check out there wiki:
 - [JOINS](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/JOINs)
 - [SQL statements and clauses](https://github.com/MoonStorm/Dapper.FastCRUD/wiki/SQL-statements-and-clauses)
 
-Or as i have already menioned use dapper or any other extension utilizing IDbConnection And IDbTransaction...
+Or as i have already menioned use dapper or any other extension utilizing IDbConnection and IDbTransaction...
 
 # What does this libray do?
 All of the repository and UoW pattern examples i could find online did not include the usage of a factory for registration and injection. The session would typically be added to the constructor meaning when the session was disposed by one method, another method in the class could not use it any more. The examples with IoC used some very complex registration and multithreading code. But there really isn't a need for this!  
@@ -96,8 +96,7 @@ So what i have done/created is this:
 and interfaces require a connection string. So If you have multiple database connections, you need 1 ISession and Session extended Interface and class per database. When the session is 
 created by the factory it connects to the database, when it disposes it discontects and disposes. For Castle Windsor it also untracks the object. You can use the session for any IDbConnection or dapper (or extension) framework you like, as ISession extends IDbConnection ;-). 
 The ISession also has a Dapper.FastCRUD extension so the SqlDialect is automatically set for the enitity depending on the connection.
-3. **IUnitOfWork** (and UnitOfWork): Extends IDbTransaction. You don't need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. You can use the transaction for any IDbTransaction work you like as 
-IUnitOfWork extends IDbTransaction ;-).
+3. **IUnitOfWork** (and UnitOfWork): Extends IDbTransaction. You don't need to extend anything with this. When you have created a session in you code, you can create a uow from the session. Then the session is created by the factory it begins a transaction (isolation i a parameter), when it disposes it commits (roleback on exception) and disposes. For Castle Windsor it also untracks the object. ;-).
 The IUnitOfWork also has a Dapper.FastCRUD extension so the SqlDialect is automatically set for the enitity depending on the connection.
 4. **IRepository&lt;TSession, TEntity, TPk&gt;** (Repository&lt;TSession, TEntity, TPk&gt; abstraction):	Is a default repository that you extend with your own repository for each of 
 the entities you want a repository for. There as some builtin methods e.g. GetAll, Get, and SaveOrUpdate. You can add the methods you need for your entity using any IDbConnection framework. 
@@ -538,8 +537,10 @@ Constructor with 3 parameters is always called.
 	- Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (0.4.0)
     - Add dictionaries to minimise reflections. (0.4.0)
 	- Split nuspec up so Dapper and FastDapper are not resolved with Session, UnitOfWork, etc. (0.4.0)
+	- Removed IDbTransaction from Uow as it only gave problems (0.4.0)
 - 0.5.x (Future)
 	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
     - Add FastCRUD bulk methods with tests to repo.
 - 0.6.x (Future)
+	- Look into making Session inherit DbConnection
     
