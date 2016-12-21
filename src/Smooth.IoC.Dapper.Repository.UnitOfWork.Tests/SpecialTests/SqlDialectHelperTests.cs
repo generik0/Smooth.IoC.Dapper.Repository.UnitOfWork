@@ -71,7 +71,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.True);
-            Assert.That(OrmConfiguration.GetDefaultEntityMapping<Brave>().Dialect, Is.EqualTo(connection.SqlDialect));
+            Assert.That((int) OrmConfiguration.GetDefaultEntityMapping<Brave>().Dialect, Is.EqualTo((int)connection.SqlDialect));
             
         }
     }

@@ -49,7 +49,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
         public void SqlDialect_Equals_MsSql()
         {
             var target = new TestMsSql(null, null);
-            Assert.That(target.SqlDialect == IoC.UnitOfWork.SqlDialect.MySql);
+            Assert.That(target.SqlDialect == IoC.UnitOfWork.SqlDialect.MsSql);
         }
         [Test]
         public void UnitOfWorkSqlDialect_Equals_MsSql()
