@@ -3,7 +3,7 @@
   <metadata>
     <id>Smooth.IoC.UnitOfWork</id>
     <version>$version$</version>
-    <title>Smooth.IoC.Dapper.UnitOfWork</title>
+    <title>Smooth.IoC.UnitOfWork</title>
     <authors>Rik Svendsen Rose</authors>
     <owners>Rik Svendsen Rose</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -37,11 +37,11 @@
   </metadata>
   <files>
   <!-- netstandard1.6 -->
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.UnitOfWork.dll" target="lib\netstandard1.6" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.UnitOfWork.xml" target="lib\netstandard1.6" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.Dapper.UnitOfWork.dll" target="lib\net461" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.Dapper.UnitOfWork.xml" target="lib\net461" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.UnitOfWork.dll" target="lib\net452" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.UnitOfWork.xml" target="lib\net452" />
+    <file src="..\src\Smooth.IoC.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.UnitOfWork.dll" target="lib\netstandard1.6" />
+    <file src="..\src\Smooth.IoC.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.UnitOfWork.xml" target="lib\netstandard1.6" />
+    <file src="..\src\Smooth.IoC.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.UnitOfWork.dll" target="lib\net461" />
+    <file src="..\src\Smooth.IoC.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.UnitOfWork.xml" target="lib\net461" />
+    <file src="..\src\Smooth.IoC.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.UnitOfWork.dll" target="lib\net452" />
+    <file src="..\src\Smooth.IoC.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.UnitOfWork.xml" target="lib\net452" />
   </files>
 </package>

@@ -1,13 +1,13 @@
 {
   "version": "0.4.0-*",
-  "title": "Smooth.IoC.Dapper.UnitOfWork",
+  "title": "Smooth.IoC.UnitOfWork",
   "authors": [ "Generik0" ],
   "packOptions": {
     "owners": [ "Generik0" ],
     "licenseUrl": "http://www.opensource.org/licenses/MIT",
     "iconUrl": "https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg",
     "requireLicenseAcceptance": false,
-    "summary": "The smoothest IoC Dapper UnitOfWork factory"
+    "summary": "The smoothest IoC UnitOfWork factory"
   },
   "configurations": {
     "Debug": {
@@ -54,14 +54,14 @@
   },
   "scripts": {
     "postcompile": [
-    ] 
+    ]
   },
-  "description": "The smoothest IoC Dapper UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
+  "description": "The smoothest IoC UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
     "xmlDoc": true,
     "nowarn": [ "CS1591" ]
   },
   "dependencies": {
-    "System.Data.Common": "4.3.0",
+    "System.Data.Common": "4.3.0"
   }
 }

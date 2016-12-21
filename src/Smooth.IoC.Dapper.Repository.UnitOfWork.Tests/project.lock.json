@@ -605,7 +605,7 @@
         "dependencies": {
           "Dapper": "1.50.2",
           "Dapper.FastCrud": "2.4.1",
-          "Smooth.IoC.Dapper.UnitOfWork": "0.4.0",
+          "Smooth.IoC.UnitOfWork": "0.4.0",
           "System.Data.Common": "4.3.0"
         },
         "frameworkAssemblies": [
@@ -619,7 +619,7 @@
           "net452/Smooth.IoC.Dapper.Repository.UnitOfWork.dll": {}
         }
       },
-      "Smooth.IoC.Dapper.UnitOfWork/0.4.0": {
+      "Smooth.IoC.UnitOfWork/0.4.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.2",
         "dependencies": {
@@ -629,10 +629,10 @@
           "System.Data"
         ],
         "compile": {
-          "net452/Smooth.IoC.Dapper.UnitOfWork.dll": {}
+          "net452/Smooth.IoC.UnitOfWork.dll": {}
         },
         "runtime": {
-          "net452/Smooth.IoC.Dapper.UnitOfWork.dll": {}
+          "net452/Smooth.IoC.UnitOfWork.dll": {}
         }
       }
     }
@@ -1766,10 +1766,10 @@
       "path": "../Smooth.IoC.Dapper.Repository.UnitOfWork/project.json",
       "msbuildProject": "../Smooth.IoC.Dapper.Repository.UnitOfWork/Smooth.IoC.Dapper.Repository.UnitOfWork.xproj"
     },
-    "Smooth.IoC.Dapper.UnitOfWork/0.4.0": {
+    "Smooth.IoC.UnitOfWork/0.4.0": {
       "type": "project",
-      "path": "../Smooth.IoC.Dapper.UnitOfWork/project.json",
-      "msbuildProject": "../Smooth.IoC.Dapper.UnitOfWork/Smooth.IoC.Dapper.UnitOfWork.xproj"
+      "path": "../Smooth.IoC.UnitOfWork/project.json",
+      "msbuildProject": "../Smooth.IoC.UnitOfWork/Smooth.IoC.UnitOfWork.xproj"
     }
   },
   "projectFileDependencyGroups": {

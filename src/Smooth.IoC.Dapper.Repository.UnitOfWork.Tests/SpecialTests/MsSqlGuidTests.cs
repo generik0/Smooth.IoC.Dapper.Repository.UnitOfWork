@@ -21,7 +21,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
     [TestFixture]
     public class MsSqlGuidTests
     {
-        private static TestSqlCeForGuid TestSession;
+        private static TestSqlForGuid TestSession;
         private const string DbName = "TestMsSql";
 
         [SetUp]
@@ -29,7 +29,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
         {
             if(TestSession!=null) return;
             if (!File.Exists(DbName)) using (File.Create(DbName)) { }
-            TestSession = new TestSqlCeForGuid(A.Fake<IDbFactory>());
+            TestSession = new TestSqlForGuid(A.Fake<IDbFactory>());
             var migrator = new SimpleMigrator(Assembly.GetExecutingAssembly(), new MssqlDatabaseProvider(TestSession.Connection as SqlConnection));
             migrator.Load();
             migrator.MigrateToLatest();
@@ -136,15 +136,15 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
         }
 
         [NoIoCFluentRegistration]
-        class TestSqlCeForGuid : Session<SqlConnection>, ITestSqlCeForGuid
+        class TestSqlForGuid : Session<SqlConnection>, ITestSqlForGuid
         {
-            public TestSqlCeForGuid(IDbFactory session)
+            public TestSqlForGuid(IDbFactory session)
                 : base(session, $@"Server=.\SQLEXPRESS;Database={DbName};Trusted_Connection=True;")
             {
             }
         }
 
-        interface ITestSqlCeForGuid : ISession
+        interface ITestSqlForGuid : ISession
         {
         }
     }

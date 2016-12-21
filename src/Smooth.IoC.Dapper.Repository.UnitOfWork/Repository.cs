@@ -35,7 +35,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
 
             var keys = _container.GetKeys<TEntity>();
-            var properies = _container.GetProperties<TEntity>();
+            var properies = _container.GetProperties<TEntity>(keys);
             if (keys == null || properies == null)
             {
                 throw new NoPkException(
@@ -77,7 +77,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
         {
             var keys = _container.GetKeys<TEntity>();
             var primarKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
-            var properies = _container.GetProperties<TEntity>();
+            var properies = _container.GetProperties<TEntity>(keys);
             if (keys == null || primarKeyName == null || properies == null)
             {
                 throw new NoPkException(

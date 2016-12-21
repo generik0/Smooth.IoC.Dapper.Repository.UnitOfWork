@@ -43,10 +43,13 @@ namespace Smooth.IoC.Repository.UnitOfWork.Containers
             return _keys.GetOrAdd(typeof(TEntity), GetKeyPropertyMembers<TEntity>());
         }
 
-        public IEnumerable<PropertyInfo> GetProperties<TEntity>()
+        public IEnumerable<PropertyInfo> GetProperties<TEntity>(PropertyMapping[] keys )
         where TEntity : class
         {
-            var keys = _keys.GetOrAdd(typeof(TEntity), GetKeyPropertyMembers<TEntity>());
+            if (keys == null || !keys.Any())
+            {
+                return new PropertyInfo[0];
+            }
             return _properties.GetOrAdd(typeof(TEntity), GetKeyPropertyInfo(typeof(TEntity), keys));
         }
 
