@@ -32,18 +32,18 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
+        public virtual Task<IEnumerable<TEntity>> GetAllAsync(ISession session)
         {
             return _container.IsIEntity<TEntity, TPk>() ?
-                await session.QueryAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)}")
-                : await session.FindAsync<TEntity>();
+                session.QueryAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)}")
+                : session.FindAsync<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
+        public virtual Task<IEnumerable<TEntity>> GetAllAsync(IUnitOfWork uow)
         {
             return _container.IsIEntity<TEntity, TPk>() ?
-                await uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)}",transaction: uow.Transaction) 
-                : await uow.FindAsync<TEntity>();
+                uow.Connection.QueryAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)}",transaction: uow.Transaction) 
+                : uow.FindAsync<TEntity>();
         }
 
         public virtual Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
