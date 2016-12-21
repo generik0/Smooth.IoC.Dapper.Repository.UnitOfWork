@@ -60,7 +60,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
             if (_container.IsIEntity<TEntity, TPk>())
             {
                 return Task.Run(() => uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                                          new {Id = key}) == 1);
+                                          new {Id = key}, uow.Transaction) == 1);
             }
             var entity = CreateEntityAndSetKeyValue(key);
             return uow.DeleteAsync(entity);
@@ -76,7 +76,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
                     using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
                     {
                         return uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                                   new {Id = key}) == 1;
+                                   new {Id = key}, uow.Transaction) == 1;
                     }
                 });
             }
@@ -103,7 +103,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
             if (_container.IsIEntity<TEntity, TPk>())
             {
                 return uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                    new { ((IEntity<TPk>)entity).Id }) == 1;
+                    new { ((IEntity<TPk>)entity).Id }, uow.Transaction) == 1;
             }
             return uow.Delete(entity);
         }
@@ -115,7 +115,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
                 if (_container.IsIEntity<TEntity, TPk>())
                 {
                     return uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                    new { ((IEntity<TPk>)entity).Id }) == 1;
+                    new { ((IEntity<TPk>)entity).Id }, uow.Transaction) == 1;
                 }
                 return uow.Delete(entity);    
             }
@@ -138,7 +138,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
             {
                 Task.Run(() => uow.Connection.Execute(
                                $"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                               new { ((IEntity<TPk>)entity).Id }) == 1);
+                               new { ((IEntity<TPk>)entity).Id }, uow.Transaction) == 1);
             }
             return uow.DeleteAsync(entity);
         }
@@ -153,7 +153,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
                     {
                         return uow.Connection.Execute(
                                    $"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
-                                   new {((IEntity<TPk>) entity).Id}) == 1;
+                                   new {((IEntity<TPk>) entity).Id}, uow.Transaction) == 1;
                     }
                 });
             }
