@@ -37,7 +37,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
                 Assert.That(transaction.Connection.State, Is.EqualTo(ConnectionState.Open));
             }
 
-            using (IDbTransaction uow = new IoC.UnitOfWork.UnitOfWork(factory, session, IsolationLevel.Serializable))
+            using (var uow = new IoC.UnitOfWork.UnitOfWork(factory, session, IsolationLevel.Serializable))
             {
                 Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
             }

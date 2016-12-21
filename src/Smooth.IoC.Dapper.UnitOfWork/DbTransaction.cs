@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Smooth.IoC.UnitOfWork
 {
-    public abstract class DbTransaction : IDbTransaction
+    public abstract class DbTransaction : IDisposable
     {
         private readonly IDbFactory _factory;
         protected bool Disposed;
