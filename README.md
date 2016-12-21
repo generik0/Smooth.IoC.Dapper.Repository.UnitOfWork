@@ -541,6 +541,7 @@ Constructor with 3 parameters is always called.
 - 0.5.x (Future)
 	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
     - Add FastCRUD bulk methods with tests to repo.
+	- Add more Xml Summaries for all used interfaces.
 - 0.6.x (Future)
 	- Look into making Session inherit DbConnection
     
