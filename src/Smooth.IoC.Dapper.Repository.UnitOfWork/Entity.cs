@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Dapper.FastCRUD;
 
 namespace Smooth.IoC.UnitOfWork
 {
