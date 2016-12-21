@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Dapper;
 using Smooth.IoC.Repository.UnitOfWork.Data;
 using Smooth.IoC.UnitOfWork;
 
@@ -11,36 +12,58 @@ namespace Smooth.IoC.Repository.UnitOfWork
     {
         public virtual int Count(ISession session)
         {
+            if (_container.IsIEntity<TEntity, TPk>())
+            {
+                return
+                    session.QuerySingleOrDefault<int>(
+                        $"SELECT count(*) FROM {Sql.Table<TEntity>(session.SqlDialect)}");
+            }
             return session.Count<TEntity>();
         }
         public virtual int Count(IUnitOfWork uow)
         {
+            if (_container.IsIEntity<TEntity, TPk>())
+            {
+                return
+                    uow.Connection.QuerySingleOrDefault<int>(
+                        $"SELECT count(*) FROM {Sql.Table<TEntity>(uow.SqlDialect)}", uow.Transaction);
+            }
             return uow.Count<TEntity>();
         }
 
         public virtual int Count<TSesssion>() where TSesssion : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork ,TSesssion>())
             {
-                return Count(session);
+                return Count(uow);
             }
         }
 
-        public virtual async Task<int> CountAsync(ISession session)
+        public virtual Task<int> CountAsync(ISession session)
         {
-            return await session.CountAsync<TEntity>();
+            if (_container.IsIEntity<TEntity, TPk>())
+            {
+                return session.QuerySingleOrDefaultAsync<int>(
+                            $"SELECT count(*) FROM {Sql.Table<TEntity>(session.SqlDialect)}");
+            }
+            return session.CountAsync<TEntity>();
         }
 
-        public virtual async Task<int> CountAsync(IUnitOfWork uow)
+        public virtual Task<int> CountAsync(IUnitOfWork uow)
         {
-            return await uow.CountAsync<TEntity>();
+            if (_container.IsIEntity<TEntity, TPk>())
+            {
+                return uow.Connection.QuerySingleOrDefaultAsync<int>(
+                            $"SELECT count(*) FROM {Sql.Table<TEntity>(uow.SqlDialect)}");
+            }
+            return uow.CountAsync<TEntity>();
         }
 
         public virtual Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return CountAsync(session);
+                return CountAsync(uow);
             }
         }
     }
