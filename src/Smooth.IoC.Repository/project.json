@@ -1,13 +1,13 @@
-{
+﻿{
   "version": "0.4.0-*",
-  "title": "Smooth.IoC.UnitOfWork",
+  "title": "Smooth.IoC.Repository",
   "authors": [ "Rik Svendsen Rose" ],
   "packOptions": {
     "owners": [ "Generik0" ],
     "licenseUrl": "http://www.opensource.org/licenses/MIT",
     "iconUrl": "https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg",
     "requireLicenseAcceptance": false,
-    "summary": "The smoothest IoC UnitOfWork factory"
+    "summary": "The smoothest IoC Repository"
   },
   "configurations": {
     "Debug": {
@@ -56,12 +56,13 @@
     "postcompile": [
     ]
   },
-  "description": "The smoothest IoC UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
+  "description": "The smoothest IoC Repository. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
     "xmlDoc": true,
     "nowarn": [ "CS1591" ]
   },
   "dependencies": {
+    "Smooth.IoC.Dapper.Repository.UnitOfWork": "0.4.0-*",
     "System.Data.Common": "4.3.0"
   }
 }
