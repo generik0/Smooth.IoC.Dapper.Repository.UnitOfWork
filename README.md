@@ -4,6 +4,9 @@
 [![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
+**Please note breaking change in version 0.4.x. Now UnitOfWork and session are in there own package. With Zero dependencies. So you don't have to polute your solution with dapper and fastdapper everywhere.**
+
+
 This package it created to fix the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
  / dependancy injection.  
  Also i wanted to make the creation of sessions (IDbConnection) and UnitOFWork's (a Transaction) by the injected factory automatically 
