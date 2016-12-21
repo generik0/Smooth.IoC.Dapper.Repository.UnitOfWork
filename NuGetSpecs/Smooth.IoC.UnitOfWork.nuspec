@@ -37,11 +37,11 @@
   </metadata>
   <files>
   <!-- netstandard1.6 -->
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.UnitOfWork.dll" target="lib\netstandard1.6" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.Dapper.UnitOfWork.xml" target="lib\netstandard1.6" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.Dapper.UnitOfWork.dll" target="lib\net461" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.Dapper.UnitOfWork.xml" target="lib\net461" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.UnitOfWork.dll" target="lib\net452" />
-    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.Dapper.UnitOfWork.xml" target="lib\net452" />
+    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.UnitOfWork.dll" target="lib\netstandard1.6" />
+    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\netstandard1.6\Smooth.IoC.UnitOfWork.xml" target="lib\netstandard1.6" />
+    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.UnitOfWork.dll" target="lib\net461" />
+    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net461\Smooth.IoC.UnitOfWork.xml" target="lib\net461" />
+    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.UnitOfWork.dll" target="lib\net452" />
+    <file src="..\src\Smooth.IoC.Dapper.UnitOfWork\bin\$configuration$\net452\Smooth.IoC.UnitOfWork.xml" target="lib\net452" />
   </files>
 </package>
