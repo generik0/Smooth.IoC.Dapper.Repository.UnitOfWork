@@ -535,10 +535,11 @@ Constructor with 3 parameters is always called.
 	- Made UnitofWork default to IsolationLevel.RepeatableRead instead of IsolationLevel.Serializable (0.3.15)
 	- Made all repository methods be virtual so the can be overriden. (0.3.15)
 - 0.4.x (In Progres)
-	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
-    - Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (In Progress)
-    - Add dictionaries to minimise reflections. (In Progress)
+	- Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (0.4.0)
+    - Add dictionaries to minimise reflections. (0.4.0)
+	- Split nuspec up so Dapper and FastDapper are not resolved with Session, UnitOfWork, etc. (0.4.0)
 - 0.5.x (Future)
+	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
     - Add FastCRUD bulk methods with tests to repo.
 - 0.6.x (Future)
-    - Split nuspec up so Dapper and FastDapper are not resolved with Session, UnitOfWork, etc.
+    
