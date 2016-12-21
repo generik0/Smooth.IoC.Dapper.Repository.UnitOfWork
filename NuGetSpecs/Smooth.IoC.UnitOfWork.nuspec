@@ -5,7 +5,7 @@
     <version>$version$</version>
     <title>Smooth.IoC.UnitOfWork</title>
     <authors>Rik Svendsen Rose</authors>
-    <owners>Rik Svendsen Rose</owners>
+    <owners>Generik0</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg</iconUrl>
