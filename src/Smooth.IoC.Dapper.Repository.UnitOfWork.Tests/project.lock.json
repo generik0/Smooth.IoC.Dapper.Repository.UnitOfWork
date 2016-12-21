@@ -605,7 +605,7 @@
         "dependencies": {
           "Dapper": "1.50.2",
           "Dapper.FastCrud": "2.4.1",
-          "Smooth.IoC.Dapper.UnitOfWork": "0.4.0",
+          "Smooth.IoC.Dapper.UnitOfWork": "0.0.1",
           "System.Data.Common": "4.3.0"
         },
         "frameworkAssemblies": [
