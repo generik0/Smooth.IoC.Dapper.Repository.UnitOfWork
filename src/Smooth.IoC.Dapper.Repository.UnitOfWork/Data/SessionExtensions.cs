@@ -4,9 +4,10 @@ using System.Data;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Configuration.StatementOptions.Builders;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
+namespace Smooth.IoC.Repository.UnitOfWork.Data
 {
     public static class SessionExtensions
     {

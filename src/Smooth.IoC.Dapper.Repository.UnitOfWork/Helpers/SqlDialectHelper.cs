@@ -1,12 +1,19 @@
 ﻿using Dapper.FastCrud;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Containers;
+using Smooth.IoC.Repository.UnitOfWork.Containers;
+using Smooth.IoC.UnitOfWork.Helpers;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
+
+namespace Smooth.IoC.Repository.UnitOfWork.Helpers
 {
     public sealed class SqlDialectHelper
     {
         private readonly object _lockSqlDialectUpdate = new object();
         private readonly SqlDialectContainer _container = SqlDialectContainer.Instance;
+
+        public void SetDialogueIfNeeded<TEntity>(IoC.UnitOfWork.SqlDialect sqlDialect) where TEntity : class
+        {
+            SetDialogueIfNeeded<TEntity>(EnumHelper.ConvertEnumToEnum<SqlDialect>(sqlDialect) );
+        }
 
         public void SetDialogueIfNeeded<TEntity>(SqlDialect sqlDialect) where TEntity : class
         {

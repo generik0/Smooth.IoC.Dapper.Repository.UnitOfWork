@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Data;
-using Dapper.FastCrud;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.UnitOfWork.Helpers;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
+namespace Smooth.IoC.UnitOfWork
 {
     public abstract class Session<TConnection> : DbConnection , ISession
         where TConnection : System.Data.Common.DbConnection

@@ -1,11 +1,10 @@
-﻿using System.Data;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Reflection;
 using SimpleMigrations;
 using SimpleMigrations.DatabaseProvider;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations
 {
     public class MigrateDb
     {

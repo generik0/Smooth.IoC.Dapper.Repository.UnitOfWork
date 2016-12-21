@@ -7,7 +7,7 @@
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>e6550dc7-fc02-4b12-a7b5-ddb684a7760a</ProjectGuid>
-    <RootNamespace>Smooth.IoC.Dapper.Repository.UnitOfWork</RootNamespace>
+    <RootNamespace>Smooth.IoC.Repository.UnitOfWork</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>

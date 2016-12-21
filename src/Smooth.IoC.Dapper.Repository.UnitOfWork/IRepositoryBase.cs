@@ -1,4 +1,4 @@
-﻿namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+﻿namespace Smooth.IoC.Repository.UnitOfWork
 {
     public interface IRepositoryBase
     {

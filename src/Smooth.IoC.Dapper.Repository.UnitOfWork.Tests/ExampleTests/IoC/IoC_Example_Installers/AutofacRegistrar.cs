@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Data;
 using Autofac;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class AutofacRegistrar
     {
         public void Register(ContainerBuilder builder)
         {
             builder.Register(c=> new AutofacDbFactory(c)).As<IDbFactory>().SingleInstance();
-            builder.RegisterType<Dapper.Repository.UnitOfWork.Data.UnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<Smooth.IoC.UnitOfWork.UnitOfWork>().As<IUnitOfWork>();
 
         }
         sealed class AutofacDbFactory : IDbFactory

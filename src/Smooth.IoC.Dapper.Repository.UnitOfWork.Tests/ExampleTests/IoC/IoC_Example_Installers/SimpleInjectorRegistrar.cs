@@ -2,10 +2,10 @@
 using System.Data;
 using SimpleInjector;
 using SimpleInjector.Diagnostics;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class SimpleInjectorRegistrar
     {
@@ -38,12 +38,12 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
             }
             public TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
             {
-                return new Dapper.Repository.UnitOfWork.Data.UnitOfWork(_container.GetInstance<IDbFactory>(), Create<TSession>(),
+                return new Smooth.IoC.UnitOfWork.UnitOfWork(_container.GetInstance<IDbFactory>(), Create<TSession>(),
                    isolationLevel, true) as TUnitOfWork;
             }
             public T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork
             {
-                return new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session, isolationLevel) as T;
+                return new Smooth.IoC.UnitOfWork.UnitOfWork(factory, session, isolationLevel) as T;
             }
             public void Release(IDisposable instance)
             {

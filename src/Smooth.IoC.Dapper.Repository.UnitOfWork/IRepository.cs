@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+namespace Smooth.IoC.Repository.UnitOfWork
 {
     public interface IRepository<TEntity, TPk>
         where TEntity : class

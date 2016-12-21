@@ -1,13 +1,13 @@
 {
   "version": "0.4.0-*",
-  "title": "Smooth.IoC.Dapper.Repository.UnitOfWork",
+  "title": "Smooth.IoC.Dapper.UnitOfWork",
   "authors": [ "Generik0" ],
   "packOptions": {
     "owners": [ "Generik0" ],
     "licenseUrl": "http://www.opensource.org/licenses/MIT",
     "iconUrl": "https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg",
     "requireLicenseAcceptance": false,
-    "summary": "The smoothest IoC Dapper Repository and UnitOfWork factory"
+    "summary": "The smoothest IoC Dapper UnitOfWork factory"
   },
   "configurations": {
     "Debug": {
@@ -26,7 +26,6 @@
   "frameworks": {
     "net452": {
       "frameworkAssemblies": {
-        "System.ComponentModel.DataAnnotations": "",
         "System.Data": ""
 
       },
@@ -38,7 +37,6 @@
         "define": [ "NET_46_OR_GREATER" ]
       },
       "frameworkAssemblies": {
-        "System.ComponentModel.DataAnnotations": "",
         "System.Data": ""
       },
       "dependencies": {
@@ -50,7 +48,7 @@
         "define": [ "COREFX" ]
       },
       "dependencies": {
-        "System.ComponentModel.Annotations": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     }
   },
@@ -58,14 +56,11 @@
     "postcompile": [
     ] 
   },
-  "description": "The smoothest IoC Dapper Repository and UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
+  "description": "The smoothest IoC Dapper UnitOfWork factory. VS2015 or an equivalent build environment is recommended.",
   "buildOptions": {
     "xmlDoc": true
   },
   "dependencies": {
-    "Dapper.FastCrud": "2.4.1",
-    "Dapper": "1.50.2",
     "System.Data.Common": "4.3.0",
-    "Smooth.IoC.Dapper.UnitOfWork": "0.4.0-*"
   }
 }

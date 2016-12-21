@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Registrations
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Registrations
 {
     public static class UnityExtensions
     {

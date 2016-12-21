@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Dapper;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+namespace Smooth.IoC.Repository.UnitOfWork
 {
     public abstract partial class Repository<TEntity, TPk> 
         where TEntity : class
@@ -41,15 +42,15 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return uow.Get(entity);
         }
 
-        public virtual async Task<TEntity> GetKeyAsync(TPk key, ISession session)
+        public virtual Task<TEntity> GetKeyAsync(TPk key, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new { Id = key });
             }
             var entity = CreateEntityAndSetKeyValue(key);
-            return await GetAsync(entity, session);
+            return GetAsync(entity, session);
         }
 
         public virtual Task<TEntity> GetKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
@@ -60,15 +61,15 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             }
         }
 
-        public virtual async Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
+        public virtual Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { Id = key }, uow.Transaction);
             }
             var entity = CreateEntityAndSetKeyValue(key);
-            return await uow.GetAsync(entity);
+            return uow.GetAsync(entity);
         }
 
         public virtual TEntity Get(TEntity entity, ISession session) 
@@ -99,24 +100,24 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
             return uow.Get(entity);
         }
 
-        public virtual async Task<TEntity> GetAsync(TEntity entity, ISession session)
+        public virtual Task<TEntity> GetAsync(TEntity entity, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id });
             }
-            return await session.GetAsync(entity);
+            return session.GetAsync(entity);
         }
 
-        public virtual async Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
+        public virtual Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id }, uow.Transaction);
             }
-            return await uow.GetAsync(entity);
+            return uow.GetAsync(entity);
         }
 
         public virtual Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession

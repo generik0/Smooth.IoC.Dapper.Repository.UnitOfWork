@@ -4,14 +4,14 @@ using System.Linq;
 using Castle.Core.Internal;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Dapper.FastCrud;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers;
+using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
+using SqlDialect = Dapper.FastCrud.SqlDialect;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
 {
     [TestFixture]
     public class CastleWindsorTests
@@ -69,9 +69,9 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
             var dbFactory = _container.Resolve<IDbFactory>();
             using (var session = dbFactory.Create<ITestSession>())
             {
-                Assert.That(session.SqlDialect== SqlDialect.SqLite);
+                Assert.That(session.SqlDialect== Smooth.IoC.UnitOfWork.SqlDialect.SqLite);
                 var uow = session.UnitOfWork(IsolationLevel.Serializable);
-                Assert.That(uow.SqlDialect == SqlDialect.SqLite);
+                Assert.That(uow.SqlDialect == Smooth.IoC.UnitOfWork.SqlDialect.SqLite);
             }
         }
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Practices.Unity;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class UnityRegistrar
     {
@@ -12,7 +12,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
         {
             container.RegisterType<IDbFactory, UnityDbFactory>(new ContainerControlledLifetimeManager(),
                 new InjectionConstructor(container));
-            container.RegisterType<IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork>();
+            container.RegisterType<IUnitOfWork, Smooth.IoC.UnitOfWork.UnitOfWork>();
         }
 
         [NoIoCFluentRegistration]

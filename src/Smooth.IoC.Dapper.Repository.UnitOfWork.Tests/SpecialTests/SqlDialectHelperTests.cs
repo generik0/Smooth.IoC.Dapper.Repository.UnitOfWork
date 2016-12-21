@@ -2,13 +2,14 @@
 using Dapper.FastCrud;
 using FakeItEasy;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
+using Smooth.IoC.UnitOfWork;
+using SqlDialect = Dapper.FastCrud.SqlDialect;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {
     [TestFixture]
     public class SqlDialectHelperTests : CommonTestDataSetup
@@ -70,7 +71,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             var result = target.GetEntityState<Brave>();
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.True);
-            Assert.That(OrmConfiguration.GetDefaultEntityMapping<Brave>().Dialect, Is.EqualTo(connection.SqlDialect));
+            Assert.That((int) OrmConfiguration.GetDefaultEntityMapping<Brave>().Dialect, Is.EqualTo((int)connection.SqlDialect));
             
         }
     }

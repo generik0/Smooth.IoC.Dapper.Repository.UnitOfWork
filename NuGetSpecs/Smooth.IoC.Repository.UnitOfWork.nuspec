@@ -33,15 +33,18 @@
     </frameworkAssemblies>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
+        <dependency id="Smooth.IoC.UnitOfWork" version="[4.0.0, )" />
         <dependency id="Dapper" version="[1.50.2, )" />
         <dependency id="StringInterpolationBridge" version="[0.9.1, )"/>
         <dependency id="Dapper.FastCrud" version="[2.4.1, )" />
       </group>
       <group targetFramework=".NETFramework4.6">
+        <dependency id="Smooth.IoC.UnitOfWork" version="[4.0.0, )" />
         <dependency id="Dapper" version="[1.50.2, )" />
         <dependency id="Dapper.FastCrud" version="[2.4.1, )" />
       </group>
 	   <group targetFramework=".NETStandard1.6">
+       <dependency id="Smooth.IoC.UnitOfWork" version="[4.0.0, )" />
        <dependency id="Dapper" version="[1.50.2, )" />
        <dependency id="Dapper.FastCrud" version="[2.4.1, )" />
        <dependency id="System.Data.Common" version="[4.1.0, )" />
