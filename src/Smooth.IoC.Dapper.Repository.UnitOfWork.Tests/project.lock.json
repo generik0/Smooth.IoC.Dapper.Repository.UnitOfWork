@@ -605,7 +605,7 @@
         "dependencies": {
           "Dapper": "1.50.2",
           "Dapper.FastCrud": "2.4.1",
-          "Smooth.IoC.Dapper.UnitOfWork": "0.0.1",
+          "Smooth.IoC.Dapper.UnitOfWork": "0.4.0",
           "System.Data.Common": "4.3.0"
         },
         "frameworkAssemblies": [
@@ -627,7 +627,13 @@
         },
         "frameworkAssemblies": [
           "System.Data"
-        ]
+        ],
+        "compile": {
+          "net452/Smooth.IoC.Dapper.UnitOfWork.dll": {}
+        },
+        "runtime": {
+          "net452/Smooth.IoC.Dapper.UnitOfWork.dll": {}
+        }
       }
     }
   },
@@ -1762,7 +1768,8 @@
     },
     "Smooth.IoC.Dapper.UnitOfWork/0.4.0": {
       "type": "project",
-      "path": "../Smooth.IoC.Dapper.UnitOfWork/project.json"
+      "path": "../Smooth.IoC.Dapper.UnitOfWork/project.json",
+      "msbuildProject": "../Smooth.IoC.Dapper.UnitOfWork/Smooth.IoC.Dapper.UnitOfWork.xproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1779,8 +1786,7 @@
       "Ninject.Extensions.Interception >= 3.2.0",
       "Simple.Migrations >= 0.9.8",
       "SimpleInjector >= 3.3.2",
-      "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.0.1-*",
-      "Smooth.IoC.Dapper.UnitOfWork >= 0.0.1-*",
+      "Smooth.IoC.Dapper.Repository.UnitOfWork >= 0.4.0-*",
       "StructureMap >= 4.4.2",
       "System.Data.SQLite.Core >= 1.0.104",
       "Unity >= 4.0.1",
