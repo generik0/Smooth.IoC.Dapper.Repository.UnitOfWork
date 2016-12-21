@@ -24,24 +24,5 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
                 Assert.That(session.State, Is.EqualTo(ConnectionState.Open));
             }
         }
-        [Test, Category("Integration")]
-        public static void IUnitOfWork_Is_IDbTransactionAndIsConnected()
-        {
-            var factory = A.Fake<IDbFactory>();
-            var session = new TestSessionMemory(factory);
-
-            using (var uow = new IoC.UnitOfWork.UnitOfWork(factory, session, IsolationLevel.Serializable))
-            {
-                Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
-                var transaction = (IDbTransaction)uow;
-                Assert.That(transaction.Connection.State, Is.EqualTo(ConnectionState.Open));
-            }
-
-            using (var uow = new IoC.UnitOfWork.UnitOfWork(factory, session, IsolationLevel.Serializable))
-            {
-                Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
-            }
-        }
-
     }
 }
