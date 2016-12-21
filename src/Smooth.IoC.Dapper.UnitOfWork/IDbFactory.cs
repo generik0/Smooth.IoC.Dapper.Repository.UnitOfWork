@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
+namespace Smooth.IoC.UnitOfWork
 {
     public interface IDbFactory
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.Unity;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Registrations
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Registrations
 {
     public class UnityConventionRegistrar
     {

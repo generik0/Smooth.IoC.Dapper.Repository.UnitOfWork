@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Data;
-using Dapper.FastCrud;
 
-
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
+namespace Smooth.IoC.UnitOfWork
 {
     public class UnitOfWork : DbTransaction, IUnitOfWork
     {

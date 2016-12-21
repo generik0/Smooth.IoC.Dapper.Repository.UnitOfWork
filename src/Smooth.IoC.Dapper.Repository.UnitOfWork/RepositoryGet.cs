@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using Dapper;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+namespace Smooth.IoC.Repository.UnitOfWork
 {
     public abstract partial class Repository<TEntity, TPk> 
         where TEntity : class

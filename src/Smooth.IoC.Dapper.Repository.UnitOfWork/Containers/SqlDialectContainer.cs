@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Containers
+namespace Smooth.IoC.Repository.UnitOfWork.Containers
 {
     internal sealed class SqlDialectContainer
     {

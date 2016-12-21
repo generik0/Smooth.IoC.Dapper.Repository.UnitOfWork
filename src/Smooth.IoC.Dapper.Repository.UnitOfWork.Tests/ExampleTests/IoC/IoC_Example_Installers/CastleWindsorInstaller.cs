@@ -7,10 +7,10 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class CastleWindsorInstaller : IWindsorInstaller
     {
@@ -21,7 +21,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
                 container.Kernel.AddFacility<TypedFactoryFacility>();
             }
             container.Register(Component.For<IUnitOfWork>()
-                .ImplementedBy<Dapper.Repository.UnitOfWork.Data.UnitOfWork>().IsFallback().LifestyleTransient());
+                .ImplementedBy<Smooth.IoC.UnitOfWork.UnitOfWork>().IsFallback().LifestyleTransient());
             container.Register(Component.For<DbFactoryComponentSelector, ITypedFactoryComponentSelector>());
             container.Register(Component.For<IDbFactory>().AsFactory(c => c.SelectedWith<DbFactoryComponentSelector>()));
         }

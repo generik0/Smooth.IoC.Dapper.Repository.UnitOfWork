@@ -1,7 +1,6 @@
-﻿using Smooth.IoC.Dapper.Repository.UnitOfWork;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
+﻿using Smooth.IoC.Repository.UnitOfWork.Entities;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers
 {
     public class World : IEntity<int>
     {

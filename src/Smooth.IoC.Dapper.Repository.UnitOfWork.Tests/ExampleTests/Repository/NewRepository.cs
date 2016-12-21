@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Repo;
+﻿using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
 {
     public interface INewRepository : IRepository<New, int>
     {

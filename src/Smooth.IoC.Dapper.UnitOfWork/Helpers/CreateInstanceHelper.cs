@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers
+namespace Smooth.IoC.UnitOfWork.Helpers
 {
     public static class CreateInstanceHelper
     {

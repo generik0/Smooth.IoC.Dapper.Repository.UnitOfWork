@@ -1,4 +1,7 @@
 ﻿{
-  "projects": [ "Smooth.IoC.Dapper.Repository.UnitOfWork", "Smooth.IoC.Dapper.Repository.UnitOfWork.Castle", 
-                "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests" ]
+  "projects": [
+    "Smooth.IoC.Dapper.Repository.UnitOfWork",
+    "Smooth.IoC.Dapper.UnitOfWork",
+    "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests"
+  ]
 }

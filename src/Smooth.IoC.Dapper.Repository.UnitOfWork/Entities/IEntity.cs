@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Dapper.FastCrud;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Entities
+namespace Smooth.IoC.Repository.UnitOfWork.Entities
 {
     public interface IEntity<TPk> where TPk : IComparable 
     {

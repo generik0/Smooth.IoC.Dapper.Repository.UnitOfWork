@@ -1,10 +1,10 @@
 ﻿using System.Data;
 using FluentAssertions;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {
     [TestFixture]
     public class DbTransactionTests : CommonTestDataSetup

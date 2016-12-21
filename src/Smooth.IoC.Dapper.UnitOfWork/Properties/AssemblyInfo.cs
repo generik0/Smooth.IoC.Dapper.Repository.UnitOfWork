@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using Smooth.IoC.Repository.UnitOfWork.Properties;
+using Smooth.IoC.UnitOfWork.Properties;
 
 [assembly: AssemblyProduct("Smoother.IoC.Repository.UnitOfWork")]
 [assembly: AssemblyVersion("0.4.*")]

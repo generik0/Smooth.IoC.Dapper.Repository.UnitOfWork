@@ -1,6 +1,6 @@
 ﻿using SimpleMigrations;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations
 {
     [Migration(1)]
     public class CreateBraveNewWorld : Migration

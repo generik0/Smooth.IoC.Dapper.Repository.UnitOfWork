@@ -3,10 +3,10 @@ using System.Data;
 using Ninject;
 using Ninject.Extensions.Factory;
 using Ninject.Syntax;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
     public class NinjectBinder
     {
@@ -14,7 +14,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Io
         {
             kernel.Bind<INinjectDbFactory>().ToFactory(() => new TypeMatchingArgumentInheritanceInstanceProvider());
             kernel.Rebind<IDbFactory>().To<DbFactory>().InSingletonScope();
-            kernel.Bind<IUnitOfWork>().To<Dapper.Repository.UnitOfWork.Data.UnitOfWork>()
+            kernel.Bind<IUnitOfWork>().To<Smooth.IoC.UnitOfWork.UnitOfWork>()
                 .WithConstructorArgument(typeof(IDbFactory))
                 .WithConstructorArgument(typeof(ISession))
                 .WithConstructorArgument(typeof(IsolationLevel));

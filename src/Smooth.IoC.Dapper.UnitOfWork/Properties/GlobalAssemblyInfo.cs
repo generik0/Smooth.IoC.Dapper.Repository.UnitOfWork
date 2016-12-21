@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: ComVisible(false)]
 
-namespace Smooth.IoC.Repository.UnitOfWork.Properties
+namespace Smooth.IoC.UnitOfWork.Properties
 {
     public static class VersionInfo
     {

@@ -1,10 +1,10 @@
 ﻿using System.Data;
 using FakeItEasy;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {
     [TestFixture]
     public class DbCastTests
@@ -30,14 +30,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             var factory = A.Fake<IDbFactory>();
             var session = new TestSessionMemory(factory);
 
-            using (var uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session, IsolationLevel.Serializable))
+            using (var uow = new IoC.UnitOfWork.UnitOfWork(factory, session, IsolationLevel.Serializable))
             {
                 Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
                 var transaction = (IDbTransaction)uow;
                 Assert.That(transaction.Connection.State, Is.EqualTo(ConnectionState.Open));
             }
 
-            using (IDbTransaction uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(factory, session, IsolationLevel.Serializable))
+            using (IDbTransaction uow = new IoC.UnitOfWork.UnitOfWork(factory, session, IsolationLevel.Serializable))
             {
                 Assert.That(uow.Connection.State, Is.EqualTo(ConnectionState.Open));
             }
