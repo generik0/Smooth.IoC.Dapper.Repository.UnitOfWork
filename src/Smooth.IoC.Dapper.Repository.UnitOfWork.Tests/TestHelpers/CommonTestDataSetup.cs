@@ -4,10 +4,10 @@ using System.IO;
 using FakeItEasy;
 using FakeItEasy.Core;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers
 {
     public abstract class CommonTestDataSetup
     {
@@ -48,7 +48,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
 
         private static IUnitOfWork CreateUnitOrWork(IFakeObjectCall arg)
         {
-            return new Dapper.Repository.UnitOfWork.Data.UnitOfWork((IDbFactory)arg.FakedObject, CreateSession(null), IsolationLevel.Serializable);
+            return new IoC.UnitOfWork.UnitOfWork((IDbFactory)arg.FakedObject, CreateSession(null), IsolationLevel.Serializable);
         }
     }
 }

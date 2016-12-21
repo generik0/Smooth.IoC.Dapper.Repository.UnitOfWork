@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Containers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.Repository.UnitOfWork.Containers;
+using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Helpers;
+using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Helpers;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+namespace Smooth.IoC.Repository.UnitOfWork
 {
     public abstract partial class Repository<TEntity, TPk> : RepositoryBase, IRepository<TEntity, TPk>
         where TEntity : class

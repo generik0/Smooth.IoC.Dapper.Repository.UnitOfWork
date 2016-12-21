@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using Smooth.IoC.Repository.UnitOfWork.Properties;
 
-[assembly: AssemblyProduct("Smoother.IoC.Dapper.FastCRUD.Repository.UnitOfWork")]
-[assembly: AssemblyVersion("0.3.*")]
+[assembly: AssemblyProduct("Smoother.IoC.Repository.UnitOfWork")]
+[assembly: AssemblyVersion("0.4.*")]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 #if NET_46_OR_GREATER

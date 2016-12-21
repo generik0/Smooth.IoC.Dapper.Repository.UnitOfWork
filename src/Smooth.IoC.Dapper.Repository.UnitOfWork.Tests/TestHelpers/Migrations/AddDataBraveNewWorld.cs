@@ -1,14 +1,14 @@
 ﻿using System;
 using SimpleMigrations;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers.Migrations
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations
 {
     [Migration(2)]
     public class AddDataBraveNewWorld : Migration
     {
         public override void Up()
         {
-            if (!DB.ConnectionString.Contains("RepoTests.db") && !DB.ConnectionString.Contains(":memory:;")) return;
+            if (!Connection.ConnectionString.Contains("RepoTests.db") && !Connection.ConnectionString.Contains(":memory:;")) return;
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");

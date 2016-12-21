@@ -1,10 +1,9 @@
 ﻿using System.Data;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
 {
     [TestFixture]
     public class RepositoryGetTests : CommonTestDataSetup

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers
 {
     [NoIoCFluentRegistration]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]

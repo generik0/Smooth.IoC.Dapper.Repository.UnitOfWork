@@ -1,6 +1,6 @@
-﻿using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+﻿using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Repo
+namespace Smooth.IoC.Repository.UnitOfWork
 {
     public abstract class RepositoryBase : IRepositoryBase
     {

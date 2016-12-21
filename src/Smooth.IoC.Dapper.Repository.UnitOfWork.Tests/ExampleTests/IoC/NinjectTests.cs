@@ -5,12 +5,12 @@ using System.Reflection;
 using Ninject;
 using Ninject.Extensions.Conventions;
 using NUnit.Framework;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.Repository;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers;
+using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.ExampleTests.IoC
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
 {
     [TestFixture]
     public class NinjectTests

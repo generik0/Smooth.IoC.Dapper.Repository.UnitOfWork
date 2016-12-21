@@ -15,8 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build\MyGet.include.ps1 = build\MyGet.include.ps1
 		build\MyGet.ps1 = build\MyGet.ps1
 		README.md = README.md
-		NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec = NuGetSpecs\Smooth.IoC.Dapper.Repository.UnitOfWork.nuspec
+		NuGetSpecs\Smooth.IoC.Repository.UnitOfWork.nuspec = NuGetSpecs\Smooth.IoC.Repository.UnitOfWork.nuspec
+		NuGetSpecs\Smooth.IoC.UnitOfWork.nuspec = NuGetSpecs\Smooth.IoC.UnitOfWork.nuspec
 	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.UnitOfWork", "src\Smooth.IoC.Dapper.UnitOfWork\Smooth.IoC.Dapper.UnitOfWork.xproj", "{3CB9812A-7895-4AB8-AC8B-775801F811D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +35,10 @@ Global
 		{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CB9812A-7895-4AB8-AC8B-775801F811D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CB9812A-7895-4AB8-AC8B-775801F811D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CB9812A-7895-4AB8-AC8B-775801F811D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CB9812A-7895-4AB8-AC8B-775801F811D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

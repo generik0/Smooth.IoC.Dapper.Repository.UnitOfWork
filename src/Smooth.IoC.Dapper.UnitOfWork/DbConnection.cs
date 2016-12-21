@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
+namespace Smooth.IoC.UnitOfWork
 {
     public abstract class DbConnection : IDbConnection
     {
@@ -9,6 +9,7 @@ namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Data
         public IDbConnection Connection { get; protected set; }
 
         public IsolationLevel IsolationLevel { get; }
+        public Guid Guid { get;  } = Guid.NewGuid();
         protected bool Disposed;
 
         protected DbConnection(IDbFactory factory)

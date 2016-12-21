@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Entities
+namespace Smooth.IoC.Repository.UnitOfWork.Entities
 {
     public class NoPkException : Exception
     {

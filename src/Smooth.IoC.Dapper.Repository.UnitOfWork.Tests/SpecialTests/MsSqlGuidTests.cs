@@ -2,21 +2,21 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlClient;
-using System.Reflection;
-using FakeItEasy;
-using NUnit.Framework;
-using SimpleMigrations;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Dapper;
+using FakeItEasy;
 using FluentAssertions;
+using NUnit.Framework;
+using SimpleMigrations;
 using SimpleMigrations.DatabaseProvider;
-using Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.TestHelpers;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Repo;
+using Smooth.IoC.Repository.UnitOfWork.Data;
+using Smooth.IoC.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
+namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {
     [TestFixture]
     public class MsSqlGuidTests
@@ -37,7 +37,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             
         }
 
-        [Test, Category("IntegrationMssqlCe"), Ignore("Needs SQL")]
+        [Test, Category("IntegrationMssqlCe"), Explicit("Needs Sql")]
         public void Insert_Returns_IdAsGuid()
         {
             var foo = new FooGuidTest {Something = "bar 1"};
@@ -48,14 +48,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             actual.First().Id.Should().NotBe(new Guid());
         }
 
-        [Test, Category("IntegrationMssqlCe"), Ignore("Needs SQL")]
+        [Test, Category("IntegrationMssqlCe"), Explicit("Needs Sql")]
         public void SaveAndUpdate_Returns_AsGuid()
         {
             var foo = new FooGuidTest { Something = "bar 1" };
             TestSession.Execute("DELETE FROM FooGuidTest");
             var repo = new FooRepo1(A.Fake<IDbFactory>());
 
-            using (var uow= new Dapper.Repository.UnitOfWork.Data.UnitOfWork(A.Fake<IDbFactory>(), TestSession))
+            using (var uow= new IoC.UnitOfWork.UnitOfWork(A.Fake<IDbFactory>(), TestSession))
             {
                 repo.SaveOrUpdate(foo, uow);
             }
@@ -64,14 +64,14 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
             actual.First().Id.Should().NotBe(new Guid());
         }
 
-        [Test, Category("IntegrationMssqlCe"), Ignore("Needs SQL")]
+        [Test, Category("IntegrationMssqlCe"), Explicit("Needs Sql")]
         public void SaveAndUpdate_Returns_dAsGuidWhereEntityIsIEntity()
         {
             var foo = new FooGuidTestWithIEntiy { Something = "bar 1" };
             TestSession.Execute("DELETE FROM FooGuidTestWithIEntiy");
             var repo = new FooRepo2(A.Fake<IDbFactory>());
 
-            using (var uow = new Dapper.Repository.UnitOfWork.Data.UnitOfWork(A.Fake<IDbFactory>(), TestSession))
+            using (var uow = new IoC.UnitOfWork.UnitOfWork(A.Fake<IDbFactory>(), TestSession))
             {
                 repo.SaveOrUpdate(foo, uow);
             }
@@ -87,7 +87,7 @@ namespace Smooth.IoC.Dapper.FastCRUD.Repository.UnitOfWork.Tests.SpecialTests
         {
             public override void Up()
             {
-                if (!DB.ConnectionString.Contains(DbName)) return;
+                if (!Connection.ConnectionString.Contains(DbName)) return;
                 Execute(@"CREATE TABLE FooGuidTest (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
                 Execute(@"CREATE TABLE FooGuidTestWithIEntiy (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
             }

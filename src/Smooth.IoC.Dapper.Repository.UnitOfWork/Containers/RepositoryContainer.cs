@@ -5,9 +5,9 @@ using System.Linq;
 using System.Reflection;
 using Dapper.FastCrud;
 using Dapper.FastCrud.Mappings;
-using Smooth.IoC.Dapper.Repository.UnitOfWork.Entities;
+using Smooth.IoC.Repository.UnitOfWork.Entities;
 
-namespace Smooth.IoC.Dapper.Repository.UnitOfWork.Containers
+namespace Smooth.IoC.Repository.UnitOfWork.Containers
 {
     internal sealed class RepositoryContainer
     {
