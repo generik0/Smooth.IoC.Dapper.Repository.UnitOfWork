@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Dapper.FastCRUD;
+using Dapper.FastCrud;
+using Smooth.IoC.UnitOfWork;
 
-namespace Smooth.IoC.UnitOfWork
+namespace Smooth.IoC.Repository.UnitOfWork
 {
     public abstract class Entity<TPk> :IEntity<TPk> where TPk : IComparable
     {

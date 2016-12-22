@@ -17,3 +17,4 @@ NugetPuller/*
 !MyGet.include.ps1
 !MyGet.ps1
 
+project.lock.json
