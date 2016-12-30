@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Smooth.IoC.UnitOfWork.Helpers;
+#pragma warning disable 618
 
 namespace Smooth.IoC.UnitOfWork
 {

@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
 using SqlDialect = Dapper.FastCrud.SqlDialect;
+#pragma warning disable 618
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {
