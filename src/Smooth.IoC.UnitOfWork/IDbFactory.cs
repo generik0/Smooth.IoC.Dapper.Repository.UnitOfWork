@@ -19,23 +19,22 @@ namespace Smooth.IoC.UnitOfWork
         /// <typeparam name="TUnitOfWork"></typeparam>
         /// <typeparam name="TSession"></typeparam>
         /// <returns></returns>
-        TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel= IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession;
+        TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel= IsolationLevel.RepeatableRead) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession;
         /// <summary>
-        /// Used for Session base to create UnitOfWork. Not recommeded to use in other code
+        /// Used for Session base to create UnitOfWork. Not recommeded to use in code
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="session"></param>
         /// <param name="isolationLevel"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork;
+        [Obsolete ("Use Create<TUnitOfWork, TSession>")]
+        T Create<T>(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.RepeatableRead) where T : class, IUnitOfWork;
 
         /// <summary>
         /// Release the component. Done by Sessnion and UnitOfWork on there own.
         /// </summary>
         /// <param name="instance"></param>
         void Release(IDisposable instance);
-
-        
     }
 }
