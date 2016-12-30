@@ -714,8 +714,9 @@
       ]
     },
     "Dapper/1.50.2": {
-      "sha512": "4sUecJaw/cXXq0nyM1qld+GcE+sKzEOEECotlbJN7hZRAY8c09sNWDY7MynUw0/W3hF+k9VPWu2RbEXGnJ8svA==",
+      "sha512": "PhxIV8TI/5aYdLT4epuIZB+Evf0sv9gcQDpFGa04fSKDfNQIChRq0sKUgQbfpFWbuDW/UDDuiL3Grkhp/cvYrA==",
       "type": "package",
+      "path": "Dapper/1.50.2",
       "files": [
         "Dapper.1.50.2.nupkg.sha512",
         "Dapper.nuspec",
@@ -732,6 +733,7 @@
     "Dapper.FastCrud/2.4.1": {
       "sha512": "JfZv7KB7EKZj9CHgEXeZuYCSK9al5drnY+sYeF+JDWsr1XfHYLrEJrl6lTj+LuUwPv5Nc1L9EbE91D+W1uom6Q==",
       "type": "package",
+      "path": "Dapper.FastCrud/2.4.1",
       "files": [
         "Dapper.FastCrud.2.4.1.nupkg.sha512",
         "Dapper.FastCrud.nuspec",
@@ -925,8 +927,9 @@
       ]
     },
     "Microsoft.DiaSymReader/1.0.8": {
-      "sha512": "ABLULVhCAiyBFLBT5xX6vB4NhZDgwUylGRQK+zW5nZn2rbh1f8LOnFZ9gVSxzL6qOzPNb32Nu3QZ43iZerHOxA==",
+      "sha512": "HAhTmRgU+nnDVYxMZFAS1iwqg6CudbsSMZfSY9UJj4AJO4L69xZCtTOPKC5rW8+egNBWjDb0iBZV4ZdNI6dZnA==",
       "type": "package",
+      "path": "Microsoft.DiaSymReader/1.0.8",
       "files": [
         "Microsoft.DiaSymReader.1.0.8.nupkg.sha512",
         "Microsoft.DiaSymReader.nuspec",
@@ -1116,6 +1119,8 @@
       "type": "package",
       "path": "Ninject.Extensions.Conventions/3.2.0",
       "files": [
+        "Ninject.Extensions.Conventions.3.2.0.nupkg.sha512",
+        "Ninject.Extensions.Conventions.nuspec",
         "lib/net35/Ninject.Extensions.Conventions.dll",
         "lib/net35/Ninject.Extensions.Conventions.xml",
         "lib/net40/Ninject.Extensions.Conventions.dll",
@@ -1133,9 +1138,7 @@
         "lib/sl4/Ninject.Extensions.Conventions.dll",
         "lib/sl4/Ninject.Extensions.Conventions.xml",
         "lib/sl5/Ninject.Extensions.Conventions.dll",
-        "lib/sl5/Ninject.Extensions.Conventions.xml",
-        "ninject.extensions.conventions.3.2.0.nupkg.sha512",
-        "ninject.extensions.conventions.nuspec"
+        "lib/sl5/Ninject.Extensions.Conventions.xml"
       ]
     },
     "Ninject.Extensions.Factory/3.2.1": {
@@ -1352,6 +1355,7 @@
     "StringInterpolationBridge/0.9.1": {
       "sha512": "yDgl0AdstVh7aUlSGeBqEtc3gHZAVlL1mbo9UQNH0dOfsENKlwT0ktGVzzAXaSmIZqKpgpjLj1x+j8n/u191kw==",
       "type": "package",
+      "path": "StringInterpolationBridge/0.9.1",
       "files": [
         "StringInterpolationBridge.0.9.1.nupkg.sha512",
         "StringInterpolationBridge.nuspec",
@@ -1365,11 +1369,11 @@
       "type": "package",
       "path": "StructureMap/4.4.2",
       "files": [
+        "StructureMap.4.4.2.nupkg.sha512",
+        "StructureMap.nuspec",
         "lib/net45/StructureMap.dll",
         "lib/netstandard1.3/StructureMap.dll",
-        "lib/netstandard1.5/StructureMap.dll",
-        "structuremap.4.4.2.nupkg.sha512",
-        "structuremap.nuspec"
+        "lib/netstandard1.5/StructureMap.dll"
       ]
     },
     "System.Collections.Immutable/1.2.0": {
