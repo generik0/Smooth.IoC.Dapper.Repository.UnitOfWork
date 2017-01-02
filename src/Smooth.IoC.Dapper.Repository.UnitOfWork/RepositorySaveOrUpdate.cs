@@ -31,20 +31,24 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
         }
 
-        public virtual async Task<TEntity> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
+        public virtual Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
         {
-            if (TryAllKeysDefault(entity))
+            return Task.Run(() =>
             {
-                await uow.InsertAsync(entity);
-            }
-            else
-            {
-                await uow.UpdateAsync(entity);
-            }
-            return entity;
+                if (TryAllKeysDefault(entity))
+                {
+                    uow.InsertAsync(entity);
+                }
+                else
+                {
+                    uow.UpdateAsync(entity);
+                }
+                var primaryKeyValue = GetPrimaryKeyValue(entity);
+                return primaryKeyValue != null ? primaryKeyValue : default(TPk);
+            });
         }
 
-        public virtual Task<TEntity> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual Task<TPk> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {

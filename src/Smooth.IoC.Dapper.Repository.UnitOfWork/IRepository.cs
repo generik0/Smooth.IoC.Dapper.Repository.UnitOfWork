@@ -51,7 +51,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
 
         TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow);
         TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession;
-        Task<TEntity> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow);
-        Task<TEntity> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession;
+        Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow);
+        Task<TPk> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession;
     }
 }
