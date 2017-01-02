@@ -16,10 +16,9 @@ namespace Smooth.IoC.UnitOfWork
         {
             _factory = factory;
             SetDialect();
-            if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
-            {
-                Connect(Environment.ExpandEnvironmentVariables(connectionString));
-            }
+            if (factory == null || string.IsNullOrWhiteSpace(connectionString)) return;
+            connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+            Connect(connectionString);
         }
 
         private void SetDialect()
