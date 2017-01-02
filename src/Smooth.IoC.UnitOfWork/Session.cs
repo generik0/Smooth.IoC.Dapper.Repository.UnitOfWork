@@ -18,7 +18,7 @@ namespace Smooth.IoC.UnitOfWork
             SetDialect();
             if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
             {
-                Connect(connectionString);
+                Connect(Environment.ExpandEnvironmentVariables(connectionString));
             }
         }
 
