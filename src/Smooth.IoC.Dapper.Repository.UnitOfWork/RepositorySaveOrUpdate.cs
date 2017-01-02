@@ -48,11 +48,11 @@ namespace Smooth.IoC.Repository.UnitOfWork
             });
         }
 
-        public virtual Task<TPk> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual async Task<TPk> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return SaveOrUpdateAsync(entity, uow);
+                return await SaveOrUpdateAsync(entity, uow);
             }
         }
     }
