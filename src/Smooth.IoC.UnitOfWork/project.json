@@ -40,7 +40,6 @@
         "System.Data": ""
       },
       "dependencies": {
-
       }
     },
     "netstandard1.6": {
@@ -48,7 +47,8 @@
         "define": [ "COREFX" ]
       },
       "dependencies": {
-        "System.Runtime.InteropServices": "4.3.0"
+        "System.Runtime.InteropServices": "4.3.0",
+        "System.Runtime.Extensions": "4.3.0"
       }
     }
   },
