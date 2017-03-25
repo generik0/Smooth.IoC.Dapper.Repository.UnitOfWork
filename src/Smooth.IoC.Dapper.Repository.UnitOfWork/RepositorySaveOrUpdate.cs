@@ -9,7 +9,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
         where TEntity : class
         where TPk : IComparable 
     {
-        public TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
+        public virtual TPk SaveOrUpdate(TEntity entity, IUnitOfWork uow)
         {
             if (TryAllKeysDefault(entity))
             {
