@@ -29,6 +29,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Helpers
             }
         }
 
+        public IFormattable Column<TEntity>(string propertyName, EntityMapping entityMappingOverride = null) where TEntity : class
+        {
+            return Sql.Column<TEntity>(propertyName, entityMappingOverride);
+        }
+
         public IFormattable Column<TEntity>(IoC.UnitOfWork.SqlDialect sqlDialect, string propertyName, EntityMapping entityMappingOverride = null) where TEntity : class
         {
             return Column<TEntity>(EnumHelper.ConvertEnumToEnum<SqlDialect>(sqlDialect),propertyName, entityMappingOverride);
@@ -40,6 +45,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Helpers
             return Sql.Column<TEntity>(propertyName, entityMappingOverride);
         }
 
+        public IFormattable Table<TEntity>(EntityMapping entityMappingOverride = null) where TEntity : class
+        {
+            return Sql.Table<TEntity>(entityMappingOverride);
+        }
+
         public IFormattable Table<TEntity>(IoC.UnitOfWork.SqlDialect sqlDialect, EntityMapping entityMappingOverride = null) where TEntity : class
         {
             return Table<TEntity>(EnumHelper.ConvertEnumToEnum<SqlDialect>(sqlDialect), entityMappingOverride);
@@ -49,6 +59,13 @@ namespace Smooth.IoC.Repository.UnitOfWork.Helpers
         {
             _sqlDialectHelper.SetDialogueIfNeeded<TEntity>(sqlDialect);
             return Sql.Table<TEntity>(entityMappingOverride);
+        }
+
+        public IFormattable TableAndColumn<TEntity>(string propertyName,
+            EntityMapping entityMappingOverride = null) where TEntity : class
+        {
+            return TableAndColumn<TEntity>(EnumHelper.ConvertEnumToEnum<SqlDialect>(sqlDialect), propertyName,
+                entityMappingOverride);
         }
 
         public IFormattable TableAndColumn<TEntity>(IoC.UnitOfWork.SqlDialect sqlDialect, string propertyName,
