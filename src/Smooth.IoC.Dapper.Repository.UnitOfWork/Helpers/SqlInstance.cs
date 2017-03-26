@@ -64,8 +64,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Helpers
         public IFormattable TableAndColumn<TEntity>(string propertyName,
             EntityMapping entityMappingOverride = null) where TEntity : class
         {
-            return TableAndColumn<TEntity>(EnumHelper.ConvertEnumToEnum<SqlDialect>(sqlDialect), propertyName,
-                entityMappingOverride);
+            return Sql.TableAndColumn<TEntity>(propertyName, entityMappingOverride);
         }
 
         public IFormattable TableAndColumn<TEntity>(IoC.UnitOfWork.SqlDialect sqlDialect, string propertyName,
