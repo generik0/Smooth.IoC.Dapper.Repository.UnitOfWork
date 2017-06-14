@@ -9,11 +9,12 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_In
     {
         public void Register(ContainerBuilder builder)
         {
-            builder.Register(c=> new AutofacDbFactory(c)).As<IDbFactory>().SingleInstance();
-            builder.RegisterType<Smooth.IoC.UnitOfWork.UnitOfWork>().As<IUnitOfWork>();
+            builder.Register(c=> new DbFactory(c.Resolve<IComponentContext>())).As<IDbFactory>().SingleInstance();
+            builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)); 
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
         }
-        sealed class AutofacDbFactory : IDbFactory
+        sealed class DbFactory : IDbFactory
         {
             private readonly IComponentContext _container;
             public AutofacDbFactory(IComponentContext container)
