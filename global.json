@@ -1,9 +1,5 @@
-﻿{
-  "projects": [
-    "Smooth.IoC.Dapper.Repository.UnitOfWork",
-    "Smooth.IoC.Dapper.UnitOfWork",
-    "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests"
-  ],
+{
+  "projects": [ "src", "test" ],
   "sdk": {
     "version": "1.0.0-preview2-003121"
   }

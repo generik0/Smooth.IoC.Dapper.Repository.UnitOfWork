@@ -5,14 +5,21 @@ using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
-    public class AutofacRegistrar
+    public class AutofacRegistrar: Module
     {
+        protected override void Load(ContainerBuilder builder)
+        {
+            Register(builder);
+        }
+    
         public void Register(ContainerBuilder builder)
         {
             builder.Register(c=> new DbFactory(c.Resolve<IComponentContext>())).As<IDbFactory>().SingleInstance();
             builder.RegisterGeneric(typeof(Repository<,>)).As(typeof(IRepository<,>)); 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-
+            builder.RegisterType<Smooth.IoC.UnitOfWork.UnitOfWork>().As<IUnitOfWork>();                        
+            //ToDo something like this to inject IRepository interfaces without a named interface
+            //var assemblies = AssemblyHelper.GetReferencingAssemblies(AssemblyHelper.ProjectName);
+            // builder.RegisterAssemblyTypes(assemblies.ToArray()).AsClosedTypesOf(typeof(IRepository<,>));
         }
         sealed class DbFactory : IDbFactory
         {
