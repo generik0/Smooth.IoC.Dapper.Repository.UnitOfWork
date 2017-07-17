@@ -24,7 +24,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_In
         sealed class DbFactory : IDbFactory
         {
             private readonly IComponentContext _container;
-            public AutofacDbFactory(IComponentContext container)
+            public DbFactory(IComponentContext container)
             {
                 _container = container;
             }
