@@ -48,14 +48,14 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             {
                 NewId = 1
             };
-            Brave result = null;
+            var result = 0;
             int maxId;
             using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
             {
                 maxId = repo.GetAll<ITestSession>().Max(x => x.Id);
                 Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync(expected, uow));
             }
-            Assert.That(result.Id, Is.EqualTo(++maxId));
+            Assert.That(result, Is.EqualTo(++maxId));
         }
 
 
@@ -67,10 +67,10 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             {
                 NewId = 1
             };
-            Brave result = null;
+            var result = 0;
             var maxId =  repo.GetAll<ITestSession>().Max(x => x.Id);
             Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync<ITestSession>(expected));
-            Assert.That(result.Id, Is.EqualTo(++maxId));
+            Assert.That(result, Is.EqualTo(++maxId));
         }
 
         [Test, Category("Integration")]
@@ -137,7 +137,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
         {
             var repo = new BraveRepository(Factory);
             const int expectedId = 3;
-            Brave result = null;
+            var result = 0;
 
             New original = null;
             using (var uow = Connection.UnitOfWork(IsolationLevel.Serializable))
@@ -147,10 +147,10 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
                 expected.NewId = 1;
                 Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync(expected, uow));
             }
-            Assert.That(expectedId, Is.EqualTo(result.Id));
-            result = repo.GetWithJoins(expectedId, Connection);
-            Assert.That(result.New, Is.Not.EqualTo(original));
-            Assert.That(result.NewId, Is.EqualTo(1));
+            Assert.That(expectedId, Is.EqualTo(result));
+            var actual = repo.GetWithJoins(expectedId, Connection);
+            Assert.That(actual.New, Is.Not.EqualTo(original));
+            Assert.That(actual.NewId, Is.EqualTo(1));
         }
         [Test, Category("Integration")]
         public static void SaveOrUpdateAsync_Returns_IdForUpdatedEnitiyCreatesOwnUnitOfWork()
@@ -160,14 +160,14 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             var expected = repo.GetWithJoins(expectedId, Connection);
             var original = expected.New;
             expected.NewId = 3;
-            Brave result = null;
+            var result = 0;
 
             Assert.DoesNotThrowAsync(async () => result = await repo.SaveOrUpdateAsync<ITestSession>(expected));
             
-            Assert.That(expectedId, Is.EqualTo(result.Id));
-            result = repo.GetWithJoins(expectedId, Connection);
-            Assert.That(result.New, Is.Not.EqualTo(original));
-            Assert.That(result.NewId, Is.EqualTo(3));
+            Assert.That(expectedId, Is.EqualTo(result));
+            var actual = repo.GetWithJoins(expectedId, Connection);
+            Assert.That(actual.New, Is.Not.EqualTo(original));
+            Assert.That(actual.NewId, Is.EqualTo(3));
         }
     }
 }

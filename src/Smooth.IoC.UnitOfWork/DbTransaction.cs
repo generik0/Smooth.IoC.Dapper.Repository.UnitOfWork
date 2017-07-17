@@ -12,7 +12,7 @@ namespace Smooth.IoC.UnitOfWork
         private bool _hasRolledBack;
         private bool _hasCommitted;
         public IDbTransaction Transaction { get; set; }
-        public IDbConnection Connection => Transaction.Connection;
+        public IDbConnection Connection => Transaction?.Connection;
         public IsolationLevel IsolationLevel => Transaction?.IsolationLevel ?? IsolationLevel.Unspecified;
 
         protected DbTransaction(IDbFactory factory)

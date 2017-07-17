@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Smooth.IoC.UnitOfWork.Helpers;
+#pragma warning disable 618
 
 namespace Smooth.IoC.UnitOfWork
 {
@@ -15,10 +16,9 @@ namespace Smooth.IoC.UnitOfWork
         {
             _factory = factory;
             SetDialect();
-            if (factory != null && !string.IsNullOrWhiteSpace(connectionString))
-            {
-                Connect(connectionString);
-            }
+            if (factory == null || string.IsNullOrWhiteSpace(connectionString)) return;
+            connectionString = Environment.ExpandEnvironmentVariables(connectionString);
+            Connect(connectionString);
         }
 
         private void SetDialect()

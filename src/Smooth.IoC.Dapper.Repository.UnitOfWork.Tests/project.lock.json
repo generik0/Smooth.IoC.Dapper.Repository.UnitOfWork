@@ -73,7 +73,7 @@
           "lib/net45/Dapper.FastCrud.dll": {}
         }
       },
-      "dotConnect.Express.for.PostgreSQL/7.7.794": {
+      "dotConnect.Express.for.PostgreSQL/7.7.804": {
         "type": "package",
         "compile": {
           "lib/Devart.Data.PostgreSql.dll": {},
@@ -714,7 +714,7 @@
       ]
     },
     "Dapper/1.50.2": {
-      "sha512": "PhxIV8TI/5aYdLT4epuIZB+Evf0sv9gcQDpFGa04fSKDfNQIChRq0sKUgQbfpFWbuDW/UDDuiL3Grkhp/cvYrA==",
+      "sha512": "4sUecJaw/cXXq0nyM1qld+GcE+sKzEOEECotlbJN7hZRAY8c09sNWDY7MynUw0/W3hF+k9VPWu2RbEXGnJ8svA==",
       "type": "package",
       "path": "Dapper/1.50.2",
       "files": [
@@ -745,14 +745,14 @@
         "lib/netstandard1.6/Dapper.FastCrud.xml"
       ]
     },
-    "dotConnect.Express.for.PostgreSQL/7.7.794": {
-      "sha512": "BKjI001NT7UrBo1/xdUMa0+WZvMSxMD7jthBZ1GlITsKP1n8g4YJKVz4L/s6wJIE35j/T/W92pueD6MeYoDddw==",
+    "dotConnect.Express.for.PostgreSQL/7.7.804": {
+      "sha512": "/0PDuhgfCVyGFfc3gAVkIvODn9Y2ypMHolMtwuXS2c4W2M9uzD0UBVbHyTvviJqzMKqEM1y6MUpaY4N0d/JrmQ==",
       "type": "package",
-      "path": "dotConnect.Express.for.PostgreSQL/7.7.794",
+      "path": "dotConnect.Express.for.PostgreSQL/7.7.804",
       "files": [
         "content/app.config.transform",
         "content/web.config.transform",
-        "dotConnect.Express.for.PostgreSQL.7.7.794.nupkg.sha512",
+        "dotConnect.Express.for.PostgreSQL.7.7.804.nupkg.sha512",
         "dotConnect.Express.for.PostgreSQL.nuspec",
         "lib/Devart.Data.PostgreSql.dll",
         "lib/Devart.Data.dll"
@@ -927,7 +927,7 @@
       ]
     },
     "Microsoft.DiaSymReader/1.0.8": {
-      "sha512": "HAhTmRgU+nnDVYxMZFAS1iwqg6CudbsSMZfSY9UJj4AJO4L69xZCtTOPKC5rW8+egNBWjDb0iBZV4ZdNI6dZnA==",
+      "sha512": "ABLULVhCAiyBFLBT5xX6vB4NhZDgwUylGRQK+zW5nZn2rbh1f8LOnFZ9gVSxzL6qOzPNb32Nu3QZ43iZerHOxA==",
       "type": "package",
       "path": "Microsoft.DiaSymReader/1.0.8",
       "files": [
@@ -1119,8 +1119,6 @@
       "type": "package",
       "path": "Ninject.Extensions.Conventions/3.2.0",
       "files": [
-        "Ninject.Extensions.Conventions.3.2.0.nupkg.sha512",
-        "Ninject.Extensions.Conventions.nuspec",
         "lib/net35/Ninject.Extensions.Conventions.dll",
         "lib/net35/Ninject.Extensions.Conventions.xml",
         "lib/net40/Ninject.Extensions.Conventions.dll",
@@ -1138,7 +1136,9 @@
         "lib/sl4/Ninject.Extensions.Conventions.dll",
         "lib/sl4/Ninject.Extensions.Conventions.xml",
         "lib/sl5/Ninject.Extensions.Conventions.dll",
-        "lib/sl5/Ninject.Extensions.Conventions.xml"
+        "lib/sl5/Ninject.Extensions.Conventions.xml",
+        "ninject.extensions.conventions.3.2.0.nupkg.sha512",
+        "ninject.extensions.conventions.nuspec"
       ]
     },
     "Ninject.Extensions.Factory/3.2.1": {
@@ -1369,11 +1369,11 @@
       "type": "package",
       "path": "StructureMap/4.4.2",
       "files": [
-        "StructureMap.4.4.2.nupkg.sha512",
-        "StructureMap.nuspec",
         "lib/net45/StructureMap.dll",
         "lib/netstandard1.3/StructureMap.dll",
-        "lib/netstandard1.5/StructureMap.dll"
+        "lib/netstandard1.5/StructureMap.dll",
+        "structuremap.4.4.2.nupkg.sha512",
+        "structuremap.nuspec"
       ]
     },
     "System.Collections.Immutable/1.2.0": {
@@ -1794,7 +1794,7 @@
       "StructureMap >= 4.4.2",
       "System.Data.SQLite.Core >= 1.0.104",
       "Unity >= 4.0.1",
-      "dotConnect.Express.for.PostgreSQL >= 7.7.794",
+      "dotConnect.Express.for.PostgreSQL >= 7.7.804",
       "dotnet-test-nunit >= 3.4.0-beta-3"
     ],
     ".NETFramework,Version=v4.5.2": [
