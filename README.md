@@ -244,9 +244,8 @@ Registration examples:
 {
     public void Register(ContainerBuilder builder)
     {
-        builder.Register(c=&gt; new AutofacDbFactory(c)).As&lt;IDbFactory&gt;().SingleInstance();
+        builder.Register(c=&gt; new AutofacDbFactory(c.Resolve<IComponentContext>())).As&lt;IDbFactory&gt;().SingleInstance();
         builder.RegisterType&lt;Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;().As&lt;IUnitOfWork&gt;();
-
     }
 
     sealed class AutofacDbFactory : IDbFactory
