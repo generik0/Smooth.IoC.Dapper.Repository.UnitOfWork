@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Autofac;
+using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
@@ -21,6 +22,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_In
             //var assemblies = AssemblyHelper.GetReferencingAssemblies(AssemblyHelper.ProjectName);
             // builder.RegisterAssemblyTypes(assemblies.ToArray()).AsClosedTypesOf(typeof(IRepository<,>));
         }
+        [NoIoCFluentRegistration]
         sealed class DbFactory : IDbFactory
         {
             private readonly IComponentContext _container;

@@ -25,7 +25,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_In
             container.Register(Component.For<DbFactoryComponentSelector, ITypedFactoryComponentSelector>());
             container.Register(Component.For<IDbFactory>().AsFactory(c => c.SelectedWith<DbFactoryComponentSelector>()));
         }
-
+        [NoIoCFluentRegistration]
         sealed class DbFactoryComponentSelector : DefaultTypedFactoryComponentSelector
         {
             private readonly IKernelInternal _kernel;

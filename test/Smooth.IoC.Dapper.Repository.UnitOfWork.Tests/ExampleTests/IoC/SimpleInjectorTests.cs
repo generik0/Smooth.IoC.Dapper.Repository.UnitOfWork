@@ -16,7 +16,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
     {
         private static Container _container;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void TestSetup()
         {
             if (_container == null)
@@ -29,11 +29,12 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
                         (from type in Assembly.GetExecutingAssembly().GetTypes()
                         where !type.IsAbstract && !type.IsInterface
                         where type.GetInterfaces().Any(x=>x!=typeof(IDisposable))
-                        where type.GetCustomAttribute<NoIoCFluentRegistration>() == null
-                        select new { Services = type.GetInterfaces(), Implementation = type }).ToArray();
+                        where type.CustomAttributes.Any(x => x.GetType() == typeof(NoIoCFluentRegistration))
+                         select new { Services = type.GetInterfaces(), Implementation = type }).ToArray();
 
                     foreach (var reg in registrations)
                     {
+                        var containerRegistrations = _container.GetCurrentRegistrations();
                         foreach (var service in reg.Services)
                         {
                             if (string.CompareOrdinal(service.Name.Substring(1), reg.Implementation.Name) == 0)

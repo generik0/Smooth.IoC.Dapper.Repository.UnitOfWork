@@ -84,14 +84,14 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
         [Migration(201612180930)]
         class CreateFoo : Migration
         {
-            public override void Up()
+            protected override void Up()
             {
                 if (!Connection.ConnectionString.Contains(DbName)) return;
                 Execute(@"CREATE TABLE FooGuidTest (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
                 Execute(@"CREATE TABLE FooGuidTestWithIEntiy (Id   UNIQUEIDENTIFIER      DEFAULT NEWID(),  Something VARCHAR(20) );");
             }
 
-            public override void Down()
+            protected override void Down()
             {
                 Execute("DROP TABLE FooGuidTest");
             }

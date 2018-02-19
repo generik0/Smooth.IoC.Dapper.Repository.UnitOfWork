@@ -6,7 +6,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations
     [Migration(2)]
     public class AddDataBraveNewWorld : Migration
     {
-        public override void Up()
+        protected override void Up()
         {
             if (!Connection.ConnectionString.Contains("RepoTests.db") && !Connection.ConnectionString.Contains(":memory:;")) return;
             Execute($@"INSERT INTO Worlds (Guid) VALUES ('{Guid.NewGuid()}');");
@@ -22,7 +22,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations
             Execute($@"INSERT INTO Braves (NewId) VALUES (2);");
         }
 
-        public override void Down()
+        protected override void Down()
         {
             Execute("DROP TABLE Brave");
             Execute("DROP TABLE New");
