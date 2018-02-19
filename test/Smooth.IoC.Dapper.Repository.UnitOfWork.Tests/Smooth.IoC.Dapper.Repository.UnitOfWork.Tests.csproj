@@ -91,7 +91,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="dotConnect.Express.for.PostgreSQL" Version="7.10.1086" />
-    <PackageReference Include="FakeItEasy" Version="4.4.0" />
+    <PackageReference Include="FakeItEasy" Version="4.5.0" />
     <PackageReference Include="FluentAssertions" Version="5.1.2" />
     <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
     <PackageReference Include="MySql.Data" Version="6.10.6" />
