@@ -1,7 +1,7 @@
 ![Project Icon](https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg) Smooth.IoC.Dapper.Repository.UnitOfWork
 ===========================================
 
-[![generik0 VSTS Build Status](https://generik0.visualstudio.com/_apis/public/build/definitions/97e62cdf-8c46-48a2-bf7a-d40bf05a53eb/1/badge)](https://www.visualstudio.com/)
+[![generik0 VSTS Build Status](https://generik0.visualstudio.com/_apis/public/build/definitions/97e62cdf-8c46-48a2-bf7a-d40bf05a53eb/2/badge)](https://www.visualstudio.com/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
 This package it created to "FIX" the contradictory concepts behind the Repository and UnitOfWork patterns together with using inversition of control
