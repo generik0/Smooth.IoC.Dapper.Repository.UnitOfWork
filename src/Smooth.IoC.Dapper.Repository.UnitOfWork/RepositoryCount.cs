@@ -59,11 +59,11 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.CountAsync<TEntity>();
         }
 
-        public virtual Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession
+        public virtual async Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return CountAsync(uow);
+                return await CountAsync(uow);
             }
         }
     }

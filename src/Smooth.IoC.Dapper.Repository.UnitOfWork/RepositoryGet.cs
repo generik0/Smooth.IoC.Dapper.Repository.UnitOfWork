@@ -119,11 +119,11 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.GetAsync(entity);
         }
 
-        public virtual Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual async Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
-                return GetAsync(entity, session);
+                return await GetAsync(entity, session);
             }
         }
     }

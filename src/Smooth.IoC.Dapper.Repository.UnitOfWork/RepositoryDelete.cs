@@ -123,11 +123,11 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.DeleteAsync(entity);
         }
 
-        public virtual Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual async Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return DeleteAsync(entity, uow);    
+                return await DeleteAsync(entity, uow);    
             }
         }
     }

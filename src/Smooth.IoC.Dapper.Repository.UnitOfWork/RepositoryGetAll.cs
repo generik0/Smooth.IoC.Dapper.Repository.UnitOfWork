@@ -46,11 +46,11 @@ namespace Smooth.IoC.Repository.UnitOfWork
                 : uow.FindAsync<TEntity>();
         }
 
-        public virtual Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
-                return GetAllAsync(session);
+                return await GetAllAsync(session);
             }
         }
     }
