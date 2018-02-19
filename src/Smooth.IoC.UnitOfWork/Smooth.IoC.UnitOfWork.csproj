@@ -10,22 +10,24 @@
     <Version>0.5.0</Version>
     <Authors>Rik Svendsen Rose</Authors>
     <Company>GAIT</Company>
-    <Product>Smooth.IoC.Repository.UnitOfWork</Product>
-    <Description>The package  Provides a solution for the UnitOfWork patterns together with inversition of control.
+    <Product>Smooth.IoC.UnitOfWork</Product>
+	<Summary>Smooth IoC UnitOfWork pattern.</Summary>
+    <Description>The package  Provides a solution for the UnitOfWork patterns together with inversition of control. It is the core abstractions, interfaces and core classes that can be used for any ORM.
       On the project site there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity integration. The IoC framework is not an issue... It is ment to integrate nice and smooth like...
       Utilize this package with: https://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork/
 
       The library gives you the building blocks to:
       * Create Sessions from the IDbFactory in your methods, IDbFactory should be injected into your class's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
       * Your Sessions can create UnitOfWork's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
-      * Implemented for .net 4.5.2, .net 4.6.1+, .net 1.6 standard+.</Description>
-    <Copyright>Generik0</Copyright>
+      * Implemented for .net 4..0, .net 4.5.2, .net 4.6.1, .net 4.7.1+, .net 1.6 standard, .net 2.0 standard+</Description>
+    <Copyright>Generik0 2018</Copyright>
     <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg</PackageIconUrl>
-    <RepositoryUrl></RepositoryUrl>
+    <RepositoryUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</RepositoryUrl>
     <PackageTags>dapper orm sql sqlite mysql mssql localdb postgresql poco unitofwork di ioc autofac castle ninject simpleinjector structuremap unity</PackageTags>
     <NeutralLanguage></NeutralLanguage>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net4' ">

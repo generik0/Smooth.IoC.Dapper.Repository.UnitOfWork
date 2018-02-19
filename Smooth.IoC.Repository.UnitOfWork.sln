@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smooth.IoC.UnitOfWork", "src\Smooth.IoC.UnitOfWork\Smooth.IoC.UnitOfWork.csproj", "{F27E79E3-E258-4E63-B999-EF76E3A78B47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smooth.IoC.Dapper.Repository.UnitOfWork", "src\Smooth.IoC.Dapper.Repository.UnitOfWork\Smooth.IoC.Dapper.Repository.UnitOfWork.csproj", "{F1EEF8C6-5FC2-447B-8A79-7F4890C2C3A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F27E79E3-E258-4E63-B999-EF76E3A78B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F27E79E3-E258-4E63-B999-EF76E3A78B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F27E79E3-E258-4E63-B999-EF76E3A78B47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1EEF8C6-5FC2-447B-8A79-7F4890C2C3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1EEF8C6-5FC2-447B-8A79-7F4890C2C3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1EEF8C6-5FC2-447B-8A79-7F4890C2C3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1EEF8C6-5FC2-447B-8A79-7F4890C2C3A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

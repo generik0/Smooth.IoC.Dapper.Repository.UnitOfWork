@@ -1,0 +1,129 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+			<TargetFrameworks>net452;net461;net471;netstandard1.6;netstandard2.0</TargetFrameworks>
+			<Version>0.5.0</Version>
+			<Product>Smooth.IoC.Dapper.Repository.UnitOfWork</Product>
+			<PackageId>Smooth.IoC.Dapper.Repository.UnitOfWork</PackageId>
+			<Authors>Rik Svendsen Rose</Authors>
+			<Company>GAIT</Company>
+			<Copyright>Generik0 2018</Copyright>
+			<Summary>Smooth IoC using Dapper Dapper.FastCRUD with Repository and UnitOfWork patterns.</Summary>
+			<Description>The package  Provides a solution for the Repository and UnitOfWork patterns together with inversition of control.
+      On the project site there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity integration. The IoC framework is not an issue... It is ment to integrate nice and smooth like...
+
+      The project uses tor its repository work Dapper as ORM and Dapper.FactCRUD for fluentness. But you can use is as a foundation and with any IDbConnection and IDbTransient framework you like.
+      
+      The library gives you the building blocks to:
+      * Create Sessions from the IDbFactory in your methods, IDbFactory should be injected into your class's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
+      * Your Sessions can create UnitOfWork's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
+      * If your logic just needs "just a" UnitOfWork with a session that has the same scope, the factory can create it for you.
+      * The IRepository and abstract concrete class should be used on your individual repository classes to provide simple and basic calls. But ofcasue you can add all the queries you want into your Repositories and use the dapper and dapper.FastCRUD (or any other extensions) functionality provided to you.
+      * The repository abstract classes use Dapper.FastCRUD to give you a fluent ORM experience with the most common calls.
+      * This library does not lock you to using dapper and FastCRUD, you can use any library you like that extends IDbConnection and IDbTransation, and still use the IDbFactory, ISession and IUnitOrWork.
+      * Implemented for .net 4..0, .net 4.5.2, .net 4.6.1, .net 4.7.1+, .net 1.6 standard, .net 2.0 standard+.</Description>
+			<PackageTags>dapper crud orm sql sqlite mysql mssql localdb postgresql poco repository unitofwork di ioc autofac castle ninject simpleinjector structuremap unity</PackageTags>
+			<PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+			<PackageProjectUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</PackageProjectUrl>
+			<PackageIconUrl>https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg</PackageIconUrl>
+			<RepositoryUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</RepositoryUrl>
+			<RepositoryType>Git</RepositoryType>
+	</PropertyGroup>
+	
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+	<Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+	<Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net471' ">
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+	<Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <DefineConstants>$(DefineConstants);NET_46_OR_GREATER</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <PackageReference Include="Dapper">
+      <Version>1.50.4</Version>
+    </PackageReference>
+    <PackageReference Include="Dapper.FastCrud">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="Dapper">
+      <Version>1.50.4</Version>
+    </PackageReference>
+    <PackageReference Include="Dapper.FastCrud">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+    <PackageReference Include="Dapper">
+      <Version>1.50.4</Version>
+    </PackageReference>
+    <PackageReference Include="Dapper.FastCrud">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="Dapper">
+      <Version>1.50.4</Version>
+    </PackageReference>
+    <PackageReference Include="Dapper.FastCrud">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Dapper">
+      <Version>1.50.4</Version>
+    </PackageReference>
+    <PackageReference Include="Dapper.FastCrud">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Smooth.IoC.UnitOfWork\Smooth.IoC.UnitOfWork.csproj" />
+  </ItemGroup>
+
+</Project>
