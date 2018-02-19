@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 
@@ -17,7 +18,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             Assert.DoesNotThrow(()=>results = repo.GetAll(Connection));
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
         [Test, Category("Integration")]
@@ -28,7 +29,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             Assert.DoesNotThrow(() => results = repo.GetAll(Connection));
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
         [Test, Category("Integration")]
@@ -42,7 +43,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             }
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
         [Test, Category("Integration")]
@@ -56,7 +57,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             }
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
         [Test, Category("Integration")]
@@ -67,7 +68,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             Assert.DoesNotThrow(() => results = repo.GetAll<ITestSession>());
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
         [Test, Category("Integration")]
@@ -93,7 +94,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             }
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
         [Test, Category("Integration")]
@@ -104,7 +105,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository
             Assert.DoesNotThrowAsync(async () => results = await repo.GetAllAsync<ITestSession>());
             Assert.That(results, Is.Not.Null);
             Assert.That(results, Is.Not.Empty);
-            Assert.That(results.Count(), Is.EqualTo(3));
+            results.Should().HaveCount(x => x > 0);
         }
 
     }
