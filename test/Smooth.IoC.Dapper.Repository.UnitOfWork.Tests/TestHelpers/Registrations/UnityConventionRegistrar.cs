@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.Unity;
+using Unity;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Registrations
 {

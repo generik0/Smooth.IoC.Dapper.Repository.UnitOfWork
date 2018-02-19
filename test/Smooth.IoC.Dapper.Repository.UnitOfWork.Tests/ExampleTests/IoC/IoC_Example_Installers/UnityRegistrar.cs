@@ -3,6 +3,10 @@ using System.Data;
 using Microsoft.Practices.Unity;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
+using Unity;
+using Unity.Injection;
+using Unity.Lifetime;
+using Unity.Resolution;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
@@ -41,7 +45,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_In
             }
             public void Release(IDisposable instance)
             {
-                _container.Teardown(instance);
+                instance.Dispose();
             }
         }
     }
