@@ -20,11 +20,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).BulkDelete(statementOptions);
         }
 
-        public static Task<int> BulkDeleteAsync<TEntity>(this ISession connection,
+        public static async Task<int> BulkDeleteAsync<TEntity>(this ISession connection,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return  (connection as IDbConnection).BulkDeleteAsync(statementOptions);
+            return await (connection as IDbConnection).BulkDeleteAsync(statementOptions);
         }
 
         public static int BulkUpdate<TEntity>(this ISession connection, TEntity updateData,
@@ -34,11 +34,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).BulkUpdate(updateData,statementOptions);
         }
 
-        public static Task<int> BulkUpdateAsync<TEntity>(this ISession connection, TEntity updateData,
+        public static async Task<int> BulkUpdateAsync<TEntity>(this ISession connection, TEntity updateData,
             Action<IConditionalBulkSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).BulkUpdateAsync(updateData,statementOptions);
+            return await (connection as IDbConnection).BulkUpdateAsync(updateData,statementOptions);
         }
 
         public static int Count<TEntity>(this ISession connection,
@@ -48,11 +48,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).Count(statementOptions);
         }
 
-        public static Task<int> CountAsync<TEntity>(this ISession connection,
+        public static async Task<int> CountAsync<TEntity>(this ISession connection,
             Action<IConditionalSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).CountAsync(statementOptions);
+            return await (connection as IDbConnection).CountAsync(statementOptions);
         }
 
         public static bool Delete<TEntity>(this ISession connection, TEntity entityToDelete,
@@ -62,11 +62,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).Delete(entityToDelete,statementOptions);
         }
 
-        public static Task<bool> DeleteAsync<TEntity>(this ISession connection, TEntity entityToDelete,
+        public static async Task<bool> DeleteAsync<TEntity>(this ISession connection, TEntity entityToDelete,
             Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).DeleteAsync(entityToDelete,statementOptions);
+            return await (connection as IDbConnection).DeleteAsync(entityToDelete,statementOptions);
         }
 
         public static IEnumerable<TEntity> Find<TEntity>(this ISession connection,
@@ -76,11 +76,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).Find(statementOptions);
         }
 
-        public static Task<IEnumerable<TEntity>> FindAsync<TEntity>(this ISession connection,
+        public static async Task<IEnumerable<TEntity>> FindAsync<TEntity>(this ISession connection,
             Action<IRangedBatchSelectSqlSqlStatementOptionsOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).FindAsync(statementOptions);
+            return await (connection as IDbConnection).FindAsync(statementOptions);
         }
 
         public static TEntity Get<TEntity>(this ISession connection, TEntity entityKeys,
@@ -90,11 +90,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).Get(entityKeys, statementOptions);
         }
 
-        public static Task<TEntity> GetAsync<TEntity>(this ISession connection, TEntity entityKeys,
+        public static async Task<TEntity> GetAsync<TEntity>(this ISession connection, TEntity entityKeys,
             Action<ISelectSqlSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).GetAsync(entityKeys, statementOptions);
+            return await (connection as IDbConnection).GetAsync(entityKeys, statementOptions);
         }
 
         public static void Insert<TEntity>(this ISession connection, TEntity entityToInsert,
@@ -104,11 +104,12 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             (connection as IDbConnection).Insert(entityToInsert, statementOptions);
         }
 
-        public static Task InsertAsync<TEntity>(this ISession connection, TEntity entityToInsert,
+        public static async Task InsertAsync<TEntity>(this ISession connection, TEntity entityToInsert,
             Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).InsertAsync(entityToInsert, statementOptions);
+            await (connection as IDbConnection).InsertAsync(entityToInsert, statementOptions);
+            return;
         }
 
         public static bool Update<TEntity>(this ISession connection, TEntity entityToUpdate,
@@ -118,11 +119,11 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
             return (connection as IDbConnection).Update(entityToUpdate, statementOptions);
         }
 
-        public static Task<bool> UpdateAsync<TEntity>(this ISession connection, TEntity entityToUpdate,
+        public static async Task<bool> UpdateAsync<TEntity>(this ISession connection, TEntity entityToUpdate,
             Action<IStandardSqlStatementOptionsBuilder<TEntity>> statementOptions = null) where TEntity : class
         {
             DialogueHelper.SetDialogueIfNeeded<TEntity>(connection.SqlDialect);
-            return (connection as IDbConnection).UpdateAsync(entityToUpdate, statementOptions);
+            return await (connection as IDbConnection).UpdateAsync(entityToUpdate, statementOptions);
         }
 
         

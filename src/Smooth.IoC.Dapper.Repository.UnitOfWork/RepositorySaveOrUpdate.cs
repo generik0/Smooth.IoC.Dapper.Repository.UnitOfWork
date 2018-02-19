@@ -31,9 +31,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
         }
 
-        public virtual Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
+        public virtual async Task<TPk> SaveOrUpdateAsync(TEntity entity, IUnitOfWork uow)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
                 if (TryAllKeysDefault(entity))
                 {

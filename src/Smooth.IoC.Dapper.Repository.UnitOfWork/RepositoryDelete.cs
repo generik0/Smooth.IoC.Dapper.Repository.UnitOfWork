@@ -26,8 +26,8 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
             var entity = CreateEntityAndSetKeyValue(key);
             return uow.Delete(entity);
-        }
 
+        }
         public virtual bool DeleteKey<TSesssion>(TPk key) where TSesssion : class, ISession
         {
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
@@ -36,35 +36,34 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
         }
 
-        public virtual Task<bool> DeleteKeyAsync(TPk key, ISession session)
+        public virtual async Task<bool> DeleteKeyAsync(TPk key, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return Task.Run(() => session.Execute($"DELETE FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return await Task.Run(() => session.Execute($"DELETE FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                                           new {Id = key}) == 1);
             }
 
             var entity = CreateEntityAndSetKeyValue(key);
-            return session.DeleteAsync(entity);
+            return await session.DeleteAsync(entity);
         }
 
-        public virtual Task<bool>  DeleteKeyAsync(TPk key, IUnitOfWork uow)
+        public virtual async Task<bool>  DeleteKeyAsync(TPk key, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return Task.Run(() => uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return await Task.Run(() => uow.Connection.Execute($"DELETE FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                                           new {Id = key}, uow.Transaction) == 1);
             }
             var entity = CreateEntityAndSetKeyValue(key);
-            return uow.DeleteAsync(entity);
+            return await uow.DeleteAsync(entity);
         }
 
-        public virtual Task<bool>  DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual async Task<bool> DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
         {
-
             using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
             {
-                return DeleteKeyAsync(key, uow);    
+                return await DeleteKeyAsync(key, uow);    
             }
         }
 
@@ -101,15 +100,15 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
         }
 
-        public virtual Task<bool> DeleteAsync(TEntity entity, ISession session)
+        public virtual async Task<bool> DeleteAsync(TEntity entity, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return Task.Run(() =>session.Execute(
+                return await Task.Run(() =>session.Execute(
                             $"DELETE FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                             new {((IEntity<TPk>) entity).Id}) == 1);
             }
-            return session.DeleteAsync(entity);
+            return await session.DeleteAsync(entity);
         }
 
         public virtual Task<bool> DeleteAsync(TEntity entity, IUnitOfWork uow)

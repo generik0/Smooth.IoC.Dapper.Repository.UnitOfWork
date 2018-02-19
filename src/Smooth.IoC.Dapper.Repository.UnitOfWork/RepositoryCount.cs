@@ -39,24 +39,24 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
         }
 
-        public virtual Task<int> CountAsync(ISession session)
+        public virtual async Task<int> CountAsync(ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return session.QuerySingleOrDefaultAsync<int>(
+                return await session.QuerySingleOrDefaultAsync<int>(
                             $"SELECT count(*) FROM {Sql.Table<TEntity>(session.SqlDialect)}");
             }
-            return session.CountAsync<TEntity>();
+            return await session.CountAsync<TEntity>();
         }
 
-        public virtual Task<int> CountAsync(IUnitOfWork uow)
+        public virtual async Task<int> CountAsync(IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return uow.Connection.QuerySingleOrDefaultAsync<int>(
+                return await uow.Connection.QuerySingleOrDefaultAsync<int>(
                             $"SELECT count(*) FROM {Sql.Table<TEntity>(uow.SqlDialect)}");
             }
-            return uow.CountAsync<TEntity>();
+            return await uow.CountAsync<TEntity>();
         }
 
         public virtual async Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession

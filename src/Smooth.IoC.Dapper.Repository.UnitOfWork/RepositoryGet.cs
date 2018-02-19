@@ -41,34 +41,34 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.Get(entity);
         }
 
-        public virtual Task<TEntity> GetKeyAsync(TPk key, ISession session)
+        public virtual async Task<TEntity> GetKeyAsync(TPk key, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new { Id = key });
             }
             var entity = CreateEntityAndSetKeyValue(key);
-            return GetAsync(entity, session);
+            return await GetAsync(entity, session);
         }
 
-        public virtual Task<TEntity> GetKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual async Task<TEntity> GetKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
         {
             using (var session = Factory.Create<TSesssion>())
             {
-                return GetKeyAsync(key, session);
+                return await GetKeyAsync(key, session);
             }
         }
 
-        public virtual Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
+        public virtual async Task<TEntity> GetKeyAsync(TPk key, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { Id = key }, uow.Transaction);
             }
             var entity = CreateEntityAndSetKeyValue(key);
-            return uow.GetAsync(entity);
+            return await uow.GetAsync(entity);
         }
 
         public virtual TEntity Get(TEntity entity, ISession session) 
@@ -99,24 +99,24 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.Get(entity);
         }
 
-        public virtual Task<TEntity> GetAsync(TEntity entity, ISession session)
+        public virtual async Task<TEntity> GetAsync(TEntity entity, ISession session)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
+                return await session.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(session.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id });
             }
-            return session.GetAsync(entity);
+            return await session.GetAsync(entity);
         }
 
-        public virtual Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
+        public virtual async Task<TEntity> GetAsync(TEntity entity, IUnitOfWork uow)
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                return uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
+                return await uow.Connection.QuerySingleOrDefaultAsync<TEntity>($"SELECT * FROM {Sql.Table<TEntity>(uow.SqlDialect)} WHERE Id = @Id",
                     new { ((IEntity<TPk>)entity).Id }, uow.Transaction);
             }
-            return uow.GetAsync(entity);
+            return await uow.GetAsync(entity);
         }
 
         public virtual async Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
