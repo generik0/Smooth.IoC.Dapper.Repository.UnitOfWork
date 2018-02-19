@@ -35,6 +35,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
                     foreach (var reg in registrations)
                     {
                         var containerRegistrations = _container.GetCurrentRegistrations();
+                        if (registrations.Any(x => x.GetType() == reg.Implementation.GetType())) continue;
                         foreach (var service in reg.Services)
                         {
                             if (string.CompareOrdinal(service.Name.Substring(1), reg.Implementation.Name) == 0)
