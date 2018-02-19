@@ -28,7 +28,7 @@
 			<PackageIconUrl>https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg</PackageIconUrl>
 			<RepositoryUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</RepositoryUrl>
 			<RepositoryType>Git</RepositoryType>
-			<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+			<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
 	
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
