@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork", "src\Smooth.IoC.Dapper.Repository.UnitOfWork\Smooth.IoC.Dapper.Repository.UnitOfWork.xproj", "{E6550DC7-FC02-4B12-A7B5-DDB684A7760A}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests", "src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.xproj", "{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C08F9BD6-CCD6-4BC3-955F-6EE14DE3C8E5}"
 	ProjectSection(SolutionItems) = preProject
 		build\Build.Locally.ps1 = build\Build.Locally.ps1
-		global.json = global.json
 		build\MyGet.Build.ps1 = build\MyGet.Build.ps1
 		build\MyGet.include.ps1 = build\MyGet.include.ps1
 		build\MyGet.ps1 = build\MyGet.ps1
@@ -19,7 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGetSpecs\Smooth.IoC.UnitOfWork.nuspec = NuGetSpecs\Smooth.IoC.UnitOfWork.nuspec
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smooth.IoC.UnitOfWork", "src\Smooth.IoC.UnitOfWork\Smooth.IoC.UnitOfWork.xproj", "{3CB9812A-7895-4AB8-AC8B-775801F811D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smooth.IoC.Dapper.Repository.UnitOfWork", "src\Smooth.IoC.Dapper.Repository.UnitOfWork\Smooth.IoC.Dapper.Repository.UnitOfWork.csproj", "{E6550DC7-FC02-4B12-A7B5-DDB684A7760A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smooth.IoC.Dapper.Repository.UnitOfWork.Tests", "src\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests\Smooth.IoC.Dapper.Repository.UnitOfWork.Tests.csproj", "{508A8FD8-EFB9-4643-A7D2-F0D36182CF39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Smooth.IoC.UnitOfWork", "src\Smooth.IoC.UnitOfWork\Smooth.IoC.UnitOfWork.csproj", "{3CB9812A-7895-4AB8-AC8B-775801F811D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49F7ED18-921B-4E7C-AD1B-13AE082E5ACF}
 	EndGlobalSection
 EndGlobal
