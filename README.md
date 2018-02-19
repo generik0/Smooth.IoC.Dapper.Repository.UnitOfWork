@@ -1,7 +1,7 @@
 ![Project Icon](https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg) Smooth.IoC.Dapper.Repository.UnitOfWork
 ===========================================
 
-[![generik0 MyGet Build Status](https://www.myget.org/BuildSource/Badge/smooth-ioc-dapper-repository-unitofwork?identifier=55e88617-10c7-431e-ad25-9c1d4296ecbd)](https://www.myget.org/)
+[![generik0 VSTS Build Status](https://generik0.visualstudio.com/_apis/public/build/definitions/97e62cdf-8c46-48a2-bf7a-d40bf05a53eb/1/badge)](https://www.visualstudio.com/)
 [![NuGet](https://img.shields.io/nuget/v/Smooth.IoC.Dapper.Repository.UnitOfWork.svg)](http://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork)
 
 **Please note breaking change in version 0.4.x. Now UnitOfWork and session are in there own package. With Zero dependencies. So you don't have to polute your solution with dapper and fastdapper everywhere.**
