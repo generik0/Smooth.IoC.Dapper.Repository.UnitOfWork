@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+			<TargetFrameworks>net40;net452;net461;net471;netstandard1.6;netstandard2.0</TargetFrameworks>
+	</PropertyGroup>
+	
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Smooth.IoC.UnitOfWork</PackageId>
+    <Version>0.5.0</Version>
+    <Authors>Rik Svendsen Rose</Authors>
+    <Company>GAIT</Company>
+    <Product>Smooth.IoC.Repository.UnitOfWork</Product>
+    <Description>The package  Provides a solution for the UnitOfWork patterns together with inversition of control.
+      On the project site there are examples of Autofact, Castle.Windsor, Ninject, Simpleinjector, StructureMap, and Unity integration. The IoC framework is not an issue... It is ment to integrate nice and smooth like...
+      Utilize this package with: https://www.nuget.org/packages/Smooth.IoC.Dapper.Repository.UnitOfWork/
+
+      The library gives you the building blocks to:
+      * Create Sessions from the IDbFactory in your methods, IDbFactory should be injected into your class's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
+      * Your Sessions can create UnitOfWork's. As Session extends IDbConnection and will Open on the factory spawning the session and dispose the connection on disposal of the connection.
+      * Implemented for .net 4.5.2, .net 4.6.1+, .net 1.6 standard+.</Description>
+    <Copyright>Generik0</Copyright>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/generik0/Smooth.IoC.Dapper.Repository.UnitOfWork</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Generik0/Smooth.IoC.Dapper.Repository.UnitOfWork/master/logo.jpg</PackageIconUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageTags>dapper orm sql sqlite mysql mssql localdb postgresql poco unitofwork di ioc autofac castle ninject simpleinjector structuremap unity</PackageTags>
+    <NeutralLanguage></NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net4' ">
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <DefineConstants>$(DefineConstants);NET_46_OR_GREATER</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Data.Common">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  
+</Project>
