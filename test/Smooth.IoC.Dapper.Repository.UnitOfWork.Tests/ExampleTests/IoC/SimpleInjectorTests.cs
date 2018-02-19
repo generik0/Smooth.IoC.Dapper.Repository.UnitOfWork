@@ -27,15 +27,13 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
                     new SimpleInjectorRegistrar().Register(_container);
                     var registrations =
                         (from type in Assembly.GetExecutingAssembly().GetTypes()
-                        where !type.IsAbstract && !type.IsInterface
-                        where type.GetInterfaces().Any(x=>x!=typeof(IDisposable))
-                        where type.CustomAttributes.Any(x => x.GetType() == typeof(NoIoCFluentRegistration))
-                         select new { Services = type.GetInterfaces(), Implementation = type }).ToArray();
+                            where !type.GetCustomAttributes(true).Any(x => x.GetType() == typeof(NoIoCFluentRegistration))
+                            && !type.IsAbstract && !type.IsInterface
+                            && type.GetInterfaces().Any(x=>x!=typeof(IDisposable))
+                                select new { Services = type.GetInterfaces(), Implementation = type }).ToArray();
 
                     foreach (var reg in registrations)
                     {
-                        var containerRegistrations = _container.GetCurrentRegistrations();
-                        if (registrations.Any(x => x.GetType() == reg.Implementation.GetType())) continue;
                         foreach (var service in reg.Services)
                         {
                             if (string.CompareOrdinal(service.Name.Substring(1), reg.Implementation.Name) == 0)
@@ -45,7 +43,14 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
                                     SimpleInjectorRegistrar.RegisterDisposableTransient(_container, service, reg.Implementation);
                                     continue;
                                 }
-                                _container.Register(service, reg.Implementation, Lifestyle.Transient);
+                                try
+                                {
+                                    _container.Register(service, reg.Implementation, Lifestyle.Transient);
+                                }
+                                catch (Exception)
+                                {
+                                }
+                                
                             }
                         }
                     }

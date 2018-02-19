@@ -7,6 +7,7 @@ using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
+    [NoIoCFluentRegistration]
     public class SimpleInjectorRegistrar
     {
         public void Register(Container container)

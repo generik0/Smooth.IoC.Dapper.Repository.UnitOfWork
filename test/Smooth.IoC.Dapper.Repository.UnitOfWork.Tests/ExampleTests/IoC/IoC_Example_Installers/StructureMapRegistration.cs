@@ -6,6 +6,7 @@ using StructureMap;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
+    [NoIoCFluentRegistration]
     public class StructureMapRegistration
     {
         public void Register(IContainer container)

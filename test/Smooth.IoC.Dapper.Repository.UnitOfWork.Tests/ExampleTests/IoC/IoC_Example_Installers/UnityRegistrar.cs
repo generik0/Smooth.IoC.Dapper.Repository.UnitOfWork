@@ -10,6 +10,7 @@ using Unity.Resolution;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
+    [NoIoCFluentRegistration]
     public class UnityRegistrar
     {
         public void Register(IUnityContainer container)

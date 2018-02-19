@@ -28,8 +28,8 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC
                 {
                     _container.Install(new CastleWindsorInstaller());
                     _container.Register(Classes.FromThisAssembly()
-                        .Where(t => t.GetInterfaces().Any(x => x != typeof(IDisposable)) 
-                            && !t.CustomAttributes.Any(x=>x.GetType()==typeof(NoIoCFluentRegistration)))
+                        .Where(type => type.GetInterfaces().Any(x => x != typeof(IDisposable)) 
+                            && !type.GetCustomAttributes(true).Any(x => x.GetType() == typeof(NoIoCFluentRegistration)))
                         .Unless(t => t.IsAbstract)
                         .Configure(c =>
                         {

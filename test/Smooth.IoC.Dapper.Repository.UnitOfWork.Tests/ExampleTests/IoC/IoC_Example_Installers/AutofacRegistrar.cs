@@ -6,6 +6,7 @@ using Smooth.IoC.UnitOfWork;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {
+    [NoIoCFluentRegistration]
     public class AutofacRegistrar: Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -22,6 +23,7 @@ namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_In
             //var assemblies = AssemblyHelper.GetReferencingAssemblies(AssemblyHelper.ProjectName);
             // builder.RegisterAssemblyTypes(assemblies.ToArray()).AsClosedTypesOf(typeof(IRepository<,>));
         }
+
         [NoIoCFluentRegistration]
         sealed class DbFactory : IDbFactory
         {
