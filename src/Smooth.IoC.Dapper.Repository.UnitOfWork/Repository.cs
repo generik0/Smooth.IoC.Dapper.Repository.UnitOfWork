@@ -4,8 +4,9 @@ using System.Reflection;
 using Smooth.IoC.Repository.UnitOfWork.Containers;
 using Smooth.IoC.UnitOfWork.Exceptions;
 using Smooth.IoC.Repository.UnitOfWork.Helpers;
-using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Abstractions;
 using Smooth.IoC.UnitOfWork.Helpers;
+using Smooth.IoC.UnitOfWork.Interfaces;
 
 namespace Smooth.IoC.Repository.UnitOfWork
 {
@@ -27,8 +28,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                var entityInterface = entity as IEntity<TPk>;
-                if (entityInterface != null)
+                if (entity is IEntity<TPk> entityInterface)
                 {
                     return entityInterface.Id.CompareTo(default(TPk)) == 0;
                 }
@@ -49,8 +49,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                var entityInterface = entity as IEntity<TPk>;
-                if (entityInterface != null)
+                if (entity is IEntity<TPk> entityInterface)
                 {
                     return entityInterface.Id;
                 }
@@ -62,8 +61,7 @@ namespace Smooth.IoC.Repository.UnitOfWork
         {
             if (_container.IsIEntity<TEntity, TPk>())
             {
-                var entityInterface = entity as IEntity<TPk>;
-                if (entityInterface != null)
+                if (entity is IEntity<TPk> entityInterface)
                 {
                     entityInterface.Id = value;
                     return;
