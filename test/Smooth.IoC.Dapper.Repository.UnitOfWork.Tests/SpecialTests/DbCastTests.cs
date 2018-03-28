@@ -3,6 +3,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {

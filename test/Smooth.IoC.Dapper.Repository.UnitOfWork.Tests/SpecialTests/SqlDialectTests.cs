@@ -7,6 +7,8 @@ using MySql.Data.MySqlClient;
 using NUnit.Framework;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Abstractions;
+using Smooth.IoC.UnitOfWork.Interfaces;
 using SqlDialect = Dapper.FastCrud.SqlDialect;
 #pragma warning disable 618
 

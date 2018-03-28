@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Dapper;
+using Dapper.FastCrud;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
@@ -14,6 +15,8 @@ using SimpleMigrations.DatabaseProvider;
 using Smooth.IoC.Repository.UnitOfWork.Extensions;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Abstractions;
+using Smooth.IoC.UnitOfWork.Interfaces;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests
 {

@@ -4,6 +4,7 @@ using SimpleInjector;
 using SimpleInjector.Diagnostics;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.IoC.IoC_Example_Installers
 {

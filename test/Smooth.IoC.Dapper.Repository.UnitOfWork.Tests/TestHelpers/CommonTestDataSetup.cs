@@ -6,6 +6,8 @@ using FakeItEasy.Core;
 using NUnit.Framework;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
+
 #pragma warning disable 618
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers

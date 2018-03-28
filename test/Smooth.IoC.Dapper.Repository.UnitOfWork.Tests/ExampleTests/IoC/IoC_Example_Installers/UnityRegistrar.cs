@@ -3,6 +3,7 @@ using System.Data;
 using Microsoft.Practices.Unity;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;

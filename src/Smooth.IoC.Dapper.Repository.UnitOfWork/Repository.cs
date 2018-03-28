@@ -35,13 +35,13 @@ namespace Smooth.IoC.Repository.UnitOfWork
             }
 
             var keys = _container.GetKeys<TEntity>();
-            var properies = _container.GetProperties<TEntity>(keys);
-            if (keys == null || properies == null)
+            var properties = _container.GetProperties<TEntity>(keys);
+            if (keys == null || properties == null)
             {
                 throw new NoPkException(
                     "There is no keys for this entity, please create your logic or add a key attribute to the entity");
             }
-            return properies.Select(property => property.GetValue(entity))
+            return properties.Select(property => property.GetValue(entity))
                 .All(value => value == null ||  value.Equals(default(TPk)));
         }
 
@@ -54,8 +54,8 @@ namespace Smooth.IoC.Repository.UnitOfWork
                     return entityInterface.Id;
                 }
             }
-            var primarKeyValue = GetPrimaryKeyPropertyInfo();
-            return (TPk) primarKeyValue.GetValue(entity);
+            var primaryKeyValue = GetPrimaryKeyPropertyInfo();
+            return (TPk) primaryKeyValue.GetValue(entity);
         }
         protected void SetPrimaryKeyValue(TEntity entity, TPk value)
         {
@@ -67,23 +67,23 @@ namespace Smooth.IoC.Repository.UnitOfWork
                     return;
                 }
             }
-            var primarKeyValue = GetPrimaryKeyPropertyInfo();
-            primarKeyValue.SetValue(entity, value);
+            var primaryKeyValue = GetPrimaryKeyPropertyInfo();
+            primaryKeyValue.SetValue(entity, value);
         }
 
         private PropertyInfo GetPrimaryKeyPropertyInfo()
         {
             var keys = _container.GetKeys<TEntity>();
-            var primarKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
-            var properies = _container.GetProperties<TEntity>(keys);
-            if (keys == null || primarKeyName == null || properies == null)
+            var primaryKeyName = keys.FirstOrDefault(key => key.IsPrimaryKey)?.PropertyName;
+            var properties = _container.GetProperties<TEntity>(keys);
+            if (keys == null || primaryKeyName == null || properties == null)
             {
                 throw new NoPkException(
                     "There is no primary ket for this entity, please create your logic or add a key attribute to the entity");
             }
-            var primarKeyValue =
-                properies.FirstOrDefault(property => property.Name.Equals(primarKeyName, StringComparison.Ordinal));
-            return primarKeyValue;
+            var primaryKeyValue =
+                properties.FirstOrDefault(property => property.Name.Equals(primaryKeyName, StringComparison.Ordinal));
+            return primaryKeyValue;
         }
 
         protected TEntity CreateEntityAndSetKeyValue(TPk key)

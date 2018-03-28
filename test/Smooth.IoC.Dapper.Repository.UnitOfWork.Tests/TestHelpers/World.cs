@@ -1,4 +1,5 @@
 ﻿using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
 
 #pragma warning disable 1591
 

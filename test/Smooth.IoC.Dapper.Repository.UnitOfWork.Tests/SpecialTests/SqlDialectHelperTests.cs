@@ -7,6 +7,7 @@ using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Migrations;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
 using SqlDialect = Dapper.FastCrud.SqlDialect;
 
 namespace Smooth.IoC.Repository.UnitOfWork.Tests.SpecialTests

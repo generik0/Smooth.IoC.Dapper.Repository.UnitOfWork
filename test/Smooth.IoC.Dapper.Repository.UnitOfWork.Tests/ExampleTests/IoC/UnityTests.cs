@@ -6,6 +6,7 @@ using Smooth.IoC.Repository.UnitOfWork.Tests.ExampleTests.Repository;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers;
 using Smooth.IoC.Repository.UnitOfWork.Tests.TestHelpers.Registrations;
 using Smooth.IoC.UnitOfWork;
+using Smooth.IoC.UnitOfWork.Interfaces;
 using Unity;
 #pragma warning disable 1591
 
