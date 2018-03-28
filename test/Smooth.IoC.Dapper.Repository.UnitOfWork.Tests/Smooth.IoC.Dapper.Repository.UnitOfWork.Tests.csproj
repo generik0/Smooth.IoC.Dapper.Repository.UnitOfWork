@@ -122,10 +122,6 @@
       <Project>{f1eef8c6-5fc2-447b-8a79-7f4890c2c3a1}</Project>
       <Name>Smooth.IoC.Dapper.Repository.UnitOfWork</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Smooth.IoC.UnitOfWork\Smooth.IoC.UnitOfWork.csproj">
-      <Project>{f27e79e3-e258-4e63-b999-ef76e3a78b47}</Project>
-      <Name>Smooth.IoC.UnitOfWork</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\lib\Sqlite\x64\SQLite.Interop.dll">
