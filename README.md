@@ -537,7 +537,10 @@ Constructor with 3 parameters is always called.
 	- Make plan IEntity queries use pure dapper but maybe use FastCRUD SQL builder? (0.4.0)
     	- Split nuspec up so Dapper and FastDapper are not resolved with Session, UnitOfWork, etc. (0.4.0)
 	- Removed IDbTransaction from Uow as it only gave problems (0.4.0)
-- 0.5.x (Waiting)
+- 0.5.x (Started)
+	- Update to Vs 2017 (0.5.1)
+	- Add net40 support for UnitOfWork Package (done)
+	- Make the Smooth repo use the uow nuget (done)
 	- Add where and parameter paramateres into uow and session  extensions. And expand Repository. (In Progress)
     	- Add FastCRUD bulk methods with tests to repo.
 	- Add more Xml Summaries for all used interfaces.

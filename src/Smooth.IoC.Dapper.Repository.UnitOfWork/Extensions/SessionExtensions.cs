@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NET40
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -129,3 +130,4 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
         
     }
 }
+#endif

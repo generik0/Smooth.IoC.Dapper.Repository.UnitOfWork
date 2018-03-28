@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NET40
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper.FastCrud;
@@ -181,6 +182,5 @@ namespace Smooth.IoC.Repository.UnitOfWork.Extensions
                 uow.Connection.UpdateAsync(entityToUpdate, statement => statement.AttachToTransaction(uow.Transaction));
         }
     }
-
-    
 }
+#endif
