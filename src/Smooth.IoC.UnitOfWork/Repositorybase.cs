@@ -2,7 +2,7 @@
 
 namespace Smooth.IoC.UnitOfWork
 {
-    public abstract class RepositoryBase : IRepositoryBase
+    public abstract class RepositoryBase : IRepository
     {
         public IDbFactory Factory { get; }
         protected RepositoryBase(IDbFactory factory)

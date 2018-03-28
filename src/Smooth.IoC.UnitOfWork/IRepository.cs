@@ -1,6 +1,6 @@
 ﻿namespace Smooth.IoC.UnitOfWork
 {
-    public interface IRepositoryBase
+    public interface IRepository
     {
         
     }
