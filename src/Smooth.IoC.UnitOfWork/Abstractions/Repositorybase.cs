@@ -1,6 +1,6 @@
-﻿using Smooth.IoC.UnitOfWork;
+﻿using Smooth.IoC.UnitOfWork.Interfaces;
 
-namespace Smooth.IoC.UnitOfWork
+namespace Smooth.IoC.UnitOfWork.Abstractions
 {
     public abstract class RepositoryBase : IRepository
     {

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data;
+using Smooth.IoC.UnitOfWork.Interfaces;
+
 #pragma warning disable 618
 
-namespace Smooth.IoC.UnitOfWork
+namespace Smooth.IoC.UnitOfWork.Abstractions
 {
     public abstract class DbTransaction : IDisposable
     {

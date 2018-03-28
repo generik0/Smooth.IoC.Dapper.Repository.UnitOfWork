@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data;
 using Smooth.IoC.UnitOfWork.Helpers;
+using Smooth.IoC.UnitOfWork.Interfaces;
+
 #pragma warning disable 618
 
-namespace Smooth.IoC.UnitOfWork
+namespace Smooth.IoC.UnitOfWork.Abstractions
 {
     public abstract class Session<TConnection> : DbConnection , ISession
         where TConnection : System.Data.Common.DbConnection

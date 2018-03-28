@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Smooth.IoC.UnitOfWork
+namespace Smooth.IoC.UnitOfWork.Interfaces
 {
     public interface IDbFactory
     {

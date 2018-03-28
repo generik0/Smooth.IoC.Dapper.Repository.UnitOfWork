@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using Smooth.IoC.UnitOfWork.Abstractions;
+using Smooth.IoC.UnitOfWork.Interfaces;
 
 namespace Smooth.IoC.UnitOfWork
 {
