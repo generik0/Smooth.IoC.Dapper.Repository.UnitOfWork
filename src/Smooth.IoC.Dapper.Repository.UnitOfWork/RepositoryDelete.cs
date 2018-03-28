@@ -28,9 +28,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.Delete(entity);
 
         }
-        public virtual bool DeleteKey<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual bool DeleteKey<TSession>(TPk key) where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 return DeleteKey(key, uow);
             }
@@ -59,9 +59,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return await uow.DeleteAsync(entity);
         }
 
-        public virtual async Task<bool> DeleteKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual async Task<bool> DeleteKeyAsync<TSession>(TPk key) where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 return await DeleteKeyAsync(key, uow);    
             }
@@ -87,9 +87,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.Delete(entity);
         }
 
-        public virtual bool Delete<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual bool Delete<TSession>(TEntity entity) where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 if (_container.IsIEntity<TEntity, TPk>())
                 {
@@ -122,9 +122,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.DeleteAsync(entity);
         }
 
-        public virtual async Task<bool> DeleteAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual async Task<bool> DeleteAsync<TSession>(TEntity entity) where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 return await DeleteAsync(entity, uow);    
             }

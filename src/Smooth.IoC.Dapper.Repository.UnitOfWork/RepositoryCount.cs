@@ -31,9 +31,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return uow.Count<TEntity>();
         }
 
-        public virtual int Count<TSesssion>() where TSesssion : class, ISession
+        public virtual int Count<TSession>() where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork ,TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork ,TSession>())
             {
                 return Count(uow);
             }
@@ -59,9 +59,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return await uow.CountAsync<TEntity>();
         }
 
-        public virtual async Task<int> CountAsync<TSesssion>() where TSesssion : class, ISession
+        public virtual async Task<int> CountAsync<TSession>() where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 return await CountAsync(uow);
             }

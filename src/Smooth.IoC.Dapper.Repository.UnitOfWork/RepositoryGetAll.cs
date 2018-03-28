@@ -24,9 +24,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
                 : uow.Find<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> GetAll<TSesssion>() where TSesssion : class, ISession
+        public virtual IEnumerable<TEntity> GetAll<TSession>() where TSession : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var session = Factory.Create<TSession>())
             {
                 return GetAll(session);
             }
@@ -46,9 +46,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
                 : await uow.FindAsync<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync<TSesssion>() where TSesssion : class, ISession
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync<TSession>() where TSession : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var session = Factory.Create<TSession>())
             {
                 return await GetAllAsync(session);
             }

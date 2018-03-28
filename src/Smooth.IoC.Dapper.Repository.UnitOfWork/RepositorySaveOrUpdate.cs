@@ -23,9 +23,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return primaryKeyValue != null ? primaryKeyValue : default(TPk);
         }
 
-        public virtual TPk SaveOrUpdate<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual TPk SaveOrUpdate<TSession>(TEntity entity) where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 return SaveOrUpdate(entity, uow);
             }
@@ -48,9 +48,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             });
         }
 
-        public virtual async Task<TPk> SaveOrUpdateAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual async Task<TPk> SaveOrUpdateAsync<TSession>(TEntity entity) where TSession : class, ISession
         {
-            using (var uow = Factory.Create<IUnitOfWork, TSesssion>())
+            using (var uow = Factory.Create<IUnitOfWork, TSession>())
             {
                 return await SaveOrUpdateAsync(entity, uow);
             }

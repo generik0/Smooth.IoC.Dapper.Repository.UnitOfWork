@@ -22,9 +22,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return session.Get(entity);
         }
 
-        public virtual TEntity GetKey<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual TEntity GetKey<TSession>(TPk key) where TSession : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var session = Factory.Create<TSession>())
             {
                 return GetKey(key, session);
             }
@@ -52,9 +52,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return await GetAsync(entity, session);
         }
 
-        public virtual async Task<TEntity> GetKeyAsync<TSesssion>(TPk key) where TSesssion : class, ISession
+        public virtual async Task<TEntity> GetKeyAsync<TSession>(TPk key) where TSession : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var session = Factory.Create<TSession>())
             {
                 return await GetKeyAsync(key, session);
             }
@@ -81,9 +81,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return session.Get(entity);
         }
 
-        public virtual TEntity Get<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual TEntity Get<TSession>(TEntity entity) where TSession : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var session = Factory.Create<TSession>())
             {
                 return Get(entity, session);
             }
@@ -119,9 +119,9 @@ namespace Smooth.IoC.Repository.UnitOfWork
             return await uow.GetAsync(entity);
         }
 
-        public virtual async Task<TEntity> GetAsync<TSesssion>(TEntity entity) where TSesssion : class, ISession
+        public virtual async Task<TEntity> GetAsync<TSession>(TEntity entity) where TSession : class, ISession
         {
-            using (var session = Factory.Create<TSesssion>())
+            using (var session = Factory.Create<TSession>())
             {
                 return await GetAsync(entity, session);
             }
