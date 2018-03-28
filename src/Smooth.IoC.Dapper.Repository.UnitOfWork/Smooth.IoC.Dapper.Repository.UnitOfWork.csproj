@@ -124,7 +124,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Smooth.IoC.UnitOfWork\Smooth.IoC.UnitOfWork.csproj" />
+    <PackageReference Include="Smooth.IoC.UnitOfWork" Version="0.4.21" />
   </ItemGroup>
 
 </Project>
