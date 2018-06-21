@@ -25,7 +25,7 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
         [Obsolete("Use will commit on disposal")]
         public void Commit()
         {
-            if (Connection?.State == ConnectionState.Open && !_transactionCompleted)
+            if (Connection?.State == ConnectionState.Open && !TransactionCompleted)
             {
                 Transaction?.Commit();
                 _hasCommitted = true;
@@ -34,7 +34,7 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
 
         public void Rollback()
         {
-            if (Connection?.State == ConnectionState.Open && !_transactionCompleted)
+            if (Connection?.State == ConnectionState.Open && !TransactionCompleted)
             {
                 Transaction?.Rollback();
                 _hasRolledBack = true;
@@ -81,11 +81,13 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
                 _factory.Release(this);
             }
         }
+
         private void DisposeSessionIfSessionIsNotNull()
         {
             Session?.Dispose();
             Session = null;
         }
-        private bool _transactionCompleted => _hasCommitted || _hasRolledBack;
+
+        private bool TransactionCompleted => _hasCommitted || _hasRolledBack;
     }
 }

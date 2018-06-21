@@ -17,7 +17,6 @@ namespace Smooth.IoC.UnitOfWork.Interfaces
         /// </summary>
         IDbConnection Connection { get; }
 
-
         /// <summary>
         /// Summary:
         ///     Specifies the System.Data.IsolationLevel for this transaction.
@@ -27,7 +26,13 @@ namespace Smooth.IoC.UnitOfWork.Interfaces
         /// </summary>
         IsolationLevel IsolationLevel { get; }
 
-        
+        /// <summary>
+        /// Gets a repoistory implementation
+        /// </summary>
+        /// <typeparam name="TRepository"></typeparam>
+        /// <returns></returns>
+        TRepository GetRepository<TRepository>() where TRepository : IRepository;
+
         /// <summary>
         /// Summary:
         ///     Commits the database transaction.

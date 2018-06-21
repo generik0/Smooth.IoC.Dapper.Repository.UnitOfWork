@@ -14,19 +14,28 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
         private readonly Guid _guid = Guid.NewGuid();
         public SqlDialect SqlDialect { get; private set; }
 
-        protected Session(IDbFactory factory, string connectionString) : base(factory)
+        protected Session(IDbFactory factory, string connectionString)
+            : base(factory)
         {
             _factory = factory;
+
             SetDialect();
-            if (factory == null || string.IsNullOrWhiteSpace(connectionString)) return;
+
+            if (factory == null || string.IsNullOrWhiteSpace(connectionString))
+                return;
+
             connectionString = Environment.ExpandEnvironmentVariables(connectionString);
             Connect(connectionString);
         }
 
         private void SetDialect()
         {
-            var type = typeof(TConnection).FullName.ToLowerInvariant();
-            if (type.Contains(".sqlconnection") || type.Contains(".sqlceconnection") || type.Contains(".sqlclient"))
+            var type = typeof(TConnection).FullName?.ToLowerInvariant();
+            if (string.IsNullOrEmpty(type))
+            {
+                SqlDialect = SqlDialect.MsSql;
+            }
+            else if (type.Contains(".sqlconnection") || type.Contains(".sqlceconnection") || type.Contains(".sqlclient"))
             {
                 SqlDialect = SqlDialect.MsSql;
             }
@@ -79,8 +88,7 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Session<TConnection>) obj);
+            return obj.GetType() == GetType() && Equals((Session<TConnection>) obj);
         }
 
         public override int GetHashCode()
