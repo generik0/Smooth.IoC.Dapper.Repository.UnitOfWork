@@ -473,35 +473,65 @@ Constructor with 3 parameters is always called.
     {
         container.RegisterType&lt;IDbFactory, UnityDbFactory&gt;(new ContainerControlledLifetimeManager(),
             new InjectionConstructor(container));
+        container.RegisterType&lt;IRepositoryFactory, RepositoryFactory&gt;(new ContainerControlledLifetimeManager(),
+            new InjectionConstructor(container));
         container.RegisterType&lt;IUnitOfWork, Dapper.Repository.UnitOfWork.Data.UnitOfWork&gt;();
     }
 
     sealed class UnityDbFactory : IDbFactory
     {
         private readonly IUnityContainer _container;
+		
         public UnityDbFactory(IUnityContainer container)
         {
             _container = container;
         }
+		
         public T Create&lt;T&gt;() where T : class, ISession
         {
             return _container.Resolve&lt;T&gt;();
         }
+
         public TUnitOfWork Create&lt;TUnitOfWork, TSession&gt;(IsolationLevel isolationLevel = IsolationLevel.Serializable) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession
         {
-            return _container.Resolve&lt;TUnitOfWork&gt;(new ParameterOverride("factory", _container.Resolve&lt;IDbFactory&gt;()),
-                new ParameterOverride("session", Create&lt;TSession&gt;()), new ParameterOverride("isolationLevel", isolationLevel),
+            return _container.Resolve&lt;TUnitOfWork&gt;(
+                new ParameterOverride("factory", _container.Resolve&lt;IDbFactory&gt;()),
+                new ParameterOverride("repositoryFactory", _container.Resolve&lt;IRepositoryFactory&gt;()),
+                new ParameterOverride("session", Create&lt;TSession&gt;()),
+                new ParameterOverride("isolationLevel", isolationLevel),
                 new ParameterOverride("sessionOnlyForThisUnitOfWork", true));
         }
-        public T Create&lt;T&gt;(IDbFactory factory, ISession session,  IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork
+		
+        public T Create&lt;T&gt;(IDbFactory factory, ISession session, IsolationLevel isolationLevel = IsolationLevel.Serializable) where T : class, IUnitOfWork
         {
-            return _container.Resolve&lt;T&gt;(new ParameterOverride("factory", factory),
-                new ParameterOverride("session", session), new ParameterOverride("isolationLevel", isolationLevel),
+            return _container.Resolve&lt;T&gt;(
+                new ParameterOverride("factory", factory),
+                new ParameterOverride("repositoryFactory", _container.Resolve&lt;IRepositoryFactory&gt;()),
+                new ParameterOverride("session", session),
+                new ParameterOverride("isolationLevel", isolationLevel),
                 new ParameterOverride("sessionOnlyForThisUnitOfWork", false));
         }
+
         public void Release(IDisposable instance)
         {
-            _container.Teardown(instance);
+        	_container.Teardown(instance);
+        }
+    }
+	
+    sealed class RepositoryFactory : IRepositoryFactory
+    {
+        private readonly IUnityContainer _container;
+
+        public RepositoryFactory(IUnityContainer container)
+        {
+        	_container = container;
+        }
+
+        public TRepository GetRepository&lt;TRepository&gt;(IUnitOfWork uow) where TRepository : IRepository
+        {
+        	return _container.Resolve&lt;TRepository&gt;(
+        		new ParameterOverride("uow", uow)
+        	);
         }
     }
 }</code></pre>

@@ -20,6 +20,7 @@ namespace Smooth.IoC.UnitOfWork.Interfaces
         /// <typeparam name="TSession"></typeparam>
         /// <returns></returns>
         TUnitOfWork Create<TUnitOfWork, TSession>(IsolationLevel isolationLevel= IsolationLevel.RepeatableRead) where TUnitOfWork : class, IUnitOfWork where TSession : class, ISession;
+
         /// <summary>
         /// Used for Session base to create UnitOfWork. Not recommeded to use in code
         /// </summary>

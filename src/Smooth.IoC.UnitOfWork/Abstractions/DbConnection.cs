@@ -29,7 +29,7 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
         public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
             InsureConnection();
-            return   Connection?.BeginTransaction(isolationLevel);
+            return Connection?.BeginTransaction(isolationLevel);
         }
         private void InsureConnection()
         {
@@ -62,8 +62,8 @@ namespace Smooth.IoC.UnitOfWork.Abstractions
 
         public string ConnectionString
         {
-            get { return Connection?.ConnectionString; }
-            set { Connection.ConnectionString = value; }
+            get => Connection?.ConnectionString;
+            set => Connection.ConnectionString = value;
         }
 
         public int ConnectionTimeout => Connection?.ConnectionTimeout ?? 0;
